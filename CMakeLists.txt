@@ -21,7 +21,7 @@ add_executable(Worm ${Worm})
 target_link_libraries(Worm ${all_libs})
 
 # including Boost library
-include_directories(external_libraries/boost)
+include_directories(external_libraries/boost_1_67_0)
 
 # copy files to dest 
 # file(COPY assets/images/* DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
