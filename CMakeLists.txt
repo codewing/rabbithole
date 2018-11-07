@@ -14,6 +14,7 @@ file(GLOB Worm
         "src/**/*.hpp"
         "src/**/*.h"
         "src/**/*.cpp"
+        "src/main.cpp"
         )
 
 # Compile cpp files (from Snake variable)
