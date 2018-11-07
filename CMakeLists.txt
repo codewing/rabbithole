@@ -9,11 +9,11 @@ IF (WIN32)
     ENDIF(NOT DEFINED DLLFileList)
 ENDIF(WIN32)
 
-# Add hpp and cpp files to Snake variable
+# Add hpp and cpp files
 file(GLOB Worm
-        "src/*.hpp"
-        "src/*.h"
-        "src/*.cpp"
+        "src/**/*.hpp"
+        "src/**/*.h"
+        "src/**/*.cpp"
         )
 
 # Compile cpp files (from Snake variable)
@@ -25,6 +25,7 @@ target_link_libraries(Worm ${all_libs})
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
+
 find_package(Boost)
 
 if(Boost_FOUND)
