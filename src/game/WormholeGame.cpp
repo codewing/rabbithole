@@ -11,17 +11,17 @@ WormholeGame::WormholeGame(glm::ivec2 windowSize) {
     renderer = std::make_unique<Renderer>(window);
 }
 
+WormholeGame::~WormholeGame() {
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+}
+
 void WormholeGame::initSDLWindow(glm::ivec2 windowSize) {
     SDL_Init(SDL_INIT_VIDEO);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     window = SDL_CreateWindow("Wormhole", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowSize.x, windowSize.y, SDL_WINDOW_OPENGL);
-}
-
-WormholeGame::~WormholeGame() {
-    SDL_DestroyWindow(window);
-    SDL_Quit();
 }
 
 void WormholeGame::runGame() {
