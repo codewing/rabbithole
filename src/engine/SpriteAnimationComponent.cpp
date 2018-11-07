@@ -16,8 +16,8 @@ void SpriteAnimationComponent::update(float deltaTime) {
     time += deltaTime;
 
     if (time > animationTime){
-        time = fmod(time, animationTime);
-        spriteIndex = (spriteIndex + 1) % sprites.size();
+        time = static_cast<float>(fmod(time, animationTime));
+        spriteIndex = static_cast<int>((spriteIndex + 1) % sprites.size());
         spriteComponent->setSprite(sprites[spriteIndex]);
     }
 }

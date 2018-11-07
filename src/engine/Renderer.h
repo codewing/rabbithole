@@ -5,7 +5,9 @@
 #ifndef SIMPLERENDERENGINEPROJECT_RENDERER_H
 #define SIMPLERENDERENGINEPROJECT_RENDERER_H
 
-#include <sre/SDLRenderer.hpp>
+#include <sre/Renderer.hpp>
+#include <SDL.h>
+#include <glm/glm.hpp>
 
 class Renderer {
 
@@ -13,6 +15,8 @@ private:
     sre::Renderer r;
 
 public:
+    Renderer(SDL_Window* window);
+
     void render();
 };
 
