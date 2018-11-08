@@ -8,6 +8,7 @@
 #include "SimpleRenderer.hpp"
 #include "Timer.hpp"
 #include "InputManager.hpp"
+#include "Physics.hpp"
 
 #include <glm/glm.hpp>
 #include <memory>
@@ -31,8 +32,8 @@ private:
     std::unique_ptr<SimpleRenderer> renderer;
     std::unique_ptr<Timer> timer;
     std::unique_ptr<InputManager> input;
+    std::unique_ptr<Physics> physics;
 
-    void initialize();
     void initSDLWindow(glm::ivec2 windowSize);
 
 };
