@@ -5,7 +5,7 @@
 #ifndef SIMPLERENDERENGINEPROJECT_WORMHOLEGAME_H
 #define SIMPLERENDERENGINEPROJECT_WORMHOLEGAME_H
 
-#include "../engine/EngineCore.hpp"
+#include "../engine/core/EngineCore.hpp"
 #include <memory>
 
 class WormholeGame {

@@ -8,7 +8,7 @@
 
 #include <vector>
 #include "GameObject.hpp"
-#include "SpriteComponent.hpp"
+#include "../component/SpriteComponent.hpp"
 
 class ObjectManager {
 

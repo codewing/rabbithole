@@ -3,7 +3,7 @@
 //
 
 #include "SpriteComponent.hpp"
-#include "GameObject.hpp"
+#include "../core/GameObject.hpp"
 
 SpriteComponent::SpriteComponent(GameObject *gameObject) : Component(gameObject) {}
 

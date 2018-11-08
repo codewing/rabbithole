@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Component.hpp"
+#include "../core/Component.hpp"
 #include "sre/Sprite.hpp"
 
 class SpriteComponent : public Component {

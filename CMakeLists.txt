@@ -10,15 +10,14 @@ IF (WIN32)
 ENDIF(WIN32)
 
 # Add hpp and cpp files
-file(GLOB Worm
-        "src/**/*.hpp"
-        "src/**/*.h"
-        "src/**/*.cpp"
-        "src/main.cpp"
+file(GLOB_RECURSE WormSource
+        "src/*.hpp"
+        "src/*.h"
+        "src/*.cpp"
         )
 
 # Compile cpp files (from Snake variable)
-add_executable(Worm ${Worm})
+add_executable(Worm ${WormSource})
 target_link_libraries(Worm ${all_libs})
 
 
