@@ -5,26 +5,17 @@
 #ifndef SIMPLERENDERENGINEPROJECT_WORMHOLEGAME_H
 #define SIMPLERENDERENGINEPROJECT_WORMHOLEGAME_H
 
-#include "../engine/Renderer.h"
-#include <glm/glm.hpp>
+#include "../engine/EngineCore.hpp"
 #include <memory>
 
-class SDL_Window;
-
 class WormholeGame {
-
 public:
-    WormholeGame(glm::ivec2 windowSize);
-    ~WormholeGame();
-
-    void runGame();
+    WormholeGame();
 
 private:
-    SDL_Window *window;
-    std::unique_ptr<Renderer> renderer;
+    std::unique_ptr<EngineCore> engine;
 
-    void initSDLWindow(glm::ivec2 windowSize);
-
+    void update(float deltaTime);
 };
 
 

@@ -9,13 +9,13 @@
 #include <SDL.h>
 #include <glm/glm.hpp>
 
-class Renderer {
+class SimpleRenderer {
 
 private:
     sre::Renderer r;
 
 public:
-    Renderer(SDL_Window* window);
+    SimpleRenderer(SDL_Window* window);
 
     void render();
 };

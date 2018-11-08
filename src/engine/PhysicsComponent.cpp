@@ -65,7 +65,7 @@ void PhysicsComponent::initCircle(b2BodyType type, float radius, glm::vec2 cente
     fxD.density = density;
     fixture = body->CreateFixture(&fxD);
 
-    //TODO WormholeGame::instance->registerPhysicsComponent(this);
+    //TODO EngineCore::instance->registerPhysicsComponent(this);
 }
 
 void PhysicsComponent::initBox(b2BodyType type, glm::vec2 size, glm::vec2 center, float density) {
@@ -84,7 +84,7 @@ void PhysicsComponent::initBox(b2BodyType type, glm::vec2 size, glm::vec2 center
     fxD.density = density;
     fixture = body->CreateFixture(&fxD);
 
-    //TODO WormholeGame::instance->registerPhysicsComponent(this);
+    //TODO EngineCore::instance->registerPhysicsComponent(this);
 }
 
 bool PhysicsComponent::isSensor() {
