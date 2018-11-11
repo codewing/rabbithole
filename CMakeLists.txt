@@ -26,15 +26,7 @@ set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 
-find_package(Boost QUIET)
-
-if(Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS})
-    target_link_libraries(Worm ${Boost_LIBRARIES})
-else()
-    include_directories(external_libraries/boost_1_67_0/)
-endif()
-
+include_directories(external_libraries/boost_1_68_0)
 
 # copy files to dest 
 # file(COPY assets/images/* DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
