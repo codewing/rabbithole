@@ -7,7 +7,7 @@ class SpriteComponent : public Component {
 public:
     explicit SpriteComponent(GameObject *gameObject);
 
-    void renderSprite(sre::SpriteBatch::SpriteBatchBuilder &spriteBatchBuilder) override;
+    virtual void renderSprite(sre::SpriteBatch::SpriteBatchBuilder& spriteBatchBuilder);
 
     void setSprite(const sre::Sprite& sprite);
     sre::Sprite getSprite();

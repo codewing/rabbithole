@@ -9,9 +9,7 @@ Component::Component(GameObject *gameObject)
 {
 }
 
-void Component::renderSprite(sre::SpriteBatch::SpriteBatchBuilder &spriteBatchBuilder) {
 
-}
 
 void Component::update(float deltaTime) {
 
@@ -23,12 +21,4 @@ GameObject *Component::getGameObject() {
 
 bool Component::onKey(SDL_Event &event) {
     return false;
-}
-
-void Component::onCollisionStart(PhysicsComponent* comp) {
-
-}
-
-void Component::onCollisionEnd(PhysicsComponent* comp) {
-
 }

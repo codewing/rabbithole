@@ -24,6 +24,10 @@ public:
     bool isSensor();
 
     void setSensor(bool enabled);
+
+    virtual void onCollisionStart(PhysicsComponent* comp);  // Callback from physics engine when collision start is detected. Override when needed.
+    virtual void onCollisionEnd(PhysicsComponent* comp);    // Callback from physics engine when collision end is detected. Override when needed.
+
 private:
     b2PolygonShape * polygon = nullptr;
     b2CircleShape * circle = nullptr;

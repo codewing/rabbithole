@@ -11,6 +11,7 @@ EngineCore::EngineCore(glm::ivec2 windowSize) {
     renderer = std::make_unique<SimpleRenderer>(window);
     timer = std::make_unique<Timer>();
     input = std::make_unique<InputManager>();
+    physics = std::make_unique<Physics>();
 }
 
 EngineCore::~EngineCore() {
