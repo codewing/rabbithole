@@ -1,0 +1,9 @@
+[submodule "external_libraries/boost"]
+	path = external_libraries/boost
+	url = git@github.com:boostorg/boost.git
+	branch = boost-1.68.0
+
+[submodule "external_libraries/spdlog"]
+	path = external_libraries/spdlog
+	url = git@github.com:gabime/spdlog.git
+	branch = v1.x
