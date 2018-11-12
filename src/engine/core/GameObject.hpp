@@ -1,8 +1,9 @@
+#pragma once
+
 #include <memory>
 #include <vector>
 #include "glm/glm.hpp"
 #include "sre/SpriteBatch.hpp"
-#pragma once
 
 // Forward declaration
 class Component;

@@ -2,8 +2,7 @@
 // Created by codewing on 08.11.18.
 //
 
-#ifndef SIMPLERENDERENGINEPROJECT_TIMER_HPP
-#define SIMPLERENDERENGINEPROJECT_TIMER_HPP
+#pragma once
 
 #include <chrono>
 
@@ -26,6 +25,3 @@ private:
 
     float lastDelta;
 };
-
-
-#endif //SIMPLERENDERENGINEPROJECT_TIMER_HPP

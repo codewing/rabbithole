@@ -2,8 +2,7 @@
 // Created by codewing on 08.11.18.
 //
 
-#ifndef SIMPLERENDERENGINEPROJECT_OBJECTMANAGER_HPP
-#define SIMPLERENDERENGINEPROJECT_OBJECTMANAGER_HPP
+#pragma once
 
 
 #include <vector>
@@ -31,6 +30,3 @@ private:
     std::vector<PhysicsComponent> physicsComponentList;
 
 };
-
-
-#endif //SIMPLERENDERENGINEPROJECT_OBJECTMANAGER_HPP

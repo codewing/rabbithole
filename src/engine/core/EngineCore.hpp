@@ -2,8 +2,7 @@
 // Created by codewing on 07.11.18.
 //
 
-#ifndef SIMPLERENDERENGINEPROJECT_ENGINECORE_H
-#define SIMPLERENDERENGINEPROJECT_ENGINECORE_H
+#pragma once
 
 #include "SimpleRenderer.hpp"
 #include "Timer.hpp"
@@ -37,6 +36,3 @@ private:
     void initSDLWindow(glm::ivec2 windowSize);
 
 };
-
-
-#endif //SIMPLERENDERENGINEPROJECT_ENGINECORE_H

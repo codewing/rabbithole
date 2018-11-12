@@ -3,15 +3,20 @@
 //
 
 #include "EngineCore.hpp"
+#include "../debug/Log.hpp"
 #include <SDL.h>
 
 EngineCore::EngineCore(glm::ivec2 windowSize) {
+    Log::initialize();
+
     initSDLWindow(windowSize);
 
     renderer = std::make_unique<SimpleRenderer>(window);
     timer = std::make_unique<Timer>();
     input = std::make_unique<InputManager>();
     physics = std::make_unique<Physics>();
+
+    LOG_ENGINE_INFO("All systems successfully initialized!");
 }
 
 EngineCore::~EngineCore() {

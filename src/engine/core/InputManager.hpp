@@ -2,8 +2,7 @@
 // Created by codewing on 08.11.18.
 //
 
-#ifndef SIMPLERENDERENGINEPROJECT_INPUTMANAGER_HPP
-#define SIMPLERENDERENGINEPROJECT_INPUTMANAGER_HPP
+#pragma once
 
 
 #include <SDL_events.h>
@@ -22,5 +21,3 @@ private:
     void otherEvent(SDL_Event& e);
 };
 
-
-#endif //SIMPLERENDERENGINEPROJECT_INPUTMANAGER_HPP

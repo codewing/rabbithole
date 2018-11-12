@@ -2,8 +2,7 @@
 // Created by codewing on 08.11.18.
 //
 
-#ifndef SIMPLERENDERENGINEPROJECT_PHYSICS_H
-#define SIMPLERENDERENGINEPROJECT_PHYSICS_H
+#pragma once
 
 #include <map>
 
@@ -29,6 +28,3 @@ private:
     void handleContact(b2Contact *contact, bool isBegin);
 
 };
-
-
-#endif //SIMPLERENDERENGINEPROJECT_PHYSICS_H
