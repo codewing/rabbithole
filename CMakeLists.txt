@@ -26,10 +26,10 @@ set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 
-include_directories(external_libraries/boost)
+include_directories(external_libraries/boost_geometry/include)
 
 # include logging library
-include_directories(external_libraries/spdlog)
+include_directories(external_libraries/spdlog/include)
 
 # copy files to dest 
 # file(COPY assets/images/* DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
