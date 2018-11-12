@@ -34,12 +34,6 @@ void GameObject::setRotation(float rotation) {
     GameObject::rotation = rotation;
 }
 
-void GameObject::renderSprite(sre::SpriteBatch::SpriteBatchBuilder &spriteBatchBuilder) {
-    for (auto& comp : components){
-        comp->renderSprite(spriteBatchBuilder);
-    }
-}
-
 void GameObject::update(float deltaTime) {
     for (auto& comp : components){
         comp->update(deltaTime);

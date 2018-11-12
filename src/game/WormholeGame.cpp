@@ -11,6 +11,8 @@ WormholeGame::WormholeGame() {
         update(deltaTime);
     };
     engine->runGame();
+
+    std::cout << boost::math::gcd(20, 4);
 }
 
 void WormholeGame::update(float deltaTime) {

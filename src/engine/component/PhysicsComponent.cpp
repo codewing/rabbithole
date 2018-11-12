@@ -95,10 +95,10 @@ void PhysicsComponent::setSensor(bool enabled) {
     fixture->SetSensor(enabled);
 }
 
-void Component::onCollisionStart(PhysicsComponent* comp) {
+void PhysicsComponent::onCollisionStart(PhysicsComponent *comp) {
 
 }
 
-void Component::onCollisionEnd(PhysicsComponent* comp) {
+void PhysicsComponent::onCollisionEnd(PhysicsComponent *comp) {
 
 }

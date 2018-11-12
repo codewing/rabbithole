@@ -21,7 +21,6 @@ public:
 
     bool removeComponent(std::shared_ptr<Component> component);
 
-    void renderSprite(sre::SpriteBatch::SpriteBatchBuilder& spriteBatchBuilder);
     void update(float deltaTime);
 
     const glm::vec2 &getPosition() const;
