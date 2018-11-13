@@ -6,6 +6,8 @@
 #include "../debug/Log.hpp"
 #include <SDL.h>
 
+#define SDL_MAIN_HANDLED
+
 EngineCore::EngineCore(glm::ivec2 windowSize) {
     Log::initialize();
 
