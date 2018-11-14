@@ -15,13 +15,8 @@ class ObjectManager {
 public:
     static ObjectManager instance;
 
-    void init();
-
-    void registerRenderable();
-    void deRegisterRenderable();
-
-    void registerPhysicsComponent();
-    void deRegisterPhysicsComponent();
+    std::vector<SpriteComponent>& getRenderableComponents();
+    std::vector<PhysicsComponent>& getPhysicsComponents();
 
 private:
     std::vector<GameObject> gameobjectList;

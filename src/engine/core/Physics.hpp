@@ -16,6 +16,8 @@ public:
 
     Physics();
 
+    static constexpr float PHYSICS_SCALE = 100;
+
 private:
     b2World* world = nullptr;
 
@@ -27,4 +29,5 @@ private:
     void EndContact(b2Contact *contact) override;
     void handleContact(b2Contact *contact, bool isBegin);
 
+    friend class SimpleRenderer;
 };

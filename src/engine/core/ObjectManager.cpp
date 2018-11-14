@@ -3,3 +3,11 @@
 //
 
 #include "ObjectManager.hpp"
+
+std::vector<SpriteComponent> &ObjectManager::getRenderableComponents() {
+    return spriteComponentList;
+}
+
+std::vector<PhysicsComponent> &ObjectManager::getPhysicsComponents() {
+    return physicsComponentList;
+}
