@@ -2,8 +2,11 @@
 	path = external_libraries/spdlog
 	url = git@github.com:gabime/spdlog.git
 	branch = v1.x
-
 [submodule "external_libraries/boost_geometry"]
 	path = external_libraries/boost_geometry
 	url = git@github.com:boostorg/geometry.git
+	branch = boost-1.68.0
+[submodule "external_libraries/boost_math"]
+	path = external_libraries/boost_math
+	url = git@github.com:boostorg/math.git
 	branch = boost-1.68.0
