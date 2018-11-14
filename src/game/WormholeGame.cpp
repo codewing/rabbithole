@@ -7,7 +7,7 @@
 #include "../engine/debug/Log.hpp"
 
 WormholeGame::WormholeGame() {
-    engine = std::make_unique<EngineCore>(glm::ivec2(800,600));
+    engine = std::make_unique<EngineCore>("Wormhole Game", glm::ivec2(800,600));
     engine->frameUpdate = [&](float deltaTime){
         update(deltaTime);
     };

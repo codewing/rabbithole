@@ -17,7 +17,7 @@ class SDL_Window;
 class EngineCore {
 
 public:
-    EngineCore(glm::ivec2 windowSize);
+    EngineCore(std::string windowName, glm::ivec2 windowSize);
     ~EngineCore();
 
     void runGame();
@@ -28,11 +28,12 @@ private:
     bool isRunning = false;
 
     SDL_Window *window = nullptr;
+
     std::unique_ptr<SimpleRenderer> renderer;
     std::unique_ptr<Timer> timer;
     std::unique_ptr<InputManager> input;
     std::unique_ptr<Physics> physics;
 
-    void initSDLWindow(glm::ivec2 windowSize);
+    void initSDLWindow(std::string windowName, glm::ivec2 windowSize);
 
 };
