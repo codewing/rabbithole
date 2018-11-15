@@ -9,6 +9,7 @@
 #include <string>
 
 #include "GameObject.hpp"
+#include "CameraManager.hpp"
 #include "../component/SpriteComponent.hpp"
 #include "../component/PhysicsComponent.hpp"
 
@@ -29,19 +30,23 @@ public:
 
     GameObject* CreateGameObject(std::string name);
 
-    std::vector<std::weak_ptr<SpriteComponent>>& getRenderableComponents();
-    std::vector<std::weak_ptr<PhysicsComponent>>& getPhysicsComponents();
-    std::vector<std::weak_ptr<Component>>& getUpdatableComponents();
+    std::vector<SpriteComponent*>& getRenderableComponents();
+    std::vector<PhysicsComponent*>& getPhysicsComponents();
+    std::vector<Component*>& getUpdatableComponents();
+
+    CameraManager& getCameraManager();
 
 private:
     static ObjectManager* instance;
 
     ObjectManager();
 
+    CameraManager cameraManager;
+
     std::vector<GameObject> gameobjectList;
     std::vector<Component> componentList;
 
-    std::vector<std::weak_ptr<Component>> updatableComponents;
-    std::vector<std::weak_ptr<PhysicsComponent>> physicsComponents;
-    std::vector<std::weak_ptr<SpriteComponent>> renderableComponents;
+    std::vector<Component*> updatableComponents;
+    std::vector<PhysicsComponent*> physicsComponents;
+    std::vector<SpriteComponent*> renderableComponents;
 };

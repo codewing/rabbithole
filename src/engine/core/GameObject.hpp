@@ -4,6 +4,7 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include "sre/SpriteBatch.hpp"
+#include "ObjectManager.hpp"
 
 // Forward declaration
 class Component;
@@ -14,13 +15,14 @@ public:
 
     ~GameObject();
 
-    template <class T>                                                  // Add component of a given type to a gameObject. example:
-    std::shared_ptr<T> addComponent();                   // std::shared_ptr<SpriteComponent> spriteComponent = gameObject->addComponent<SpriteComponent>();
+    template <class T>
+    T* addComponent();
+
+    template <class T>
+    T* addComponent(T* component);
 
     template <class T>                                   //  Get component of a given type to a gameObject. If not found return empty shared_ptr (==nullptr). example:
-    std::shared_ptr<T> getComponent();                   // std::shared_ptr<SpriteComponent> spriteComponent = gameObject->getComponent<SpriteComponent>();
-
-    void removeUnusedComponents();
+    T* getComponent();                   // std::shared_ptr<SpriteComponent> spriteComponent = gameObject->getComponent<SpriteComponent>();
 
     void update(float deltaTime);
 
@@ -32,12 +34,12 @@ public:
 
     void setRotation(float rotation);
 
-    const std::vector<std::weak_ptr<Component>>& getComponents();
+    const std::vector<Component*>& getComponents();
 
     std::string name = "_";
 private:
     explicit GameObject(std::string name);
-    std::vector<std::weak_ptr<Component>> components;
+    std::vector<Component*> components;
 
     glm::vec2 position;
     float rotation;
@@ -45,29 +47,29 @@ private:
     friend class ObjectManager;
 };
 
-// definition of the template member function addComponent
+// definition of the template member function addComponent(Component* comp)
 // Usage:
 // GameObject* go = something;
-// shared_ptr<SpriteComponent> sc = go->addComponent<SpriteComponent>();
+//
+// SpriteComponent* sc = go->addComponent<SpriteComponent>();
 template <class T>
-inline std::shared_ptr<T> GameObject::addComponent(){
-    auto obj = std::shared_ptr<T>(new T(this));
-    components.push_back(obj);
+inline T* GameObject::addComponent(T* component){
+    components.push_back(component);
 
-    return obj;
+    return component;
 }
 
 // definition of the template member function addComponent
 // Usage:
 // GameObject* go = something;
-// shared_ptr<SpriteComponent> sc = go->addComponent<SpriteComponent>();
+// SpriteComponent* sc = go->getComponent<SpriteComponent>();
 template <class T>
-inline std::shared_ptr<T> GameObject::getComponent(){
+inline T* GameObject::getComponent(){
     for (auto& c : components){
-        std::shared_ptr<T> res = std::dynamic_pointer_cast<T>(c.lock());
+        T* res = dynamic_cast<T*>(c);
         if (res != nullptr){
             return res;
         }
     }
-    return std::shared_ptr<T>();
+    return nullptr;
 }

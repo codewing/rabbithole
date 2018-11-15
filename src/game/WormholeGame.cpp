@@ -19,6 +19,10 @@ WormholeGame::WormholeGame() {
     GameObject* isi = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe");
     ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(isi);
 
+    sre::Camera cam;
+    ObjectManager::GetInstance()->getCameraManager().RegisterCamera("main", &cam);
+    ObjectManager::GetInstance()->getCameraManager().SetActiveCamera("main");
+
     LOG_GAME_INFO("Engine booted!");
     engine->runGame();
 }

@@ -6,15 +6,15 @@
 
 ObjectManager* ObjectManager::instance = 0;
 
-std::vector<std::weak_ptr<SpriteComponent>> &ObjectManager::getRenderableComponents() {
+std::vector<SpriteComponent*>& ObjectManager::getRenderableComponents() {
     return renderableComponents;
 }
 
-std::vector<std::weak_ptr<PhysicsComponent>> &ObjectManager::getPhysicsComponents() {
+std::vector<PhysicsComponent*>& ObjectManager::getPhysicsComponents() {
     return physicsComponents;
 }
 
-std::vector<std::weak_ptr<Component>> &ObjectManager::getUpdatableComponents() {
+std::vector<Component*>& ObjectManager::getUpdatableComponents() {
     return updatableComponents;
 }
 
@@ -34,5 +34,9 @@ GameObject* ObjectManager::CreateGameObject(std::string name) {
 }
 
 ObjectManager::ObjectManager() {}
+
+CameraManager &ObjectManager::getCameraManager() {
+    return cameraManager;
+}
 
 

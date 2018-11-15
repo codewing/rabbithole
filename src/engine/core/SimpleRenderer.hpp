@@ -17,8 +17,6 @@ class SimpleRenderer {
 private:
     sre::Renderer r;
 
-    std::weak_ptr<sre::Camera> camera;
-
 public:
     SimpleRenderer(SDL_Window* window);
 
