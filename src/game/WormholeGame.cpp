@@ -5,12 +5,20 @@
 #include "WormholeGame.hpp"
 #include <glm/glm.hpp>
 #include "../engine/debug/Log.hpp"
+#include "../engine/core/ObjectManager.hpp"
+#include <string>
+
+class PhysicsObject;
 
 WormholeGame::WormholeGame() {
     engine = std::make_unique<EngineCore>("Wormhole Game", glm::ivec2(800,600));
     engine->frameUpdate = [&](float deltaTime){
         update(deltaTime);
     };
+
+    GameObject* isi = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe");
+    ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(isi);
+
     LOG_GAME_INFO("Engine booted!");
     engine->runGame();
 }

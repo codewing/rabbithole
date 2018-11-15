@@ -18,8 +18,9 @@ void SimpleRenderer::render() {
             .build();
 
     auto spriteBatchBuilder = sre::SpriteBatch::create();
-    for (auto & renderComp : ObjectManager::instance.getRenderableComponents()){
-        renderComp.renderSprite(spriteBatchBuilder);
+    for (auto & renderComp : ObjectManager::GetInstance()->getRenderableComponents()){
+        auto lockedComp = renderComp.lock();
+        lockedComp->renderSprite(spriteBatchBuilder);
     }
 
     auto sb = spriteBatchBuilder.build();

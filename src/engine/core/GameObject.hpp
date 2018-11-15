@@ -20,7 +20,7 @@ public:
     template <class T>                                   //  Get component of a given type to a gameObject. If not found return empty shared_ptr (==nullptr). example:
     std::shared_ptr<T> getComponent();                   // std::shared_ptr<SpriteComponent> spriteComponent = gameObject->getComponent<SpriteComponent>();
 
-    bool removeComponent(std::shared_ptr<Component> component);
+    void removeUnusedComponents();
 
     void update(float deltaTime);
 
@@ -32,12 +32,12 @@ public:
 
     void setRotation(float rotation);
 
-    const std::vector<std::shared_ptr<Component>>& getComponents();
+    const std::vector<std::weak_ptr<Component>>& getComponents();
 
     std::string name = "_";
 private:
-    GameObject() = default;
-    std::vector<std::shared_ptr<Component>> components;
+    explicit GameObject(std::string name);
+    std::vector<std::weak_ptr<Component>> components;
 
     glm::vec2 position;
     float rotation;
@@ -63,8 +63,8 @@ inline std::shared_ptr<T> GameObject::addComponent(){
 // shared_ptr<SpriteComponent> sc = go->addComponent<SpriteComponent>();
 template <class T>
 inline std::shared_ptr<T> GameObject::getComponent(){
-    for (auto c : components){
-        std::shared_ptr<T> res = std::dynamic_pointer_cast<T>(c);
+    for (auto& c : components){
+        std::shared_ptr<T> res = std::dynamic_pointer_cast<T>(c.lock());
         if (res != nullptr){
             return res;
         }

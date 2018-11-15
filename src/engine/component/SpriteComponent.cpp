@@ -5,7 +5,7 @@
 #include "SpriteComponent.hpp"
 #include "../core/GameObject.hpp"
 
-SpriteComponent::SpriteComponent(GameObject *gameObject) : Component(gameObject) {}
+SpriteComponent::SpriteComponent(GameObject *gameObject) : Component(gameObject, EComponentType::RENDERABLE) {}
 
 void SpriteComponent::renderSprite(sre::SpriteBatch::SpriteBatchBuilder &spriteBatchBuilder) {
     sprite.setPosition(gameObject->getPosition());

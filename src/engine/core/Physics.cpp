@@ -46,3 +46,16 @@ void Physics::handleContact(b2Contact *contact, bool isBegin) {
     }
 
 }
+
+void Physics::update(float deltaTime) {
+    world->Step(timeStep, velocityIterations, positionIterations);
+
+    for (auto phys : physicsComponentLookup){
+        if (phys.second->rbType == b2_staticBody) continue;
+        auto position = phys.second->body->GetPosition();
+        float angle = phys.second->body->GetAngle();
+        auto gameObject = phys.second->getGameObject();
+        gameObject->setPosition(glm::vec2(position.x * PHYSICS_SCALE, position.y * PHYSICS_SCALE));
+        gameObject->setRotation(angle);
+    }
+}

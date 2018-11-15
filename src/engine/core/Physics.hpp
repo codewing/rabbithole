@@ -18,7 +18,13 @@ public:
 
     static constexpr float PHYSICS_SCALE = 100;
 
+    void update(float deltaTime);
+
 private:
+    const float32 timeStep = 1.0f / 60.0f;
+    const int positionIterations = 2;
+    const int velocityIterations = 6;
+
     b2World* world = nullptr;
 
     std::map<b2Fixture*, PhysicsComponent*> physicsComponentLookup;

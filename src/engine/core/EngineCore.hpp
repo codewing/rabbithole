@@ -8,6 +8,7 @@
 #include "Timer.hpp"
 #include "InputManager.hpp"
 #include "Physics.hpp"
+#include "ObjectManager.hpp"
 
 #include <glm/glm.hpp>
 #include <memory>

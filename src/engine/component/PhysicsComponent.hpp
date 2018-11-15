@@ -5,6 +5,7 @@
 #include "Box2D/Collision/Shapes/b2CircleShape.h"
 #include "Box2D/Dynamics/b2Body.h"
 #include "../core/Component.hpp"
+#include "../core/Physics.hpp"
 
 class PhysicsComponent : public Component {
 public:
@@ -40,6 +41,7 @@ private:
 
 
     friend class ObjectManager;
+    friend class Physics;
 
 };
 

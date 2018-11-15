@@ -6,7 +6,8 @@
 #include "../core/GameObject.hpp"
 #include <memory>
 
-SpriteAnimationComponent::SpriteAnimationComponent(GameObject *gameObject) : Component(gameObject) {}
+SpriteAnimationComponent::SpriteAnimationComponent(GameObject *gameObject)
+    : Component(gameObject, EComponentType::RENDERABLE & EComponentType::UPDATE) {}
 
 void SpriteAnimationComponent::update(float deltaTime) {
     auto spriteComponent = gameObject->getComponent<SpriteComponent>();
