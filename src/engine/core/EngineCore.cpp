@@ -45,6 +45,8 @@ void EngineCore::runGame() {
 
         frameUpdate(timer->getDeltaTime());
 
+        physics->update(timer->getDeltaTime());
+
         renderer->render();
 
         timer->tick();

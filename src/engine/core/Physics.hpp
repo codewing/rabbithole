@@ -21,9 +21,12 @@ public:
     void update(float deltaTime);
 
 private:
-    const float32 timeStep = 1.0f / 60.0f;
     const int positionIterations = 2;
     const int velocityIterations = 6;
+    float gravity = -9.81f;
+
+    const float timeStep = 0.2f;
+    float timeAccumulator = 0.0f;
 
     b2World* world = nullptr;
 
