@@ -13,7 +13,7 @@ EngineCore::EngineCore(std::string windowName, glm::ivec2 windowSize) {
 
     initSDLWindow(windowName, windowSize);
 
-    renderer = std::make_unique<SimpleRenderer>(window);
+    graphics = std::make_unique<GraphicsSystem>(window);
     timer = std::make_unique<Timer>();
     input = std::make_unique<InputManager>();
     physics = std::make_unique<Physics>();
@@ -47,8 +47,12 @@ void EngineCore::runGame() {
 
         physics->update(timer->getDeltaTime());
 
-        renderer->render();
+        graphics->render();
 
         timer->tick();
     }
+}
+
+const GraphicsSystem &EngineCore::getGraphicsSystem() {
+    return *(graphics.get());
 }

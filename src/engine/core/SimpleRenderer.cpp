@@ -10,11 +10,12 @@ SimpleRenderer::SimpleRenderer(SDL_Window* window) :
     r{window} {
 }
 
-void SimpleRenderer::render() {
+void SimpleRenderer::renderFrame() {
     auto cameraObj = ObjectManager::GetInstance()->getCameraManager().GetActiveCamera();
 
     auto rp = sre::RenderPass::create()
             .withCamera(*cameraObj)
+            .withClearColor(true, sre::Color{0.2f, 0.2f, 0.2f, 1.0f})
             .build();
 
     auto spriteBatchBuilder = sre::SpriteBatch::create();

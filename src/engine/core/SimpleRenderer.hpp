@@ -20,5 +20,5 @@ private:
 public:
     SimpleRenderer(SDL_Window* window);
 
-    void render();
+    void renderFrame();
 };

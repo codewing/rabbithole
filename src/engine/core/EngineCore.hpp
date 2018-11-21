@@ -4,16 +4,16 @@
 
 #pragma once
 
-#include "SimpleRenderer.hpp"
+#include "GraphicsSystem.hpp"
 #include "Timer.hpp"
 #include "InputManager.hpp"
 #include "Physics.hpp"
 #include "ObjectManager.hpp"
+#include "TextureSystem.hpp"
+
 
 #include <glm/glm.hpp>
 #include <memory>
-
-class SDL_Window;
 
 class EngineCore {
 
@@ -25,12 +25,14 @@ public:
 
     std::function<void(float deltaTimeSec)> frameUpdate;
 
+    const GraphicsSystem& getGraphicsSystem();
+
 private:
     bool isRunning = false;
 
     SDL_Window *window = nullptr;
 
-    std::unique_ptr<SimpleRenderer> renderer;
+    std::unique_ptr<GraphicsSystem> graphics;
     std::unique_ptr<Timer> timer;
     std::unique_ptr<InputManager> input;
     std::unique_ptr<Physics> physics;
