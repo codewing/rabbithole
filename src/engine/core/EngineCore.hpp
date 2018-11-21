@@ -22,9 +22,7 @@ public:
     EngineCore(std::string windowName, glm::ivec2 windowSize);
     ~EngineCore();
 
-    void runGame(GameModule& gameModule);
-
-    const GraphicsSystem& getGraphicsSystem();
+    GraphicsSystem& getGraphicsSystem();
 
 private:
     bool isRunning = false;
@@ -36,7 +34,10 @@ private:
     std::unique_ptr<InputManager> input;
     std::unique_ptr<Physics> physics;
 
-    void initSDLWindow(std::string windowName, glm::ivec2 windowSize);
+    void runGame(GameModule& gameModule);
     void update(float deltaTime);
 
+    void initSDLWindow(std::string windowName, glm::ivec2 windowSize);
+
+    friend int main(int argc, char** argv);
 };

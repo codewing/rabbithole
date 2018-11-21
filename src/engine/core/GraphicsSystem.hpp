@@ -17,8 +17,8 @@ class GraphicsSystem {
 public:
     GraphicsSystem(SDL_Window* window);
 
-    const TextureSystem& getTextureSystem();
-    const SimpleRenderer& getRenderer();
+    TextureSystem& getTextureSystem();
+    SimpleRenderer& getRenderer();
 
 private:
     void render();

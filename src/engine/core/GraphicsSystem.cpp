@@ -13,10 +13,10 @@ void GraphicsSystem::render() {
     renderer->renderFrame();
 }
 
-const TextureSystem &GraphicsSystem::getTextureSystem() {
+TextureSystem &GraphicsSystem::getTextureSystem() {
     return *(textureSystem.get());
 }
 
-const SimpleRenderer &GraphicsSystem::getRenderer() {
+SimpleRenderer &GraphicsSystem::getRenderer() {
     return *(renderer.get());
 }

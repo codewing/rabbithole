@@ -56,7 +56,7 @@ void EngineCore::runGame(GameModule& gameModule) {
     }
 }
 
-const GraphicsSystem& EngineCore::getGraphicsSystem() {
+GraphicsSystem& EngineCore::getGraphicsSystem() {
     return *(graphics.get());
 }
 

@@ -16,8 +16,12 @@ void WormholeGame::update(float deltaTime) {
 }
 
 void WormholeGame::initialize() {
+
+    auto sprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("bird1.png", "bird");
+
     GameObject* isi = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe");
-    ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(isi);
+    auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(isi);
+    spriteComp->setSprite(sprite);
 
     sre::Camera cam;
     cam.setOrthographicProjection(600,-1,1);

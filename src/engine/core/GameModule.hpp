@@ -16,7 +16,7 @@ public:
     virtual void initialize() = 0;
     virtual void update(float deltaTime) = 0;
 
-private:
+protected:
     EngineCore& engine;
 };
 

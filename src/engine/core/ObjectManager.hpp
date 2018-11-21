@@ -20,9 +20,11 @@ public:
 
     template<typename TComponent>
     TComponent* CreateComponent(GameObject* gameObject) {
-        componentList.push_back(std::move(TComponent(gameObject)));
-        TComponent* comp = dynamic_cast<TComponent*>(&(componentList[componentList.size()-1]));
-
+        auto component = TComponent(gameObject);
+        componentList.push_back(std::move(component));
+        auto lastElement = &(componentList[componentList.size()-1]);
+        TComponent* comp = static_cast<TComponent*>(lastElement);
+        
         // TODO gameObject->addComponent();
 
         return comp;
