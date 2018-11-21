@@ -2,6 +2,8 @@
 // Created by codewing on 07.11.18.
 //
 
+#include <SDL.h>
+
 #include "SimpleRenderer.hpp"
 #include "ObjectManager.hpp"
 #include "Physics.hpp"

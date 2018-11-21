@@ -5,12 +5,13 @@
 #pragma once
 
 #include <sre/Renderer.hpp>
-#include <SDL.h>
 #include <glm/glm.hpp>
 #include <memory>
 
 #include "../debug/Box2DDebugDraw.hpp"
 #include "Physics.hpp"
+
+class SDL_Window;
 
 class SimpleRenderer {
 
