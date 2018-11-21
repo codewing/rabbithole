@@ -3,7 +3,6 @@
 #include "sre/SpriteBatch.hpp"
 #include "../component/EComponentType.hpp"
 
-// Forward declaration
 class GameObject;
 
 class Component {                                           // Abstract class that adds behavior to a GameObject

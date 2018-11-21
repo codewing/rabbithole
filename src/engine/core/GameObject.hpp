@@ -16,9 +16,6 @@ public:
     ~GameObject();
 
     template <class T>
-    T* addComponent();
-
-    template <class T>
     T* addComponent(T* component);
 
     template <class T>                                   //  Get component of a given type to a gameObject. If not found return empty shared_ptr (==nullptr). example:

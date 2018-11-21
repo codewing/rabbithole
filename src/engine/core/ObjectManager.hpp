@@ -25,7 +25,7 @@ public:
         auto lastElement = &(componentList[componentList.size()-1]);
         TComponent* comp = static_cast<TComponent*>(lastElement);
         
-        // TODO gameObject->addComponent();
+        gameObject->addComponent(comp);
 
         return comp;
     }

@@ -7,7 +7,7 @@
 #include "Physics.hpp"
 
 SimpleRenderer::SimpleRenderer(SDL_Window* window) :
-    r{window} {
+    r{window, false} {
 }
 
 void SimpleRenderer::renderFrame() {
@@ -15,7 +15,6 @@ void SimpleRenderer::renderFrame() {
 
     auto rp = sre::RenderPass::create()
             .withCamera(*cameraObj)
-            .withClearColor(true, sre::Color{0.2f, 0.2f, 0.2f, 1.0f})
             .build();
 
     auto spriteBatchBuilder = sre::SpriteBatch::create();
