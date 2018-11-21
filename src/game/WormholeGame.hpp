@@ -6,15 +6,16 @@
 #define SIMPLERENDERENGINEPROJECT_WORMHOLEGAME_H
 
 #include "../engine/core/EngineCore.hpp"
+#include "../engine/core/GameModule.hpp"
 #include <memory>
 
-class WormholeGame {
+class WormholeGame : public GameModule {
 public:
-    WormholeGame();
+    WormholeGame(EngineCore &engine);
 
 private:
-    std::unique_ptr<EngineCore> engine;
 
+    void initialize() override;
     void update(float deltaTime);
 };
 

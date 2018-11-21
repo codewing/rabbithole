@@ -12,10 +12,10 @@
 class TextureSystem {
 
 public:
+    TextureSystem() = default;
     sre::Sprite getSpriteFromAtlas(const std::string& spriteName, const std::string& atlas);
 
 private:
-    TextureSystem() = default;
 
     std::map<std::string, std::shared_ptr<sre::SpriteAtlas>> spriteAtlasses;
 

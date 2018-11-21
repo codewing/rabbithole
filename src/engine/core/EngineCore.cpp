@@ -34,8 +34,10 @@ void EngineCore::initSDLWindow(std::string windowName, glm::ivec2 windowSize) {
     window = SDL_CreateWindow(windowName.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowSize.x, windowSize.y, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI);
 }
 
-void EngineCore::runGame() {
+void EngineCore::runGame(GameModule& gameModule) {
     isRunning = true;
+
+    gameModule.initialize();
 
     timer->start();
 
@@ -43,7 +45,8 @@ void EngineCore::runGame() {
 
         isRunning = input->handleInput();
 
-        frameUpdate(timer->getDeltaTime());
+        gameModule.update(timer->getDeltaTime());
+        update(timer->getDeltaTime());
 
         physics->update(timer->getDeltaTime());
 
@@ -53,6 +56,10 @@ void EngineCore::runGame() {
     }
 }
 
-const GraphicsSystem &EngineCore::getGraphicsSystem() {
+const GraphicsSystem& EngineCore::getGraphicsSystem() {
     return *(graphics.get());
+}
+
+void EngineCore::update(float deltaTime) {
+    //TODO update all components
 }

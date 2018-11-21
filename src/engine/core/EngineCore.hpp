@@ -10,6 +10,7 @@
 #include "Physics.hpp"
 #include "ObjectManager.hpp"
 #include "TextureSystem.hpp"
+#include "GameModule.hpp"
 
 
 #include <glm/glm.hpp>
@@ -21,9 +22,7 @@ public:
     EngineCore(std::string windowName, glm::ivec2 windowSize);
     ~EngineCore();
 
-    void runGame();
-
-    std::function<void(float deltaTimeSec)> frameUpdate;
+    void runGame(GameModule& gameModule);
 
     const GraphicsSystem& getGraphicsSystem();
 
@@ -38,5 +37,6 @@ private:
     std::unique_ptr<Physics> physics;
 
     void initSDLWindow(std::string windowName, glm::ivec2 windowSize);
+    void update(float deltaTime);
 
 };
