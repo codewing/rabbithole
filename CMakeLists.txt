@@ -31,10 +31,8 @@ include_directories(external_libraries/boost_geometry/include)
 # include logging library
 include_directories(external_libraries/spdlog/include)
 
-# copy files to dest 
-# file(COPY assets/images/* DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
-# file(COPY assets/images/* DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
-# file(COPY assets/images/* DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+# copy files to dest
+file(COPY atlas_textures DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 IF (WIN32)
     # Copy dll files to ${CMAKE_CURRENT_BINARY_DIR}/Debug

@@ -21,6 +21,6 @@ bool TextureSystem::hasSpriteAtlas(const std::string &atlas) {
 }
 
 void TextureSystem::loadSpriteAtlas(const std::string& atlas){
-    auto spriteAtlas = sre::SpriteAtlas::create(atlas + ".json", atlas + ".png");
+    auto spriteAtlas = sre::SpriteAtlas::create(atlasPath + atlas + ".json", atlasPath +  atlas + ".png");
     spriteAtlasses.insert({atlas, spriteAtlas});
 }

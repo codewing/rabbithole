@@ -16,7 +16,7 @@ public:
     sre::Sprite getSpriteFromAtlas(const std::string& spriteName, const std::string& atlas);
 
 private:
-
+    const std::string atlasPath = "atlas_textures/";
     std::map<std::string, std::shared_ptr<sre::SpriteAtlas>> spriteAtlasses;
 
     void loadSpriteAtlas(const std::string& atlas);
