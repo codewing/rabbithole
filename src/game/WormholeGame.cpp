@@ -29,7 +29,7 @@ void WormholeGame::initialize() {
     glm::vec3 at (300, 300, -1);
     glm::vec3 up (0, 1, 0);
     cam.lookAt(eye, at, up);
-    ObjectManager::GetInstance()->getCameraManager().RegisterCamera("main", &cam);
+    ObjectManager::GetInstance()->getCameraManager().RegisterCamera("main", cam);
     ObjectManager::GetInstance()->getCameraManager().SetActiveCamera("main");
 }
 

@@ -12,13 +12,13 @@
 class CameraManager {
 
 private:
-    std::map<std::string, sre::Camera*> cameras;
+    std::map<std::string, sre::Camera> cameras;
     sre::Camera* activeCamera;
 
 public:
     void SetActiveCamera(std::string id);
     sre::Camera* GetActiveCamera();
-    void RegisterCamera(std::string id, sre::Camera* camera);
+    void RegisterCamera(std::string id, sre::Camera camera);
     void UnregisterCamera(std::string& id);
 };
 
