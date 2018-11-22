@@ -4,7 +4,6 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include "sre/SpriteBatch.hpp"
-#include "ObjectManager.hpp"
 
 // Forward declaration
 class Component;
