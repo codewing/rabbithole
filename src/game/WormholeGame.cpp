@@ -19,8 +19,8 @@ void WormholeGame::initialize() {
 
     auto sprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("bird1.png", "bird");
 
-    GameObject* isi = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe");
-    auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(isi);
+    std::shared_ptr<GameObject> isi = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe");
+    auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(isi.get());
     spriteComp->setSprite(sprite);
 
     sre::Camera cam;

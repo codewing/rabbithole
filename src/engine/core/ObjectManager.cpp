@@ -6,17 +6,7 @@
 
 ObjectManager* ObjectManager::instance = 0;
 
-std::vector<SpriteComponent*>& ObjectManager::getRenderableComponents() {
-    return renderableComponents;
-}
 
-std::vector<PhysicsComponent*>& ObjectManager::getPhysicsComponents() {
-    return physicsComponents;
-}
-
-std::vector<Component*>& ObjectManager::getUpdatableComponents() {
-    return updatableComponents;
-}
 
 ObjectManager* ObjectManager::GetInstance() {
     if (instance == nullptr)
@@ -27,16 +17,29 @@ ObjectManager* ObjectManager::GetInstance() {
     return instance;
 }
 
-GameObject* ObjectManager::CreateGameObject(std::string name) {
-    gameobjectList.push_back(GameObject{name});
+std::shared_ptr<GameObject> ObjectManager::CreateGameObject(std::string name) {
+    auto go = std::make_shared<GameObject>(name);
+    gameobjectList.push_back(go);
 
-    return &gameobjectList[gameobjectList.size()-1];
+    return go;
 }
 
 ObjectManager::ObjectManager() {}
 
 CameraManager &ObjectManager::getCameraManager() {
     return cameraManager;
+}
+
+std::vector<std::shared_ptr<SpriteComponent>> &ObjectManager::getRenderableComponents() {
+    return renderableComponents;
+}
+
+std::vector<std::shared_ptr<PhysicsComponent>> &ObjectManager::getPhysicsComponents() {
+    return physicsComponents;
+}
+
+std::vector<std::shared_ptr<Component>> &ObjectManager::getUpdatableComponents() {
+    return updatableComponents;
 }
 
 

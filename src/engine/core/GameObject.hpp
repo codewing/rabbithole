@@ -12,13 +12,15 @@ class Component;
 class GameObject {
 public:
 
+    explicit GameObject(std::string name);
+
     ~GameObject();
 
     template <class T>
-    T* addComponent(T* component);
+    std::shared_ptr<T> addComponent(std::shared_ptr<T> component);
 
     template <class T>                                   //  Get component of a given type to a gameObject. If not found return empty shared_ptr (==nullptr). example:
-    T* getComponent();                   // std::shared_ptr<SpriteComponent> spriteComponent = gameObject->getComponent<SpriteComponent>();
+    std::shared_ptr<T> getComponent();                   // std::shared_ptr<SpriteComponent> spriteComponent = gameObject->getComponent<SpriteComponent>();
 
     void update(float deltaTime);
 
@@ -30,17 +32,13 @@ public:
 
     void setRotation(float rotation);
 
-    const std::vector<Component*>& getComponents();
-
+    const std::vector<std::shared_ptr<Component>>& getComponents();
     std::string name = "_";
 private:
-    explicit GameObject(std::string name);
-    std::vector<Component*> components;
+    std::vector<std::shared_ptr<Component>> components;
 
     glm::vec2 position;
     float rotation;
-
-    friend class ObjectManager;
 };
 
 // definition of the template member function addComponent(Component* comp)
@@ -49,7 +47,7 @@ private:
 //
 // SpriteComponent* sc = go->addComponent<SpriteComponent>();
 template <class T>
-inline T* GameObject::addComponent(T* component){
+inline std::shared_ptr<T> GameObject::addComponent(std::shared_ptr<T> component){
     components.push_back(component);
 
     return component;
@@ -60,9 +58,9 @@ inline T* GameObject::addComponent(T* component){
 // GameObject* go = something;
 // SpriteComponent* sc = go->getComponent<SpriteComponent>();
 template <class T>
-inline T* GameObject::getComponent(){
+inline std::shared_ptr<T> GameObject::getComponent(){
     for (auto& c : components){
-        T* res = dynamic_cast<T*>(c);
+        std::shared_ptr<T> res = std::dynamic_pointer_cast<T>(c);
         if (res != nullptr){
             return res;
         }

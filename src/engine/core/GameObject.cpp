@@ -32,7 +32,7 @@ void GameObject::update(float deltaTime) {
     }
 }
 
-const std::vector<Component*>& GameObject::getComponents() {
+const std::vector<std::shared_ptr<Component>>& GameObject::getComponents() {
     return components;
 }
 

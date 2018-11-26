@@ -19,22 +19,22 @@ public:
     static ObjectManager* GetInstance();
 
     template<typename TComponent>
-    TComponent* CreateComponent(GameObject* gameObject) {
-        auto component = TComponent(gameObject);
-        componentList.push_back(std::move(component));
-        auto lastElement = &(componentList[componentList.size()-1]);
-        TComponent* comp = static_cast<TComponent*>(lastElement);
-        
-        gameObject->addComponent(comp);
+    std::shared_ptr<TComponent> CreateComponent(GameObject* gameObject) {
+        auto component = std::make_shared<TComponent>(gameObject);
+        componentList.push_back(component);
 
-        return comp;
+        renderableComponents.push_back(component);
+        
+        gameObject->addComponent(component);
+
+        return component;
     }
 
-    GameObject* CreateGameObject(std::string name);
+    std::shared_ptr<GameObject> CreateGameObject(std::string name);
 
-    std::vector<SpriteComponent*>& getRenderableComponents();
-    std::vector<PhysicsComponent*>& getPhysicsComponents();
-    std::vector<Component*>& getUpdatableComponents();
+    std::vector<std::shared_ptr<SpriteComponent>>& getRenderableComponents();
+    std::vector<std::shared_ptr<PhysicsComponent>>& getPhysicsComponents();
+    std::vector<std::shared_ptr<Component>>& getUpdatableComponents();
 
     CameraManager& getCameraManager();
 
@@ -45,10 +45,10 @@ private:
 
     CameraManager cameraManager;
 
-    std::vector<GameObject> gameobjectList;
-    std::vector<Component> componentList;
+    std::vector<std::shared_ptr<GameObject>> gameobjectList;
+    std::vector<std::shared_ptr<Component>> componentList;
 
-    std::vector<Component*> updatableComponents;
-    std::vector<PhysicsComponent*> physicsComponents;
-    std::vector<SpriteComponent*> renderableComponents;
+    std::vector<std::shared_ptr<Component>> updatableComponents;
+    std::vector<std::shared_ptr<PhysicsComponent>> physicsComponents;
+    std::vector<std::shared_ptr<SpriteComponent>> renderableComponents;
 };

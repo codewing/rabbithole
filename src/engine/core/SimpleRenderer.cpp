@@ -26,4 +26,6 @@ void SimpleRenderer::renderFrame() {
 
     auto sb = spriteBatchBuilder.build();
     rp.draw(sb);
+    rp.finish();
+    sre::Renderer::instance->swapWindow();
 }
