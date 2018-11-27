@@ -5,7 +5,7 @@
 #include "PhysicsComponent.hpp"
 
 PhysicsComponent::PhysicsComponent(GameObject *gameObject)
-        : Component(gameObject, EComponentType::PHYSICS)
+        : Component(gameObject, ComponentFlag::PHYSICS)
 {
     // TODO world = BirdGame::instance->world;
 }

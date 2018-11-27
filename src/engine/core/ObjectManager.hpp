@@ -20,11 +20,26 @@ public:
 
     template<typename TComponent>
     std::shared_ptr<TComponent> CreateComponent(GameObject* gameObject) {
-        auto component = std::make_shared<TComponent>(gameObject);
+        std::shared_ptr<TComponent> component = std::make_shared<TComponent>(gameObject);
+
         componentList.push_back(component);
 
-        renderableComponents.push_back(component);
-        
+        if(ComponentFlag::UPDATE & component->type) {
+            updatableComponents.push_back(std::dynamic_pointer_cast<Component>(component));
+        }
+
+        if(ComponentFlag::RENDERABLE & component->type) {
+            renderableComponents.push_back(std::dynamic_pointer_cast<SpriteComponent>(component));
+        }
+
+        if(ComponentFlag::PHYSICS & component->type) {
+            physicsComponents.push_back(std::dynamic_pointer_cast<PhysicsComponent>(component));
+        }
+
+        if(ComponentFlag::INPUT & component->type) {
+            inputComponents.push_back(std::dynamic_pointer_cast<Component>(component));
+        }
+
         gameObject->addComponent(component);
 
         return component;
@@ -51,4 +66,5 @@ private:
     std::vector<std::shared_ptr<Component>> updatableComponents;
     std::vector<std::shared_ptr<PhysicsComponent>> physicsComponents;
     std::vector<std::shared_ptr<SpriteComponent>> renderableComponents;
+    std::vector<std::shared_ptr<Component>> inputComponents;
 };
