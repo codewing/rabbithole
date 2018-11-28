@@ -29,7 +29,7 @@ public:
         }
 
         if(ComponentFlag::RENDERABLE & component->type) {
-            renderableComponents.push_back(std::dynamic_pointer_cast<SpriteComponent>(component));
+            renderableComponents.push_back(std::dynamic_pointer_cast<IRenderable>(component));
         }
 
         if(ComponentFlag::PHYSICS & component->type) {
@@ -47,7 +47,7 @@ public:
 
     std::shared_ptr<GameObject> CreateGameObject(std::string name);
 
-    std::vector<std::shared_ptr<SpriteComponent>>& getRenderableComponents();
+    std::vector<std::shared_ptr<IRenderable>>& getRenderableComponents();
     std::vector<std::shared_ptr<PhysicsComponent>>& getPhysicsComponents();
     std::vector<std::shared_ptr<Component>>& getUpdatableComponents();
 
@@ -65,6 +65,6 @@ private:
 
     std::vector<std::shared_ptr<Component>> updatableComponents;
     std::vector<std::shared_ptr<PhysicsComponent>> physicsComponents;
-    std::vector<std::shared_ptr<SpriteComponent>> renderableComponents;
+    std::vector<std::shared_ptr<IRenderable>> renderableComponents;
     std::vector<std::shared_ptr<Component>> inputComponents;
 };

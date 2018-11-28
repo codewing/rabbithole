@@ -30,7 +30,7 @@ CameraManager &ObjectManager::getCameraManager() {
     return cameraManager;
 }
 
-std::vector<std::shared_ptr<SpriteComponent>> &ObjectManager::getRenderableComponents() {
+std::vector<std::shared_ptr<IRenderable>> &ObjectManager::getRenderableComponents() {
     return renderableComponents;
 }
 

@@ -4,10 +4,11 @@
 
 #pragma once
 
+#include <sre/SpriteBatch.hpp>
 
 class IRenderable {
 
 public:
-    virtual void onRender() = 0;
+    virtual void onRenderSprite(sre::SpriteBatch::SpriteBatchBuilder &spriteBatchBuilder);
 
 };

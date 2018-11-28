@@ -8,9 +8,7 @@ class SpriteComponent : public Component, public IRenderable {
 public:
     explicit SpriteComponent(GameObject *gameObject);
 
-    virtual void renderSprite(sre::SpriteBatch::SpriteBatchBuilder& spriteBatchBuilder);
-
-    virtual void onRender();
+    void onRenderSprite(sre::SpriteBatch::SpriteBatchBuilder &spriteBatchBuilder) override;
 
     void setSprite(const sre::Sprite& sprite);
     sre::Sprite getSprite();
