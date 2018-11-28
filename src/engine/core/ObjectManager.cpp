@@ -38,7 +38,7 @@ std::vector<std::shared_ptr<PhysicsComponent>> &ObjectManager::getPhysicsCompone
     return physicsComponents;
 }
 
-std::vector<std::shared_ptr<Component>> &ObjectManager::getUpdatableComponents() {
+std::vector<std::shared_ptr<IUpdatable>> &ObjectManager::getUpdatableComponents() {
     return updatableComponents;
 }
 

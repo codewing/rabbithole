@@ -12,8 +12,6 @@ public:
     virtual ~Component() = default;
     GameObject* getGameObject();
 
-    virtual void update(float deltaTime);
-
     const uint8_t type;
 
 protected:

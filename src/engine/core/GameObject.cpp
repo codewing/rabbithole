@@ -26,12 +26,6 @@ void GameObject::setRotation(float rotation) {
     GameObject::rotation = rotation;
 }
 
-void GameObject::update(float deltaTime) {
-    for (auto& comp : components){
-        comp->update(deltaTime);
-    }
-}
-
 const std::vector<std::shared_ptr<Component>>& GameObject::getComponents() {
     return components;
 }

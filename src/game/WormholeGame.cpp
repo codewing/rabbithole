@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>
 #include "../engine/debug/Log.hpp"
 #include "../engine/core/ObjectManager.hpp"
+#include "../engine/component/SpriteComponent.hpp"
 #include <string>
 
 class PhysicsObject;

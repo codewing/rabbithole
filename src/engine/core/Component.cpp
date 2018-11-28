@@ -9,12 +9,6 @@ Component::Component(GameObject *gameObject, uint8_t componentFlags)
 {
 }
 
-
-
-void Component::update(float deltaTime) {
-
-}
-
 GameObject *Component::getGameObject() {
     return gameObject;
 }

@@ -3,14 +3,15 @@
 #include "../core/Component.hpp"
 #include "sre/Sprite.hpp"
 #include "SpriteComponent.hpp"
+#include "../core/IUpdatable.hpp"
 
-class SpriteAnimationComponent: public Component {
+class SpriteAnimationComponent: public Component, public IUpdatable {
 public:
     SpriteAnimationComponent(GameObject *gameObject);
 
     void setSprites(std::vector<sre::Sprite> sprites);      // sprite sequence
 
-    void update(float deltaTime) override;
+    void onUpdate(float deltaTime) override;
 
     float getAnimationTime() const;                         // time between animations (in seconds)
     void setAnimationTime(float animationTime);
