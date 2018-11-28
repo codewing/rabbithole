@@ -37,7 +37,7 @@ public:
 private:
     std::vector<std::shared_ptr<Component>> components;
 
-    glm::vec2 position;
+    glm::vec2 position = glm::vec2{0, 0};
     float rotation;
 };
 
