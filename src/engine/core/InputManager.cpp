@@ -3,6 +3,7 @@
 //
 
 #include "InputManager.hpp"
+#include "ObjectManager.hpp"
 
 #include <SDL.h>
 #include <sre/imgui_sre.hpp>
@@ -61,25 +62,37 @@ bool InputManager::handleInput() {
 }
 
 void InputManager::keyEvent(SDL_Event &e) {
-
+    for(auto& inputComponent : ObjectManager::GetInstance()->getInputComponents()) {
+        inputComponent->onKeyEvent(e);
+    }
 }
 
 void InputManager::mouseEvent(SDL_Event &e) {
-
+    for(auto& inputComponent : ObjectManager::GetInstance()->getInputComponents()) {
+        inputComponent->onMouseEvent(e);
+    }
 }
 
 void InputManager::controllerEvent(SDL_Event &e) {
-
+    for(auto& inputComponent : ObjectManager::GetInstance()->getInputComponents()) {
+        inputComponent->onControllerEvent(e);
+    }
 }
 
 void InputManager::joystickEvent(SDL_Event &e) {
-
+    for(auto& inputComponent : ObjectManager::GetInstance()->getInputComponents()) {
+        inputComponent->onJoystickEvent(e);
+    }
 }
 
 void InputManager::touchEvent(SDL_Event &e) {
-
+    for(auto& inputComponent : ObjectManager::GetInstance()->getInputComponents()) {
+        inputComponent->onTouchEvent(e);
+    }
 }
 
 void InputManager::otherEvent(SDL_Event &e) {
-
+    for(auto& inputComponent : ObjectManager::GetInstance()->getInputComponents()) {
+        inputComponent->onOtherEvent(e);
+    }
 }

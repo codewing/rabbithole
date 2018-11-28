@@ -5,6 +5,7 @@
 #include "EngineCore.hpp"
 #include "../debug/Log.hpp"
 #include <SDL.h>
+#include "ObjectManager.hpp"
 
 #define SDL_MAIN_HANDLED
 
@@ -64,5 +65,7 @@ GraphicsSystem& EngineCore::getGraphicsSystem() {
 }
 
 void EngineCore::update(float deltaTime) {
-    //TODO update all components
+    for(auto& updatableComponent : ObjectManager::GetInstance()->getUpdatableComponents()) {
+        updatableComponent->onUpdate(deltaTime);
+    }
 }

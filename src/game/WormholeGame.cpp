@@ -7,6 +7,7 @@
 #include "../engine/debug/Log.hpp"
 #include "../engine/core/ObjectManager.hpp"
 #include "../engine/component/SpriteComponent.hpp"
+#include "MovementComponent.hpp"
 #include <string>
 
 class PhysicsObject;
@@ -23,6 +24,8 @@ void WormholeGame::initialize() {
     std::shared_ptr<GameObject> isi = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe");
     auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(isi.get());
     spriteComp->setSprite(sprite);
+
+    auto movementComp = ObjectManager::GetInstance()->CreateComponent<MovementComponent>(isi.get());
 
     sre::Camera cam;
     cam.setOrthographicProjection(600,-1,1);

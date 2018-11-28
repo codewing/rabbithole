@@ -7,7 +7,7 @@
 
 #include <SDL_events.h>
 
-class IInputHandler {
+class IInputable {
 
 public:
     // The methods should return true, if the key event is consumed. This prevents other components to receive the event.

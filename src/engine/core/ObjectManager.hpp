@@ -12,6 +12,7 @@
 #include "CameraManager.hpp"
 #include "IUpdatable.hpp"
 #include "IRenderable.hpp"
+#include "IInputable.hpp"
 #include "../component/PhysicsComponent.hpp"
 
 class ObjectManager {
@@ -38,7 +39,7 @@ public:
         }
 
         if(ComponentFlag::INPUT & component->type) {
-            inputComponents.push_back(std::dynamic_pointer_cast<Component>(component));
+            inputComponents.push_back(std::dynamic_pointer_cast<IInputable>(component));
         }
 
         gameObject->addComponent(component);
@@ -51,6 +52,7 @@ public:
     std::vector<std::shared_ptr<IRenderable>>& getRenderableComponents();
     std::vector<std::shared_ptr<PhysicsComponent>>& getPhysicsComponents();
     std::vector<std::shared_ptr<IUpdatable>>& getUpdatableComponents();
+    std::vector<std::shared_ptr<IInputable>>& getInputComponents();
 
     CameraManager& getCameraManager();
 
@@ -67,5 +69,5 @@ private:
     std::vector<std::shared_ptr<IUpdatable>> updatableComponents;
     std::vector<std::shared_ptr<PhysicsComponent>> physicsComponents;
     std::vector<std::shared_ptr<IRenderable>> renderableComponents;
-    std::vector<std::shared_ptr<Component>> inputComponents;
+    std::vector<std::shared_ptr<IInputable>> inputComponents;
 };

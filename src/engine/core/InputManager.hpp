@@ -13,6 +13,8 @@ public:
     bool handleInput();
 
 private:
+
+
     void keyEvent(SDL_Event& e);
     void mouseEvent(SDL_Event& e);
     void controllerEvent(SDL_Event& e);

@@ -42,4 +42,8 @@ std::vector<std::shared_ptr<IUpdatable>> &ObjectManager::getUpdatableComponents(
     return updatableComponents;
 }
 
+std::vector<std::shared_ptr<IInputable>> &ObjectManager::getInputComponents() {
+    return inputComponents;
+}
+
 

@@ -10,6 +10,7 @@ public:
     explicit Component(GameObject* gameObject, uint8_t componentFlags);
 
     virtual ~Component() = default;
+
     GameObject* getGameObject();
 
     const uint8_t type;
