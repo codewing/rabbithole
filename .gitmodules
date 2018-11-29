@@ -10,9 +10,6 @@
 	path = external_libraries/boost_math
 	url = git@github.com:boostorg/math.git
 	branch = boost-1.68.0
-[submodule "exteral_libraries/poly2tri"]
-	path = exteral_libraries/poly2tri
-	url = git@github.com:jhasse/poly2tri.git
 [submodule "external_libraries/poly2tri"]
 	path = external_libraries/poly2tri
 	url = git@github.com:jhasse/poly2tri.git
