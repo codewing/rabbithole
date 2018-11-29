@@ -6,7 +6,7 @@
 
 #include "SimpleRenderer.hpp"
 #include "ObjectManager.hpp"
-#include "Physics.hpp"
+#include "PhysicsSystem.hpp"
 
 SimpleRenderer::SimpleRenderer(SDL_Window* window) :
     r{window, false} {

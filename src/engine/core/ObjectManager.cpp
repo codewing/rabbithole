@@ -46,4 +46,7 @@ std::vector<std::shared_ptr<IInputable>> &ObjectManager::getInputComponents() {
     return inputComponents;
 }
 
+void ObjectManager::setEngineCore(EngineCore* engineCore) {
+    this->engineCore = engineCore;
+}
 

@@ -2,32 +2,32 @@
 // Created by codewing on 08.11.18.
 //
 
-#include "Physics.hpp"
+#include "PhysicsSystem.hpp"
 
 #include "Box2D/Dynamics/Contacts/b2Contact.h"
 
 #include "../component/PhysicsComponent.hpp"
 #include "GameObject.hpp"
 
-Physics::Physics() {
+PhysicsSystem::PhysicsSystem() {
     initPhysics();
 }
 
-void Physics::initPhysics() {
+void PhysicsSystem::initPhysics() {
     delete world;
     world = new b2World(b2Vec2(0, gravity));
     world->SetContactListener(this);
 }
 
-void Physics::BeginContact(b2Contact *contact) {
+void PhysicsSystem::BeginContact(b2Contact *contact) {
     handleContact(contact, true);
 }
 
-void Physics::EndContact(b2Contact *contact) {
+void PhysicsSystem::EndContact(b2Contact *contact) {
     handleContact(contact, false);
 }
 
-void Physics::handleContact(b2Contact *contact, bool isBegin) {
+void PhysicsSystem::handleContact(b2Contact *contact, bool isBegin) {
     auto fixA = contact->GetFixtureA();
     auto fixB = contact->GetFixtureB();
     auto physA = physicsComponentLookup.find(fixA);
@@ -45,7 +45,7 @@ void Physics::handleContact(b2Contact *contact, bool isBegin) {
 
 }
 
-void Physics::update(float deltaTime) {
+void PhysicsSystem::update(float deltaTime) {
     timeAccumulator += deltaTime;
 
     while(timeAccumulator >= timeStep) {

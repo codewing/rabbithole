@@ -10,11 +10,11 @@
 
 class PhysicsComponent;
 
-class Physics : public b2ContactListener {
+class PhysicsSystem : public b2ContactListener {
 
 public:
 
-    Physics();
+    PhysicsSystem();
 
     static constexpr float PHYSICS_SCALE = 100;
 

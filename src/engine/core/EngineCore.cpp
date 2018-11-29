@@ -17,7 +17,8 @@ EngineCore::EngineCore(std::string windowName, glm::ivec2 windowSize) {
     graphics = std::make_unique<GraphicsSystem>(window);
     timer = std::make_unique<Timer>();
     input = std::make_unique<InputManager>();
-    physics = std::make_unique<Physics>();
+    physics = std::make_unique<PhysicsSystem>();
+    ObjectManager::GetInstance()->setEngineCore(this);
 
     LOG_ENGINE_INFO("All systems successfully initialized!");
 }
@@ -68,4 +69,8 @@ void EngineCore::update(float deltaTime) {
     for(auto& updatableComponent : ObjectManager::GetInstance()->getUpdatableComponents()) {
         updatableComponent->onUpdate(deltaTime);
     }
+}
+
+PhysicsSystem &EngineCore::getPhysicsSystem() {
+    return *(physics.get());
 }

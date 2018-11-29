@@ -25,13 +25,11 @@ private:
 #define LOG_ENGINE_INFO(...)
 #define LOG_ENGINE_WARN(...)
 #define LOG_ENGINE_ERROR(...)
-#define LOG_ENGINE_FATAL(...)
 
 #define LOG_GAME_TRACE(...)
 #define LOG_GAME_INFO(...)
 #define LOG_GAME_WARN(...)
 #define LOG_GAME_ERROR(...)
-#define LOG_GAME_FATAL(...)
 
 #else
 
@@ -39,13 +37,11 @@ private:
 #define LOG_ENGINE_INFO(...)    ::Log::getEngineLogger()->info(__VA_ARGS__)
 #define LOG_ENGINE_WARN(...)    ::Log::getEngineLogger()->warn(__VA_ARGS__)
 #define LOG_ENGINE_ERROR(...)   ::Log::getEngineLogger()->error(__VA_ARGS__)
-#define LOG_ENGINE_FATAL(...)   ::Log::getEngineLogger()->fatal(__VA_ARGS__)
 
 #define LOG_GAME_TRACE(...)     ::Log::getGameLogger()->trace(__VA_ARGS__)
 #define LOG_GAME_INFO(...)      ::Log::getGameLogger()->info(__VA_ARGS__)
 #define LOG_GAME_WARN(...)      ::Log::getGameLogger()->warn(__VA_ARGS__)
 #define LOG_GAME_ERROR(...)     ::Log::getGameLogger()->error(__VA_ARGS__)
-#define LOG_GAME_FATAL(...)     ::Log::getGameLogger()->fatal(__VA_ARGS__)
 
 #endif
 

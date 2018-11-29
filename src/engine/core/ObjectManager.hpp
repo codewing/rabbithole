@@ -15,6 +15,9 @@
 #include "IInputable.hpp"
 #include "../component/PhysicsComponent.hpp"
 
+
+class EngineCore;
+
 class ObjectManager {
 
 public:
@@ -60,8 +63,10 @@ private:
     static ObjectManager* instance;
 
     ObjectManager();
+    void setEngineCore(EngineCore* engineCore);
 
     CameraManager cameraManager;
+    EngineCore* engineCore;
 
     std::vector<std::shared_ptr<GameObject>> gameobjectList;
     std::vector<std::shared_ptr<Component>> componentList;
@@ -70,4 +75,6 @@ private:
     std::vector<std::shared_ptr<PhysicsComponent>> physicsComponents;
     std::vector<std::shared_ptr<IRenderable>> renderableComponents;
     std::vector<std::shared_ptr<IInputable>> inputComponents;
+
+    friend class EngineCore;
 };

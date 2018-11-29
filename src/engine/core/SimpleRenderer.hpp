@@ -9,7 +9,7 @@
 #include <memory>
 
 #include "../debug/Box2DDebugDraw.hpp"
-#include "Physics.hpp"
+#include "PhysicsSystem.hpp"
 
 class SDL_Window;
 

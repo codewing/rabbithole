@@ -7,7 +7,7 @@
 #include "GraphicsSystem.hpp"
 #include "Timer.hpp"
 #include "InputManager.hpp"
-#include "Physics.hpp"
+#include "PhysicsSystem.hpp"
 #include "ObjectManager.hpp"
 #include "TextureSystem.hpp"
 #include "GameModule.hpp"
@@ -23,6 +23,7 @@ public:
     ~EngineCore();
 
     GraphicsSystem& getGraphicsSystem();
+    PhysicsSystem& getPhysicsSystem();
 
 private:
     bool isRunning = false;
@@ -32,7 +33,7 @@ private:
     std::unique_ptr<GraphicsSystem> graphics;
     std::unique_ptr<Timer> timer;
     std::unique_ptr<InputManager> input;
-    std::unique_ptr<Physics> physics;
+    std::unique_ptr<PhysicsSystem> physics;
 
     void runGame(GameModule& gameModule);
     void update(float deltaTime);
