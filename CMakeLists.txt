@@ -26,13 +26,25 @@ set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
 
-include_directories(external_libraries/boost_geometry/include)
+# include boost libs
+include_directories(libs/boost/geometry/include)
+include_directories(libs/boost//mpl/include)
+include_directories(libs/boost/config/include)
+include_directories(libs/boost/preprocessor/include)
+include_directories(libs/boost/range/include)
+include_directories(libs/boost/type_traits/include)
+include_directories(libs/boost/iterator/include)
+include_directories(libs/boost/static_assert/include)
+include_directories(libs/boost/core/include)
+include_directories(libs/boost/numeric_conversion/include)
+include_directories(libs/boost/throw_exception/include)
+include_directories(libs/boost/utility/include) #unused for now
 
 # include logging library
-include_directories(external_libraries/spdlog/include)
+include_directories(libs/spdlog/include)
 
-add_subdirectory(external_libraries/poly2tri)
-include_directories(external_libraries/poly2tri)
+add_subdirectory(libs/poly2tri)
+include_directories(libs/poly2tri)
 target_link_libraries(Worm poly2tri)
 
 # copy files to dest
