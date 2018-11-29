@@ -5,10 +5,14 @@
 #pragma once
 
 #include "../engine/core/IInteractable.hpp"
-#include "Level.hpp"
+#include <Box2D/Box2D.h>
+
+class WorldComponent;
 
 class RingInteractable : public IInteractable{
 public:
+    RingInteractable(WorldComponent *worldComponent, std::vector<b2Vec2> ringData);
+
     void onCollisionStart(IInteractable *interactable) override;
 
     void onCollisionEnd(IInteractable *interactable) override;
@@ -19,7 +23,9 @@ public:
 
 private:
 
-    Level* level;
+    WorldComponent* worldComponent;
+
+    std::vector<b2Vec2> ringData;
 
 };
 

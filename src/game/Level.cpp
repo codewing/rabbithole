@@ -11,7 +11,7 @@
 #include <poly2tri/poly2tri.h>
 #include "../engine/core/ObjectManager.hpp"
 
-Level::Level(glm::vec2 levelSize) : levelSize(levelSize) {
+Level::Level(glm::vec2 levelSize, float earthPercentage) : levelSize(levelSize), earthPercentage(earthPercentage) {
 	srand((unsigned)time(0));
 }
 
@@ -31,24 +31,17 @@ void Level::generateLevel() {
 
 	std::cout << "Number of island: " << number << std::endl;
 	addIslands(world_comp.get(), number);
-
-	for (auto ring : world_comp->getRings()) {
-		std::cout << "First x component of 1st element of the ring " << ring.at(0).x << std::endl;
-		auto phys_comp = ObjectManager::GetInstance()->CreateComponent<PhysicsComponent>(gameObject.get());
-		phys_comp->initChain(b2BodyType::b2_staticBody, ring, gameObject->getPosition(), 1);
-	}
 }
 
 void Level::addTerrain(WorldComponent* world_comp) {
 	
 	std::vector<b2Vec2> points = createTerrain(world_comp);
-	world_comp->addRing(points);
+	world_comp->addRing(std::move(points));
 }
 
 // generating the list of positions of the terrain
 std::vector<b2Vec2> Level::createTerrain(WorldComponent* world_comp) {
-	auto percentage_of_terrain = world_comp->GetPercOfTerrain();
-	auto start_y = levelSize.x * percentage_of_terrain * 0.6;
+	auto start_y = levelSize.x * earthPercentage * 0.6;
 	std::vector<b2Vec2> result;
 	float x, y;
 	float a, phi, omega_lf;
@@ -96,8 +89,7 @@ void Level::addIslands(WorldComponent* world_comp, int amount) {
 }
 
 std::vector<b2Vec2>  Level::createIslandPositions(WorldComponent* world_comp, int number) {
-	auto percentage_of_terrain = world_comp->GetPercOfTerrain();
-	auto start_y = levelSize.y * percentage_of_terrain;
+	auto start_y = levelSize.y * earthPercentage;
 	auto VERTICAL_DIVISION = 3;
 	auto HORIZONTAL_DIVISION = 2;
 	auto unit_x = levelSize.x / VERTICAL_DIVISION;
@@ -126,7 +118,7 @@ std::vector<b2Vec2>  Level::createIslandPositions(WorldComponent* world_comp, in
 
 void Level::addIsland(WorldComponent* world_comp, int size, b2Vec2 position) {
 	auto points = createIslandPoints(size, position);
-	world_comp->addRing(points);
+	world_comp->addRing(std::move(points));
 }
 
 std::vector<int> Level::createIslandDimensions(int number) {

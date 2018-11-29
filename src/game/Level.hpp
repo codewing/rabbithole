@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 #include <sre/SpriteAtlas.hpp>
-#include <boost/geometry.hpp>
+#include <boost/geometry/geometry.hpp>
 #include <Box2D/Common/b2Math.h>
 
 class PlatformerGame;
@@ -35,11 +35,12 @@ public:
     static constexpr float tileSize = 21;
 	static constexpr int terrainResolution = 800;
 
-    Level(glm::vec2 levelSize);
+    Level(glm::vec2 levelSize, float earthPercentage);
 
 
 private:
 	PlatformerGame* game;
 
     glm::vec2 levelSize;
+    float earthPercentage;
 };
