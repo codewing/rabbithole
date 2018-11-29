@@ -31,6 +31,10 @@ include_directories(external_libraries/boost_geometry/include)
 # include logging library
 include_directories(external_libraries/spdlog/include)
 
+add_subdirectory(external_libraries/poly2tri)
+include_directories(external_libraries/poly2tri)
+target_link_libraries(Worm poly2tri)
+
 # copy files to dest
 IF (WIN32)
     file(COPY atlas_textures DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)

@@ -3,73 +3,52 @@
 //
 
 #include "Level.hpp"
-#include "PlatformerGame.hpp"
-#include "SpriteComponent.hpp"
-#include "PhysicsComponent.hpp"
 #include "WorldComponent.hpp"
 #include <boost/geometry/geometry.hpp>
 #include <iostream>
-#include <conio.h>
 #include <math.h>
 #include <time.h>
 #include <poly2tri/poly2tri.h>
+#include "../engine/core/ObjectManager.hpp"
 
-std::shared_ptr<Level> Level::createDefaultLevel(PlatformerGame* game, std::shared_ptr<sre::SpriteAtlas> spriteAtlas) {
-    std::shared_ptr<Level> res = std::shared_ptr<Level>(new Level());
+Level::Level(glm::vec2 levelSize) : levelSize(levelSize) {
+	srand((unsigned)time(0));
+}
 
-    // todo initialize
-    res->game = game;
-    res->spriteAtlas = spriteAtlas;
+std::shared_ptr<Level> Level::createDefaultLevel(glm::vec2 levelSize) {
+    std::shared_ptr<Level> res = std::shared_ptr<Level>(new Level(levelSize));
 
     return res;
 }
 
 void Level::generateLevel() {
+	auto gameObject = ObjectManager::GetInstance()->CreateGameObject("World");
+	auto world_comp = ObjectManager::GetInstance()->CreateComponent<WorldComponent>(gameObject.get());
 
-
-	srand((unsigned)time(0));
-
-	auto gameObject = game->createGameObject();
-	gameObject->setPosition({ 0,0 });
-	gameObject->name = "World";
-	auto world_comp = gameObject->addComponent<WorldComponent>();
-	
-	// TODO: Check if extracting pointer causes memory leak
 	addTerrain(world_comp.get());
 
-	// TODO: add clever number of islands (right now is [1, 2, 3])
-	auto number = rand() % 5 + 1;
+	auto number = rand() % 5 + 1; // TODO: add clever number of islands (right now is [1, 2, 3])
 
 	std::cout << "Number of island: " << number << std::endl;
-
 	addIslands(world_comp.get(), number);
-	
-	auto physicsScale = PlatformerGame::instance->physicsScale;
+
 	for (auto ring : world_comp->getRings()) {
-		std::vector<b2Vec2> scaled_ring;
-		for (auto point : ring) {
-			scaled_ring.push_back({ point.x / physicsScale, point.y / physicsScale });
-		}
 		std::cout << "First x component of 1st element of the ring " << ring.at(0).x << std::endl;
-		auto phys_comp = gameObject->addComponent<PhysicsComponent>();
-		phys_comp->initChain(b2BodyType::b2_staticBody, scaled_ring, gameObject->getPosition() / physicsScale, 1);
+		auto phys_comp = ObjectManager::GetInstance()->CreateComponent<PhysicsComponent>(gameObject.get());
+		phys_comp->initChain(b2BodyType::b2_staticBody, ring, gameObject->getPosition(), 1);
 	}
 }
 
-void  Level::addTerrain(WorldComponent* world_comp) {
+void Level::addTerrain(WorldComponent* world_comp) {
 	
 	std::vector<b2Vec2> points = createTerrain(world_comp);
 	world_comp->addRing(points);
-
-	return;
 }
 
 // generating the list of positions of the terrain
 std::vector<b2Vec2> Level::createTerrain(WorldComponent* world_comp) {
-	int xSize = game->windowSize.x;
-	int ySize = game->windowSize.y;
 	auto percentage_of_terrain = world_comp->GetPercOfTerrain();
-	auto start_y = ySize * percentage_of_terrain * 0.6;
+	auto start_y = levelSize.x * percentage_of_terrain * 0.6;
 	std::vector<b2Vec2> result;
 	float x, y;
 	float a, phi, omega_lf;
@@ -108,9 +87,6 @@ std::vector<b2Vec2> Level::createTerrain(WorldComponent* world_comp) {
 }
 
 void Level::addIslands(WorldComponent* world_comp, int amount) {
-	int xSize = game->windowSize.x;
-	int ySize = game->windowSize.y;
-	float scale = game->physicsScale;
 	std::vector<b2Vec2> islandPositions = createIslandPositions(world_comp, amount);
 	std::vector<int> islandDimensions = createIslandDimensions(amount);
 
@@ -120,18 +96,13 @@ void Level::addIslands(WorldComponent* world_comp, int amount) {
 }
 
 std::vector<b2Vec2>  Level::createIslandPositions(WorldComponent* world_comp, int number) {
-	
-	// PARAMETERS THAT MIGHT/MAY/COULD BE MOVED TO GAME
-	int xSize = game->windowSize.x;
-	int ySize = game->windowSize.y;
-	auto scale = game->physicsScale;
 	auto percentage_of_terrain = world_comp->GetPercOfTerrain();
-	auto start_y = ySize * percentage_of_terrain;
+	auto start_y = levelSize.y * percentage_of_terrain;
 	auto VERTICAL_DIVISION = 3;
 	auto HORIZONTAL_DIVISION = 2;
-	auto unit_x = xSize / VERTICAL_DIVISION;
+	auto unit_x = levelSize.x / VERTICAL_DIVISION;
 	auto offset_x = unit_x / 2;
-	auto unit_y = (ySize - start_y) / HORIZONTAL_DIVISION;
+	auto unit_y = (levelSize.y - start_y) / HORIZONTAL_DIVISION;
 	auto offset_y =  unit_y / 2;
 	//auto noise_x = 0;
 	//auto noise_y = 0;
@@ -156,7 +127,6 @@ std::vector<b2Vec2>  Level::createIslandPositions(WorldComponent* world_comp, in
 void Level::addIsland(WorldComponent* world_comp, int size, b2Vec2 position) {
 	auto points = createIslandPoints(size, position);
 	world_comp->addRing(points);
-	return;
 }
 
 std::vector<int> Level::createIslandDimensions(int number) {

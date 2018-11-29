@@ -23,4 +23,8 @@ private:
 	glm::vec3 toGlm(p2t::Point* point);
 	ring_t toRing(std::vector<b2Vec2> ring);
 	ring_collection_t toRingCollection(std::vector<std::vector<b2Vec2>> collection);
+	std::vector<b2Vec2> tob2Ring(ring_t ring);
+	std::vector<std::vector<b2Vec2>> toWorldComponentStruct(ring_collection_t collection);
+	ring_t makeConvexRing(b2Vec2 position, float radius, int numberVertices);
+	ring_collection_t subtract(const ring_t& source, const ring_t& subtrahend);
 };

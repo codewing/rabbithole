@@ -80,6 +80,30 @@ void IInteractable::initBox(b2BodyType type, glm::vec2 size, glm::vec2 center, f
     ObjectManager::GetInstance()->EnablePhysics(this);
 }
 
+// points in local coordinates, position is the center of the polygon
+void IInteractable::initChain(b2BodyType type, std::vector<b2Vec2> points, glm::vec2 position, float density) {
+    assert(body == nullptr);
+
+    // do init
+    shapeType = b2Shape::Type::e_chain;
+    b2BodyDef bd;
+    bd.type = type;
+    rbType = type;
+    bd.position = b2Vec2(position.x / PhysicsSystem::PHYSICS_SCALE, position.y / PhysicsSystem::PHYSICS_SCALE);
+    body = world->CreateBody(&bd);
+    auto chain = new b2ChainShape();
+    chain->CreateChain(points.data(), points.size());
+    shape = chain;
+
+    b2FixtureDef fxD;
+    fxD.userData = (void*)"Chain";
+    fxD.shape = shape;
+    fxD.density = density;
+    fixture = body->CreateFixture(&fxD);
+
+    ObjectManager::GetInstance()->EnablePhysics(this);
+}
+
 IInteractable::~IInteractable() {
     ObjectManager::GetInstance()->DisablePhysics(this);
 

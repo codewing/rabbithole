@@ -19,10 +19,9 @@ enum class TileCollider {
 
 class Level {
 public:
-    static std::shared_ptr<Level> createDefaultLevel(PlatformerGame* game, std::shared_ptr<sre::SpriteAtlas> spriteAtlas);
+    static std::shared_ptr<Level> createDefaultLevel(glm::vec2 levelSize);
 
     void generateLevel();
-    void addPlatform(int x, int y, int startSpriteId, int length, bool kinematic);
 	void addTerrain(WorldComponent* world_comp);
 	void addIslands(WorldComponent* world_comp, int number);
 	void addIsland(WorldComponent* world_comp, int size, b2Vec2 position);
@@ -35,8 +34,12 @@ public:
 
     static constexpr float tileSize = 21;
 	static constexpr int terrainResolution = 800;
+
+    Level(glm::vec2 levelSize);
+
+
 private:
-    Level() = default;
-    PlatformerGame* game;
-    std::shared_ptr<sre::SpriteAtlas> spriteAtlas;
+	PlatformerGame* game;
+
+    glm::vec2 levelSize;
 };
