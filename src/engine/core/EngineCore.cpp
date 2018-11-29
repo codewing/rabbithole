@@ -66,7 +66,7 @@ GraphicsSystem& EngineCore::getGraphicsSystem() {
 }
 
 void EngineCore::update(float deltaTime) {
-    for(auto& updatableComponent : ObjectManager::GetInstance()->getUpdatableComponents()) {
+    for(auto& updatableComponent : ObjectManager::GetInstance()->GetUpdatableComponents()) {
         updatableComponent->onUpdate(deltaTime);
     }
 }

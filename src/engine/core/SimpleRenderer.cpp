@@ -13,14 +13,14 @@ SimpleRenderer::SimpleRenderer(SDL_Window* window) :
 }
 
 void SimpleRenderer::renderFrame() {
-    auto cameraObj = ObjectManager::GetInstance()->getCameraManager().GetActiveCamera();
+    auto cameraObj = ObjectManager::GetInstance()->GetCameraManager().GetActiveCamera();
 
     auto rp = sre::RenderPass::create()
             .withCamera(*cameraObj)
             .build();
 
     auto spriteBatchBuilder = sre::SpriteBatch::create();
-    for (auto& renderComp : ObjectManager::GetInstance()->getRenderableComponents()){
+    for (auto& renderComp : ObjectManager::GetInstance()->GetRenderableComponents()){
         renderComp->onRenderSprite(spriteBatchBuilder);
     }
 

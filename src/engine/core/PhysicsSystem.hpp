@@ -8,7 +8,7 @@
 
 #include "Box2D/Dynamics/b2World.h"
 
-class PhysicsComponent;
+class IInteractable;
 
 class PhysicsSystem : public b2ContactListener {
 
@@ -30,8 +30,6 @@ private:
 
     b2World* world = nullptr;
 
-    std::map<b2Fixture*, PhysicsComponent*> physicsComponentLookup;
-
     void initPhysics();
 
     void BeginContact(b2Contact *contact) override;
@@ -39,4 +37,5 @@ private:
     void handleContact(b2Contact *contact, bool isBegin);
 
     friend class SimpleRenderer;
+    friend class ObjectManager;
 };

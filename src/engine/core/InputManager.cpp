@@ -62,37 +62,37 @@ bool InputManager::handleInput() {
 }
 
 void InputManager::keyEvent(SDL_Event &e) {
-    for(auto& inputComponent : ObjectManager::GetInstance()->getInputComponents()) {
+    for(auto& inputComponent : ObjectManager::GetInstance()->GetInputComponents()) {
         inputComponent->onKeyEvent(e);
     }
 }
 
 void InputManager::mouseEvent(SDL_Event &e) {
-    for(auto& inputComponent : ObjectManager::GetInstance()->getInputComponents()) {
+    for(auto& inputComponent : ObjectManager::GetInstance()->GetInputComponents()) {
         inputComponent->onMouseEvent(e);
     }
 }
 
 void InputManager::controllerEvent(SDL_Event &e) {
-    for(auto& inputComponent : ObjectManager::GetInstance()->getInputComponents()) {
+    for(auto& inputComponent : ObjectManager::GetInstance()->GetInputComponents()) {
         inputComponent->onControllerEvent(e);
     }
 }
 
 void InputManager::joystickEvent(SDL_Event &e) {
-    for(auto& inputComponent : ObjectManager::GetInstance()->getInputComponents()) {
+    for(auto& inputComponent : ObjectManager::GetInstance()->GetInputComponents()) {
         inputComponent->onJoystickEvent(e);
     }
 }
 
 void InputManager::touchEvent(SDL_Event &e) {
-    for(auto& inputComponent : ObjectManager::GetInstance()->getInputComponents()) {
+    for(auto& inputComponent : ObjectManager::GetInstance()->GetInputComponents()) {
         inputComponent->onTouchEvent(e);
     }
 }
 
 void InputManager::otherEvent(SDL_Event &e) {
-    for(auto& inputComponent : ObjectManager::GetInstance()->getInputComponents()) {
+    for(auto& inputComponent : ObjectManager::GetInstance()->GetInputComponents()) {
         inputComponent->onOtherEvent(e);
     }
 }

@@ -37,10 +37,6 @@ public:
             renderableComponents.push_back(std::dynamic_pointer_cast<IRenderable>(component));
         }
 
-        if(ComponentFlag::PHYSICS & component->type) {
-            physicsComponents.push_back(std::dynamic_pointer_cast<PhysicsComponent>(component));
-        }
-
         if(ComponentFlag::INPUT & component->type) {
             inputComponents.push_back(std::dynamic_pointer_cast<IInputable>(component));
         }
@@ -52,12 +48,16 @@ public:
 
     std::shared_ptr<GameObject> CreateGameObject(std::string name);
 
-    std::vector<std::shared_ptr<IRenderable>>& getRenderableComponents();
-    std::vector<std::shared_ptr<PhysicsComponent>>& getPhysicsComponents();
-    std::vector<std::shared_ptr<IUpdatable>>& getUpdatableComponents();
-    std::vector<std::shared_ptr<IInputable>>& getInputComponents();
+    void EnablePhysics(IInteractable *interactable);
+    void DisablePhysics(IInteractable *interactable);
+    b2World* GetPhysicsWorld();
 
-    CameraManager& getCameraManager();
+    std::vector<std::shared_ptr<IRenderable>>& GetRenderableComponents();
+    std::map<b2Fixture*, IInteractable*>& GetRegisteredPhysicsComponents();
+    std::vector<std::shared_ptr<IUpdatable>>& GetUpdatableComponents();
+    std::vector<std::shared_ptr<IInputable>>& GetInputComponents();
+
+    CameraManager& GetCameraManager();
 
 private:
     static ObjectManager* instance;
@@ -72,7 +72,7 @@ private:
     std::vector<std::shared_ptr<Component>> componentList;
 
     std::vector<std::shared_ptr<IUpdatable>> updatableComponents;
-    std::vector<std::shared_ptr<PhysicsComponent>> physicsComponents;
+    std::map<b2Fixture*, IInteractable*> registeredPhysicsComponents;
     std::vector<std::shared_ptr<IRenderable>> renderableComponents;
     std::vector<std::shared_ptr<IInputable>> inputComponents;
 
