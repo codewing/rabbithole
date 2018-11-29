@@ -43,3 +43,13 @@ IF (WIN32)
     # Set working directory to ${CMAKE_CURRENT_BINARY_DIR}/Debug
     set_target_properties(Worm PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Debug)
 ENDIF(WIN32)
+
+
+option(WITH_DEBUG_PHYSICS "Enables the visualization of the Physics Colliders" OFF)
+
+if(WITH_DEBUG_PHYSICS)
+    message("physics visualization ENABLED")
+    add_definitions(-DDEBUG_PHYSICS)
+else()
+    message("physics visualization DISABLED")
+endif()

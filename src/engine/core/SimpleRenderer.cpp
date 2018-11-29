@@ -8,9 +8,16 @@
 #include "ObjectManager.hpp"
 #include "PhysicsSystem.hpp"
 
+#ifdef DEBUG_PHYSICS
+SimpleRenderer::SimpleRenderer(SDL_Window* window) :
+        r{window, false}, debugDraw{PhysicsSystem::PHYSICS_SCALE} {
+    ObjectManager::GetInstance()->GetPhysicsWorld()->SetDebugDraw(&debugDraw);
+}
+#else
 SimpleRenderer::SimpleRenderer(SDL_Window* window) :
     r{window, false} {
 }
+#endif
 
 void SimpleRenderer::renderFrame() {
     auto cameraObj = ObjectManager::GetInstance()->GetCameraManager().GetActiveCamera();
@@ -25,6 +32,13 @@ void SimpleRenderer::renderFrame() {
     }
 
     auto sb = spriteBatchBuilder.build();
+
+#ifdef DEBUG_PHYSICS
+    ObjectManager::GetInstance()->GetPhysicsWorld()->DrawDebugData();
+    rp.drawLines(debugDraw.getLines());
+    debugDraw.clear();
+#endif
+
     rp.draw(sb);
     rp.finish();
     r.swapWindow();

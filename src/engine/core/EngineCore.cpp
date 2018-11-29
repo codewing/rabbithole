@@ -14,11 +14,11 @@ EngineCore::EngineCore(std::string windowName, glm::ivec2 windowSize) {
 
     initSDLWindow(windowName, windowSize);
 
-    graphics = std::make_unique<GraphicsSystem>(window);
     timer = std::make_unique<Timer>();
     input = std::make_unique<InputManager>();
     physics = std::make_unique<PhysicsSystem>();
     ObjectManager::GetInstance()->setEngineCore(this);
+    graphics = std::make_unique<GraphicsSystem>(window);
 
     LOG_ENGINE_INFO("All systems successfully initialized!");
 }
