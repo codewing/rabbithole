@@ -16,7 +16,7 @@ Level::Level(glm::vec2 levelSize, float earthPercentage) : levelSize(levelSize),
 }
 
 std::shared_ptr<Level> Level::createDefaultLevel(glm::vec2 levelSize) {
-    std::shared_ptr<Level> res = std::shared_ptr<Level>(new Level(levelSize));
+    std::shared_ptr<Level> res = std::shared_ptr<Level>(new Level(levelSize, 0.6));
 
     return res;
 }
