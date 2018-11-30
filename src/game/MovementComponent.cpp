@@ -7,12 +7,12 @@
 #include "../engine/core/GameObject.hpp"
 #include "../engine/debug/Log.hpp"
 
-MovementComponent::MovementComponent(GameObject *gameObject) : Component(gameObject, ComponentFlag::UPDATE | ComponentFlag::INPUT) {}
+MovementComponent::MovementComponent(GameObject *gameObject) : Component(gameObject, ComponentFlag::UPDATE | ComponentFlag::INPUT) {
+    physicsComponent = gameObject->getComponent<PhysicsComponent>();
+}
 
 void MovementComponent::onUpdate(float deltaTime) {
-
-    auto pos = gameObject->getPosition() + glm::vec2{moveRight * 10 * deltaTime, moveUp * 10 * deltaTime};
-    gameObject->setPosition(pos);
+    physicsComponent->addImpulse(2 * deltaTime * glm::vec2{moveRight, moveUp});
 }
 
 bool MovementComponent::onKeyEvent(SDL_Event &event) {

@@ -24,21 +24,24 @@ void WormholeGame::initialize() {
     auto sprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("bird1.png", "bird");
 
     std::shared_ptr<GameObject> isi = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe");
+    isi->setPosition({-50, 50});
     auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(isi.get());
     spriteComp->setSprite(sprite);
 
-    auto movementComp = ObjectManager::GetInstance()->CreateComponent<MovementComponent>(isi.get());
-
     auto physicsComp = ObjectManager::GetInstance()->CreateComponent<PhysicsComponent>(isi.get());
-    physicsComp->initCircle(b2_staticBody, sprite.getSpriteSize().x, glm::vec2{0,0}, 0.0f);
+    physicsComp->initCircle(b2_dynamicBody, sprite.getSpriteSize().x, isi->getPosition(), 0.0f);
+
+    auto movementComp = ObjectManager::GetInstance()->CreateComponent<MovementComponent>(isi.get());
 
     Level level({800,600}, 0.6);
     level.generateLevel();
 
     sre::Camera cam;
     cam.setOrthographicProjection(600,-1,1);
-    glm::vec3 eye (300, 300, 0);
-    glm::vec3 at (300, 300, -1);
+    auto x = 300;
+    auto y = 300;
+    glm::vec3 eye (x, y, 0);
+    glm::vec3 at (x, y, -1);
     glm::vec3 up (0, 1, 0);
     cam.lookAt(eye, at, up);
     ObjectManager::GetInstance()->GetCameraManager().RegisterCamera("main", cam);

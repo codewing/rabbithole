@@ -7,6 +7,7 @@
 #include "../engine/core/Component.hpp"
 #include "../engine/core/IUpdatable.hpp"
 #include "../engine/core/IInputable.hpp"
+#include "../engine/component/PhysicsComponent.hpp"
 
 class MovementComponent : public Component, public IUpdatable, public IInputable {
 
@@ -18,6 +19,8 @@ public:
     bool onKeyEvent(SDL_Event &event) override;
 
 private:
+
+    std::shared_ptr<PhysicsComponent> physicsComponent = nullptr;
 
     float moveUp = 0;
     float moveRight = 0;
