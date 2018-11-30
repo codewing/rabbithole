@@ -34,7 +34,9 @@
 
 		std::vector<glm::vec3> positions;
 		for (p2t::Triangle* t : triangles) {
-			positions.push_back({ toGlm(t->GetPoint(0)), toGlm(t->GetPoint(1)), toGlm(t->GetPoint(2)) });
+			positions.push_back(toGlm(t->GetPoint(0)));
+            positions.push_back(toGlm(t->GetPoint(1)));
+            positions.push_back(toGlm(t->GetPoint(2)));
 		}
 
 		std::shared_ptr<sre::Mesh> mesh = sre::Mesh::create()

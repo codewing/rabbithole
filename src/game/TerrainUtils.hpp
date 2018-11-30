@@ -1,9 +1,15 @@
 #pragma once
 
+#define BOOST_GEOMETRY_OVERLAY_NO_THROW
+#include <boost/geometry/geometry.hpp>
+#include <boost/geometry/geometries/register/point.hpp>
+#include <boost/geometry/geometries/ring.hpp>
 #include <sre/Mesh.hpp>
 #include <Box2D/Box2D.h>
 #include <poly2tri/poly2tri.h>
 #include <boost/geometry/geometry.hpp>
+
+BOOST_GEOMETRY_REGISTER_POINT_2D(b2Vec2, float, boost::geometry::cs::cartesian, x, y)
 
 using ring_t = boost::geometry::model::ring<b2Vec2, false, true>;
 using ring_collection_t = std::vector<ring_t>;
