@@ -9,6 +9,7 @@
 #include "../engine/component/SpriteComponent.hpp"
 #include "../engine/component/PhysicsComponent.hpp"
 #include "MovementComponent.hpp"
+#include "Level.hpp"
 #include <string>
 
 class PhysicsObject;
@@ -30,6 +31,9 @@ void WormholeGame::initialize() {
 
     auto physicsComp = ObjectManager::GetInstance()->CreateComponent<PhysicsComponent>(isi.get());
     physicsComp->initCircle(b2_staticBody, sprite.getSpriteSize().x, glm::vec2{0,0}, 0.0f);
+
+    Level level({800,600}, 0.6);
+    level.generateLevel();
 
     sre::Camera cam;
     cam.setOrthographicProjection(600,-1,1);

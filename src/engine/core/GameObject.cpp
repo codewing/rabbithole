@@ -15,7 +15,7 @@ const glm::vec2 &GameObject::getPosition() const {
 }
 
 void GameObject::setPosition(const glm::vec2 &position) {
-    GameObject::position = position;
+    this->position = position;
 }
 
 float GameObject::getRotation() const {
@@ -23,7 +23,7 @@ float GameObject::getRotation() const {
 }
 
 void GameObject::setRotation(float rotation) {
-    GameObject::rotation = rotation;
+    this->rotation = rotation;
 }
 
 const std::vector<std::shared_ptr<Component>>& GameObject::getComponents() {

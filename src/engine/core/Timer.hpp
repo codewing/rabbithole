@@ -6,8 +6,8 @@
 
 #include <chrono>
 
-typedef std::chrono::high_resolution_clock Clock;
-using MilliSeconds = std::chrono::duration<float, std::chrono::milliseconds::period>;
+using Clock = std::chrono::high_resolution_clock;
+using Seconds = std::chrono::duration<float, std::chrono::seconds::period>;
 
 class Timer {
 public:
@@ -20,8 +20,8 @@ public:
 
 private:
 
-    std::chrono::time_point<Clock, MilliSeconds> startPoint;
-    std::chrono::time_point<Clock, MilliSeconds> lastTick;
+    std::chrono::time_point<Clock> startPoint;
+    std::chrono::time_point<Clock> lastTick;
 
-    float lastDelta;
+    float lastDelta = 0;
 };

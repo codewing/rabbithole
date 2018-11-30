@@ -13,9 +13,9 @@ class WorldComponent : public Component {
 public:
     explicit WorldComponent(GameObject* gameObject);
 
-	std::vector<RingInteractable>& getRings();
+	std::vector<std::shared_ptr<RingInteractable>>& getRings();
 	void addRing(std::vector<b2Vec2> ring);
 
 private:
-	std::vector<RingInteractable> rings;
+	std::vector<std::shared_ptr<RingInteractable>> rings;
 };

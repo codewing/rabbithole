@@ -16,5 +16,10 @@ public:
     void onUpdate(float deltaTime) override;
 
     bool onKeyEvent(SDL_Event &event) override;
+
+private:
+
+    float moveUp = 0;
+    float moveRight = 0;
 };
 
