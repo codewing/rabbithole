@@ -21,6 +21,8 @@ public:
 
     void setRotation(float newAngle) override;
 
+    std::vector<b2Vec2> const getRingData();
+
 private:
 
     WorldComponent* worldComponent;

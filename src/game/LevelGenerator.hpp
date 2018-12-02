@@ -6,21 +6,11 @@
 #include <boost/geometry/geometry.hpp>
 #include <Box2D/Common/b2Math.h>
 
-class PlatformerGame;
 class GameObject;
 class WorldComponent;
 
-enum class TileCollider {
-    Block,
-    BlockHalf,
-    Incline,
-    Decline
-};
-
-class Level {
+class LevelGenerator {
 public:
-    static std::shared_ptr<Level> createDefaultLevel(glm::vec2 levelSize);
-
     void generateLevel();
 	void addTerrain(WorldComponent* world_comp);
 	void addIslands(WorldComponent* world_comp, int number);
@@ -30,17 +20,13 @@ public:
 	std::vector<b2Vec2> createTerrain(WorldComponent* world_comp);
 	std::vector<b2Vec2> createIslandPoints(int size, b2Vec2 position);
 
+	static constexpr int sampleDistancePX = 20;
 
-
-    static constexpr float tileSize = 21;
-	static constexpr int terrainResolution = 800;
-
-    Level(glm::vec2 levelSize, float earthPercentage);
-
+    LevelGenerator(glm::vec2 levelSize, float earthPercentage);
 
 private:
-	PlatformerGame* game;
-
     glm::vec2 levelSize;
     float earthPercentage;
+
+	float evaluateTerrainFunction(float x);
 };

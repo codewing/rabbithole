@@ -20,3 +20,7 @@ RingInteractable::RingInteractable(WorldComponent* worldComponent, std::vector<b
     : worldComponent(worldComponent), ringData(ringData) {
     initChain(b2BodyType::b2_staticBody, ringData, {0, 0}, 1);
 }
+
+std::vector<b2Vec2> const RingInteractable::getRingData() {
+    return ringData;
+}

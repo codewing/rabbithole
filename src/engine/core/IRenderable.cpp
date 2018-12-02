@@ -8,3 +8,5 @@ void IRenderable::onRenderSprite(sre::SpriteBatch::SpriteBatchBuilder &spriteBat
 
 }
 
+void IRenderable::onRender(sre::RenderPass &renderPass) {}
+

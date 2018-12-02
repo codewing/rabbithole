@@ -9,7 +9,7 @@
 #include "../engine/component/SpriteComponent.hpp"
 #include "../engine/component/PhysicsComponent.hpp"
 #include "MovementComponent.hpp"
-#include "Level.hpp"
+#include "LevelGenerator.hpp"
 #include <string>
 
 class PhysicsObject;
@@ -33,7 +33,7 @@ void WormholeGame::initialize() {
 
     auto movementComp = ObjectManager::GetInstance()->CreateComponent<MovementComponent>(isi.get());
 
-    Level level({800,600}, 0.6);
+    LevelGenerator level({800,600}, 0.6);
     level.generateLevel();
 
     sre::Camera cam;

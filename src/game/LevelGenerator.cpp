@@ -2,7 +2,7 @@
 // Created by Morten Nobel-Jørgensen on 11/3/17.
 //
 
-#include "Level.hpp"
+#include "LevelGenerator.hpp"
 #include "WorldComponent.hpp"
 #include <boost/geometry/geometry.hpp>
 #include <iostream>
@@ -11,17 +11,11 @@
 #include <poly2tri/poly2tri.h>
 #include "../engine/core/ObjectManager.hpp"
 
-Level::Level(glm::vec2 levelSize, float earthPercentage) : levelSize(levelSize), earthPercentage(earthPercentage) {
+LevelGenerator::LevelGenerator(glm::vec2 levelSize, float earthPercentage) : levelSize(levelSize), earthPercentage(earthPercentage) {
 	srand((unsigned)time(0));
 }
 
-std::shared_ptr<Level> Level::createDefaultLevel(glm::vec2 levelSize) {
-    std::shared_ptr<Level> res = std::shared_ptr<Level>(new Level(levelSize, 0.6));
-
-    return res;
-}
-
-void Level::generateLevel() {
+void LevelGenerator::generateLevel() {
 	auto gameObject = ObjectManager::GetInstance()->CreateGameObject("World");
 	auto world_comp = ObjectManager::GetInstance()->CreateComponent<WorldComponent>(gameObject.get());
 
@@ -30,56 +24,38 @@ void Level::generateLevel() {
 	auto number = rand() % 5 + 1; // TODO: add clever number of islands (right now is [1, 2, 3])
 
 	std::cout << "Number of island: " << number << std::endl;
-	addIslands(world_comp.get(), number);
+	//addIslands(world_comp.get(), number);
+
+	// Building the visual representation
+	world_comp->updateMeshes();
 }
 
-void Level::addTerrain(WorldComponent* world_comp) {
+void LevelGenerator::addTerrain(WorldComponent* world_comp) {
 	
 	std::vector<b2Vec2> points = createTerrain(world_comp);
 	world_comp->addRing(std::move(points));
 }
 
 // generating the list of positions of the terrain
-std::vector<b2Vec2> Level::createTerrain(WorldComponent* world_comp) {
-	auto start_y = levelSize.x * earthPercentage * 0.6;
+std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
+	auto yOffset = levelSize.y * earthPercentage;
+	auto yDeviation = yOffset * 0.8;
 	std::vector<b2Vec2> result;
-	float x, y;
-	float a, phi, omega_lf;
-	float b, theta, omega_mf;
-	float c, xi, omega_hf;
-	float delta = 1;
 
-	// Generating sampling parameters for low frequency function
-	a = 40;
-	phi = rand() % 360;
-	omega_lf = 1;
-
-	// Generating sampling parameters for medium frequency function
-	b = 20;
-	theta = rand() % 360;
-	omega_mf = 2.5;
-
-	// Generating sampling parameters for high frequency function
-	c = 10;
-	xi = rand() % 360;
-	omega_hf = 9;
-
-	result.push_back(b2Vec2(0, 0));
-	for (int i = 0; i < terrainResolution; i++) {
-		x = i * delta;
-		y = start_y;
-		y += a * sin(glm::radians(omega_lf * x + phi));
-		y += b * sin(glm::radians(omega_mf * x + theta));
-		y += c * sin(glm::radians(omega_hf * x + xi));
-		result.push_back(b2Vec2(x, y));
+	result.emplace_back(b2Vec2(0, 0));
+	for (int xPos = 0; xPos < levelSize.x; xPos += sampleDistancePX) {
+		double yPos = evaluateTerrainFunction(static_cast<float>(xPos)/levelSize.x) * yDeviation;
+		result.emplace_back(b2Vec2(xPos, yOffset + static_cast<int>(yPos)));
 	}
-	result.push_back(b2Vec2(int(terrainResolution * delta), 0));
-	result.push_back(b2Vec2(0, 0));
+
+	//add the bottom two points
+	result.emplace_back(b2Vec2(levelSize.x, 0));
+	//result.emplace_back(b2Vec2(0, 0));
 	
 	return result;
 }
 
-void Level::addIslands(WorldComponent* world_comp, int amount) {
+void LevelGenerator::addIslands(WorldComponent* world_comp, int amount) {
 	std::vector<b2Vec2> islandPositions = createIslandPositions(world_comp, amount);
 	std::vector<int> islandDimensions = createIslandDimensions(amount);
 
@@ -88,7 +64,7 @@ void Level::addIslands(WorldComponent* world_comp, int amount) {
 	}	
 }
 
-std::vector<b2Vec2>  Level::createIslandPositions(WorldComponent* world_comp, int number) {
+std::vector<b2Vec2>  LevelGenerator::createIslandPositions(WorldComponent* world_comp, int number) {
 	auto start_y = levelSize.y * earthPercentage;
 	auto VERTICAL_DIVISION = 3;
 	auto HORIZONTAL_DIVISION = 2;
@@ -116,12 +92,12 @@ std::vector<b2Vec2>  Level::createIslandPositions(WorldComponent* world_comp, in
 	return res;
 }
 
-void Level::addIsland(WorldComponent* world_comp, int size, b2Vec2 position) {
+void LevelGenerator::addIsland(WorldComponent* world_comp, int size, b2Vec2 position) {
 	auto points = createIslandPoints(size, position);
 	world_comp->addRing(std::move(points));
 }
 
-std::vector<int> Level::createIslandDimensions(int number) {
+std::vector<int> LevelGenerator::createIslandDimensions(int number) {
 	auto SIZES = 3;
 	std::vector<int> res;
 	for (int i = 0; i < number; i++) {
@@ -130,7 +106,7 @@ std::vector<int> Level::createIslandDimensions(int number) {
 	return res;
 }
 
-std::vector<b2Vec2> Level::createIslandPoints(int size, b2Vec2 position) {
+std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 position) {
 	// creating the vector of points of the island
 	auto angle = 10.f;
 	auto X_DIM = 40 * (size+1);
@@ -150,4 +126,8 @@ std::vector<b2Vec2> Level::createIslandPoints(int size, b2Vec2 position) {
 	}
 	result.push_back(result.at(0));
 	return result;
+}
+
+float LevelGenerator::evaluateTerrainFunction(float x) {
+	return -(x * (x-0.3f) * (x-0.6f) * (x-1)) * 25;
 }
