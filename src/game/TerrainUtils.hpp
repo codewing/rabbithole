@@ -21,9 +21,9 @@ public:
 	std::shared_ptr<sre::Mesh> generateMesh(const std::vector<b2Vec2>& chain);
 	
 private:
-	std::vector<p2t::Triangle*> createTriangulation(const std::vector<b2Vec2>& points);
-
 	std::shared_ptr<sre::Mesh> buildMesh(std::vector<p2t::Triangle*> triangles);
+
+	std::shared_ptr<sre::Mesh> buildTrianglesAndMesh(const std::vector<b2Vec2>& chain);
 
 	// Conversion methods
 	glm::vec3 toGlm(p2t::Point* point);

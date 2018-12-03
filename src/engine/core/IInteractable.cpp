@@ -83,6 +83,7 @@ void IInteractable::initBox(b2BodyType type, glm::vec2 size, glm::vec2 center, f
 // points in local coordinates, position is the center of the polygon
 void IInteractable::initChain(b2BodyType type, std::vector<b2Vec2> points, glm::vec2 position, float density) {
     assert(body == nullptr);
+	std::for_each(points.begin(), points.end(), [](b2Vec2& point) {point.x /= PhysicsSystem::PHYSICS_SCALE; point.y /= PhysicsSystem::PHYSICS_SCALE; });
 
     // do init
     shapeType = b2Shape::Type::e_chain;

@@ -24,7 +24,7 @@ void WormholeGame::initialize() {
     auto sprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("bird1.png", "bird");
 
     std::shared_ptr<GameObject> isi = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe");
-    isi->setPosition({-50, 50});
+    isi->setPosition({100, 600});
     auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(isi.get());
     spriteComp->setSprite(sprite);
 

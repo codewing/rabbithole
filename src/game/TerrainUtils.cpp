@@ -4,20 +4,24 @@
 
     std::shared_ptr<sre::Mesh> TerrainUtils::generateMesh(const std::vector<b2Vec2>& chain) {
 
-		std::vector<p2t::Triangle*> triangles = createTriangulation(chain);
-		return buildMesh(triangles);
+		/*std::vector<p2t::Triangle*> triangles = createTriangulation(chain);
+		return buildMesh(triangles);*/
+
+		return buildTrianglesAndMesh(chain);
 
 	}
 
-	std::vector<p2t::Triangle*> TerrainUtils::createTriangulation(const std::vector<b2Vec2>& points) {
-		std::vector<p2t::Point*> p2tPoints;
-		for (int i = 0; i < points.size(); i++) {
-			auto& point = points.at(i);
+	std::shared_ptr<sre::Mesh> TerrainUtils::buildTrianglesAndMesh(const std::vector<b2Vec2>& chain) {
+		static std::vector<p2t::Point*> p2tPoints;
+		for (int i = 0; i < chain.size(); i++) {
+			auto& point = chain.at(i);
 			p2tPoints.push_back(new p2t::Point(point.x, point.y));
 		}
-		p2t::SweepContext sc{p2tPoints};
+		p2t::SweepContext sc{ p2tPoints };
 		p2t::Sweep sweep = p2t::Sweep();
 		sweep.Triangulate(sc);
+
+		std::shared_ptr<sre::Mesh> result = buildMesh(sc.GetTriangles());
 
 		// free the points again
 		for (auto it = p2tPoints.begin();
@@ -26,8 +30,7 @@
 		}
 		p2tPoints.clear();
 
-		return sc.GetTriangles();
-
+		return result;
 	}
 	
 	std::shared_ptr<sre::Mesh> TerrainUtils::buildMesh(std::vector<p2t::Triangle*> triangles) {
@@ -96,7 +99,7 @@
 	ring_t TerrainUtils::makeConvexRing(b2Vec2 position, float radius, int numberVertices)
 	{
 		ring_t convexRing;
-		const float theta = static_cast<float>(M_2_PI / numberVertices);
+		const float theta = static_cast<float>(glm::radians(360.f) / numberVertices);
 
 		float c = std::cos(theta);
 		float s = std::sin(theta);
