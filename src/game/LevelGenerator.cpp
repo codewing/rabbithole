@@ -24,7 +24,7 @@ void LevelGenerator::generateLevel() {
 	auto number = rand() % 5 + 1; // TODO: add clever number of islands (right now is [1, 2, 3])
 
 	std::cout << "Number of island: " << number << std::endl;
-	//addIslands(world_comp.get(), number);
+	addIslands(world_comp.get(), number);
 
 	// Building the visual representation
 	world_comp->updateMeshes();
@@ -50,7 +50,7 @@ std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
 
 	//add the bottom two points
 	result.emplace_back(b2Vec2(levelSize.x, 0));
-	//result.emplace_back(b2Vec2(0, 0));
+	result.emplace_back(b2Vec2(0, 0));
 	
 	return result;
 }
@@ -124,6 +124,7 @@ std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 position
 		result.push_back({ position.x + X_DIM*cos(glm::radians(angle*i)),
 			position.y + Y_DIM*sin(glm::radians(angle*i)) + noise_y});
 	}
+	// commented not to mislead when creating meshes
 	result.push_back(result.at(0));
 	return result;
 }

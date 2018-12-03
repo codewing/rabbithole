@@ -13,7 +13,7 @@
 
 	std::shared_ptr<sre::Mesh> TerrainUtils::buildTrianglesAndMesh(const std::vector<b2Vec2>& chain) {
 		static std::vector<p2t::Point*> p2tPoints;
-		for (int i = 0; i < chain.size(); i++) {
+		for (int i = 0; i < chain.size() -1; i++) {
 			auto& point = chain.at(i);
 			p2tPoints.push_back(new p2t::Point(point.x, point.y));
 		}
