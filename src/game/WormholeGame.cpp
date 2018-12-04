@@ -18,8 +18,8 @@ void WormholeGame::update(float deltaTime) {
 
 void WormholeGame::initialize() {
 
-    Rabbit redRabbit {engine, "red", {200, 600}};
-    Rabbit blueRabbit {engine, "blue", {300, 700}};
+    //Rabbit redRabbit {engine, "red", {200, 600}};
+    //Rabbit blueRabbit {engine, "blue", {300, 700}};
 
     LevelGenerator level({800,600}, 0.6);
     level.generateLevel();

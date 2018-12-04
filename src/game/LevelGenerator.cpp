@@ -41,17 +41,19 @@ std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
 	auto yOffset = levelSize.y * earthPercentage;
 	auto yDeviation = yOffset * 0.8;
 	std::vector<b2Vec2> result;
+	std::vector<int> xPoints;
 
-	result.emplace_back(b2Vec2(0, 0));
-	for (int xPos = 0; xPos < levelSize.x; xPos += sampleDistancePX) {
-		double yPos = evaluateTerrainFunction(static_cast<float>(xPos)/levelSize.x) * yDeviation;
-		result.emplace_back(b2Vec2(xPos, yOffset + static_cast<int>(yPos)));
+	for (int i = 0; i < levelSize.x; i++) {
+		xPoints.emplace_back(i);
 	}
 
-	//add the bottom two points
-	result.emplace_back(b2Vec2(levelSize.x, 0));
-	result.emplace_back(b2Vec2(0, 0));
+	TerrainUtils tu;
 	
+	result = tu.combineNoise(xPoints, tu.generateNoise(xPoints, 128, 128, 5, 2));
+	result.emplace(result.begin(), b2Vec2(0, 0));
+	result.emplace_back(b2Vec2(levelSize.x - 1, 0));
+	result.emplace_back(b2Vec2(0, 0));
+
 	return result;
 }
 

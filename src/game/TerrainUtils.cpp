@@ -124,3 +124,72 @@
 
 		return convexRing;
 	}
+
+	float TerrainUtils::linearCongruentialGen() {
+		long int M = 294967296;
+		// a - 1 should be divisible by m's prime factors
+		int	A = 1664525;
+		// c and m should be co-prime
+		int	C = 1;
+		int Z = std::floor((static_cast<float>(rand())/RAND_MAX + 1)* M);
+
+		Z = (A * Z + C) % M;
+
+		return Z / M;
+	}
+
+	float TerrainUtils::coserp(float x, float y, float t) {
+		float tetha = t * glm::radians(180.f);
+		float f = (1 - cos(tetha)) * 0.5;
+		return x * (1 - f) + y * f;
+	}
+
+	std::vector<float> TerrainUtils::perlinNoise1D(std::vector<int> xPoints, int ampl, int wavelen) {
+		int x = 0;
+		int h = 0;
+		int y;
+
+		float a = (static_cast<float>(rand()) / RAND_MAX + 1);
+		float b = (static_cast<float>(rand()) / RAND_MAX + 1);
+
+		std::vector<float> result;
+
+		for (int i = 0; i < xPoints.size(); i++) {
+			if (i % wavelen == 0) {
+				a = b;
+				b = (static_cast<float>(rand()) / RAND_MAX + 1);
+				y = h / 2 + a * ampl;
+			}
+			else {
+				y = h / 2 + coserp(a, b, static_cast<float>((xPoints.at(i) % wavelen)) / wavelen) * ampl;
+			}
+			result.push_back(y);
+		}
+
+		return result;
+	}
+
+	std::vector<std::vector<float>> TerrainUtils::generateNoise(std::vector<int> xPoints, int ampl, int wavelen, int octaves, int divisor) {
+		std::vector<std::vector<float>> result;
+		for (int i = 0; i < octaves; i++) {
+			result.push_back(perlinNoise1D(xPoints, ampl, wavelen));
+			ampl /= divisor;
+			wavelen /= divisor;
+		}
+		return result;
+	}
+
+	std::vector<b2Vec2> TerrainUtils::combineNoise(std::vector<int> xPoints, std::vector<std::vector<float>> noiseOctaves) {
+		std::vector<b2Vec2> result;
+		float yTotal;
+
+		for (int i = 0; i < xPoints.size(); i++) {
+			yTotal = 0;
+			for (auto octave : noiseOctaves) {
+				yTotal += octave.at(i);
+			}
+			result.push_back({static_cast<float>(xPoints.at(i)), yTotal});
+		}
+		return result;
+	}
+

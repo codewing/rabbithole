@@ -9,7 +9,7 @@
 #include <poly2tri/poly2tri.h>
 #include <boost/geometry/geometry.hpp>
 
-BOOST_GEOMETRY_REGISTER_POINT_2D(b2Vec2, float, boost::geometry::cs::cartesian, x, y)
+BOOST_GEOMETRY_REGISTER_POINT_2D(b2Vec2, float, boost::geometry::cs::cartesian, x, y);
 
 using ring_t = boost::geometry::model::ring<b2Vec2, false, true>;
 using ring_collection_t = std::vector<ring_t>;
@@ -19,11 +19,21 @@ class TerrainUtils {
 public:
 
 	std::shared_ptr<sre::Mesh> generateMesh(const std::vector<b2Vec2>& chain);
+
+	std::vector<std::vector<float>> generateNoise(std::vector<int> xPoints, int ampl, int wavelen, int octaves, int divisor);
+
+	std::vector<b2Vec2> combineNoise(std::vector<int> xPoints, std::vector<std::vector<float>> noiseOctaves);
 	
 private:
 	std::shared_ptr<sre::Mesh> buildMesh(std::vector<p2t::Triangle*> triangles);
 
 	std::shared_ptr<sre::Mesh> buildTrianglesAndMesh(const std::vector<b2Vec2>& chain);
+
+	float linearCongruentialGen();
+
+	float coserp(float x, float y, float t);
+
+	std::vector<float> perlinNoise1D(std::vector<int> xPoints, int ampl, int wavelen);
 
 	// Conversion methods
 	glm::vec3 toGlm(p2t::Point* point);
