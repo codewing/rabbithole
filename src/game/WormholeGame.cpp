@@ -21,7 +21,7 @@ void WormholeGame::update(float deltaTime) {
 
 void WormholeGame::initialize() {
 
-    auto sprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("bird1.png", "bird");
+    auto sprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("red_anim_Rabbit_Idle_000.png", "bunny");
 
     std::shared_ptr<GameObject> isi = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe");
     isi->setPosition({100, 600});
@@ -29,7 +29,7 @@ void WormholeGame::initialize() {
     spriteComp->setSprite(sprite);
 
     auto physicsComp = ObjectManager::GetInstance()->CreateComponent<PhysicsComponent>(isi.get());
-    physicsComp->initCircle(b2_dynamicBody, sprite.getSpriteSize().x, isi->getPosition(), 0.0f);
+    physicsComp->initCircle(b2_dynamicBody, sprite.getSpriteSize().x/2, isi->getPosition(), 0.0f);
 
     auto movementComp = ObjectManager::GetInstance()->CreateComponent<MovementComponent>(isi.get());
 
@@ -37,9 +37,9 @@ void WormholeGame::initialize() {
     level.generateLevel();
 
     sre::Camera cam;
-    cam.setOrthographicProjection(600,-1,1);
+    cam.setOrthographicProjection(300,-1,1);
     auto x = 300;
-    auto y = 300;
+    auto y = 500;
     glm::vec3 eye (x, y, 0);
     glm::vec3 at (x, y, -1);
     glm::vec3 up (0, 1, 0);

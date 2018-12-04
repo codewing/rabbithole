@@ -72,10 +72,10 @@ target_link_libraries(Worm poly2tri)
 
 # copy files to dest
 IF (WIN32)
-    file(COPY atlas_textures DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
-    file(COPY atlas_textures DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
+    file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+    file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
 ELSE(WIN32)
-    file(COPY atlas_textures DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 ENDIF(WIN32)
 
 IF (WIN32)
