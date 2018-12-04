@@ -1,7 +1,7 @@
 {"frames": [
 
 {
-	"filename": "blue_Rabbit_Idle_000.png",
+	"filename": "blue_anim_Rabbit_Idle_000.png",
 	"frame": {"x":0,"y":0,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
@@ -9,7 +9,7 @@
 	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "blue_Rabbit_Idle_001.png",
+	"filename": "blue_anim_Rabbit_Idle_001.png",
 	"frame": {"x":64,"y":0,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
@@ -17,7 +17,7 @@
 	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "blue_Rabbit_Idle_002.png",
+	"filename": "blue_anim_Rabbit_Idle_002.png",
 	"frame": {"x":128,"y":0,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
@@ -25,7 +25,7 @@
 	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "blue_Rabbit_Idle_003.png",
+	"filename": "blue_anim_Rabbit_Idle_003.png",
 	"frame": {"x":192,"y":0,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
@@ -33,7 +33,7 @@
 	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "blue_Rabbit_Movement_000.png",
+	"filename": "blue_anim_Rabbit_Movement_000.png",
 	"frame": {"x":0,"y":64,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
@@ -41,7 +41,7 @@
 	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "blue_Rabbit_Movement_001.png",
+	"filename": "blue_anim_Rabbit_Movement_001.png",
 	"frame": {"x":64,"y":64,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,

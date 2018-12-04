@@ -2,8 +2,7 @@
 // Created by codewing on 07.11.18.
 //
 
-#ifndef SIMPLERENDERENGINEPROJECT_WORMHOLEGAME_H
-#define SIMPLERENDERENGINEPROJECT_WORMHOLEGAME_H
+#pragma once
 
 #include "../engine/core/EngineCore.hpp"
 #include "../engine/core/GameModule.hpp"
@@ -18,6 +17,3 @@ private:
     void initialize() override;
     void update(float deltaTime);
 };
-
-
-#endif //SIMPLERENDERENGINEPROJECT_WORMHOLEGAME_H
