@@ -21,13 +21,16 @@ void WormholeGame::initialize() {
     //Rabbit redRabbit {engine, "red", {200, 600}};
     //Rabbit blueRabbit {engine, "blue", {300, 700}};
 
-    LevelGenerator level({800,600}, 0.6);
+	auto Xdim = 2048;
+	auto Ydim = 2048;
+
+    LevelGenerator level({Xdim,Ydim}, 0.6);
     level.generateLevel();
 
     sre::Camera cam;
-    cam.setOrthographicProjection(500,-1,1);
-    auto x = 300;
-    auto y = 500;
+    cam.setOrthographicProjection(1000,-1,1);
+    auto x = Xdim / 2;
+    auto y = Ydim / 2;
     glm::vec3 eye (x, y, 0);
     glm::vec3 at (x, y, -1);
     glm::vec3 up (0, 1, 0);

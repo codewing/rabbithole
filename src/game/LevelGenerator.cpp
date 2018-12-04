@@ -21,7 +21,7 @@ void LevelGenerator::generateLevel() {
 
 	addTerrain(world_comp.get());
 
-	auto number = rand() % 5 + 1; // TODO: add clever number of islands (right now is [1, 2, 3])
+	auto number = rand() % 3 + 3; // TODO: add clever number of islands 
 
 	std::cout << "Number of island: " << number << std::endl;
 	addIslands(world_comp.get(), number);
@@ -111,13 +111,13 @@ std::vector<int> LevelGenerator::createIslandDimensions(int number) {
 std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 position) {
 	// creating the vector of points of the island
 	auto angle = 10.f;
-	auto X_DIM = 40 * (size+1);
-	auto Y_DIM = 15 * (size+1);
+	auto X_DIM = levelSize.x / 40 * (size+1);
+	auto Y_DIM = levelSize.y / 120 * (size+1);
 	float noise_y;
 	std::vector<b2Vec2> result;
 
 	for (int i = 0; i < 360/angle; i++) {
-		noise_y = rand() % 5;
+		noise_y = rand() % 20;
 		
 
 		if (angle * i > 90 && angle * i < 270)
@@ -126,7 +126,7 @@ std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 position
 		result.push_back({ position.x + X_DIM*cos(glm::radians(angle*i)),
 			position.y + Y_DIM*sin(glm::radians(angle*i)) + noise_y});
 	}
-	// commented not to mislead when creating meshes
+	
 	result.push_back(result.at(0));
 	return result;
 }
