@@ -27,6 +27,12 @@ private:
 	std::vector<std::shared_ptr<RingInteractable>> rings;
 
 	std::vector<std::shared_ptr<sre::Mesh>> worldMeshes;
+	std::shared_ptr<sre::Material> worldMaterial;
+
+    std::shared_ptr<sre::Mesh> backgroundMesh;
+    std::shared_ptr<sre::Material> backgroundMaterial;
 
 	TerrainUtils terrainUtils;
+
+	void initializeBackground();
 };

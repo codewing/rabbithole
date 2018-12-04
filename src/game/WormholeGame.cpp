@@ -37,7 +37,7 @@ void WormholeGame::initialize() {
     level.generateLevel();
 
     sre::Camera cam;
-    cam.setOrthographicProjection(300,-1,1);
+    cam.setOrthographicProjection(600,-1,1);
     auto x = 300;
     auto y = 500;
     glm::vec3 eye (x, y, 0);

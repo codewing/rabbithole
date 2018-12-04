@@ -24,9 +24,8 @@
 		std::shared_ptr<sre::Mesh> result = buildMesh(sc.GetTriangles());
 
 		// free the points again
-		for (auto it = p2tPoints.begin();
-			  it != p2tPoints.end(); ++it ) {
-			delete * it;
+		for (auto it = p2tPoints.begin(); it != p2tPoints.end(); ++it ) {
+			delete *it;
 		}
 		p2tPoints.clear();
 
@@ -36,14 +35,20 @@
 	std::shared_ptr<sre::Mesh> TerrainUtils::buildMesh(std::vector<p2t::Triangle*> triangles) {
 
 		std::vector<glm::vec3> positions;
+		std::vector<glm::vec4> uvs;
 		for (p2t::Triangle* t : triangles) {
 			positions.push_back(toGlm(t->GetPoint(0)));
             positions.push_back(toGlm(t->GetPoint(1)));
             positions.push_back(toGlm(t->GetPoint(2)));
+
+			uvs.emplace_back(glm::vec4{toGlm(t->GetPoint(0)) / terrainImageSize, 1.0f});
+			uvs.emplace_back(glm::vec4{toGlm(t->GetPoint(1)) / terrainImageSize, 1.0f});
+			uvs.emplace_back(glm::vec4{toGlm(t->GetPoint(2)) / terrainImageSize, 1.0f});
 		}
 
 		std::shared_ptr<sre::Mesh> mesh = sre::Mesh::create()
 			.withPositions(positions)
+			.withUVs(uvs)
 			.build();
 
 		return mesh;
