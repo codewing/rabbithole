@@ -30,5 +30,7 @@ private:
 
     void sanitizedFocusOn(glm::vec2 position, int distance, float time);
     void lookAtPosition(const glm::vec2& position, float cameraDistance);
+
+    float getAspectRatio();
 };
 

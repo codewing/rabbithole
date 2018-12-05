@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include "../engine/core/ObjectManager.hpp"
+#include <sre/Renderer.hpp>
 
 void GameCameraController::initialize() {
     ObjectManager::GetInstance()->GetCameraManager().RegisterCamera("main", sre::Camera());
@@ -15,11 +16,12 @@ void GameCameraController::initialize() {
 }
 
 void GameCameraController::focusOn(const glm::vec2& position, int distance, float time) {
+    float aspectRatio = getAspectRatio();
 
     auto sanitizedDistance = std::clamp<int>(distance, minDistance, maxDistance);
     auto sanitizedTime = std::clamp<float>(time, 0, 99999999);
-    auto sanitizedPositionX = std::clamp<float>(position.x, sanitizedDistance/2.0f, 2048 - sanitizedDistance/2.0f);
-    auto sanitizedPositionY = std::clamp<float>(position.y, sanitizedDistance/2.0f, 2048 - sanitizedDistance/2.0f);
+    auto sanitizedPositionX = std::clamp<float>(position.x, sanitizedDistance * aspectRatio, 2048 - sanitizedDistance* aspectRatio);
+    auto sanitizedPositionY = std::clamp<float>(position.y, sanitizedDistance, 2048 - sanitizedDistance);
 
     sanitizedFocusOn({sanitizedPositionX, sanitizedPositionY}, sanitizedDistance, sanitizedTime);
 }
@@ -54,4 +56,11 @@ void GameCameraController::lookAtPosition(const glm::vec2 &position, float camer
     cam->lookAt(eye, at, up);
 
     cam->setOrthographicProjection(cameraDistance, -1, 1);
+}
+
+float GameCameraController::getAspectRatio() {
+    float aspectY = sre::Renderer::instance->getWindowSize().y;
+    float aspectX = sre::Renderer::instance->getWindowSize().x;
+
+    return aspectX / aspectY;
 }
