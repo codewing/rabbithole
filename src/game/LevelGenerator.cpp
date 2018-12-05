@@ -1,8 +1,6 @@
-//
-// Created by Morten Nobel-Jørgensen on 11/3/17.
-//
-
 #include "LevelGenerator.hpp"
+#include "PortalComponent.hpp"
+#include "../engine/component/SpriteComponent.hpp"
 #include "WorldComponent.hpp"
 #include <boost/geometry/geometry.hpp>
 #include <iostream>
@@ -11,7 +9,7 @@
 #include <poly2tri/poly2tri.h>
 #include "../engine/core/ObjectManager.hpp"
 
-LevelGenerator::LevelGenerator(glm::vec2 levelSize, float earthPercentage) : levelSize(levelSize), earthPercentage(earthPercentage) {
+LevelGenerator::LevelGenerator(EngineCore& engine, glm::vec2 levelSize, float earthPercentage) : engine(engine), levelSize(levelSize), earthPercentage(earthPercentage) {
 	srand((unsigned)time(0));
 }
 
@@ -26,6 +24,7 @@ void LevelGenerator::generateLevel() {
 	std::cout << "Number of island: " << number << std::endl;
 	addIslands(world_comp.get(), number);
 
+	addPortals(2);
 	// Building the visual representation
 	world_comp->updateMeshes();
 }
@@ -129,4 +128,38 @@ std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 position
 	
 	result.push_back(result.at(0));
 	return result;
+}
+
+void LevelGenerator::addPortals(int couples) {
+	
+	auto blueSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("blue_anim_Rabbit_Idle_000.png", "bunny");
+	auto redSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("red_anim_Rabbit_Idle_000.png", "bunny");
+	//building a couple of Portals every time
+	for (int i = 0; i < couples; i++) {
+		
+		auto portal1 = ObjectManager::GetInstance()->CreateGameObject("Portal_" + std::to_string(i) + "_a");
+		auto port1_comp = ObjectManager::GetInstance()->CreateComponent<PortalComponent>(portal1.get());
+		
+
+		auto portal2 = ObjectManager::GetInstance()->CreateGameObject("Portal_" + std::to_string(i) + "_b");
+		auto port2_comp = ObjectManager::GetInstance()->CreateComponent<PortalComponent>(portal2.get());
+		
+
+		//set position of the gameObjects //TODO: find a better way to find where locate portals
+		portal1->setPosition({ rand() % 700, rand() % (700) + levelSize.y * earthPercentage });
+		portal2->setPosition({ rand() % 700, rand() % (700) + levelSize.y * earthPercentage });
+
+		//initializing circles for physics
+		port1_comp->initCircle(b2_staticBody, blueSprite.getSpriteSize().x / 4, portal1->getPosition(), 0.0f);
+		port2_comp->initCircle(b2_staticBody, redSprite.getSpriteSize().x / 4, portal2->getPosition(), 0.0f);
+
+		auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(portal1.get());
+		spriteComp->setSprite(blueSprite);
+		auto spriteComp1 = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(portal2.get());
+		spriteComp1->setSprite(redSprite);
+
+		//connecting the couple
+		port1_comp->setOtherPortal(portal2);
+		port2_comp->setOtherPortal(portal1);
+	}
 }

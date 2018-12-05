@@ -5,6 +5,7 @@
 #include <sre/SpriteAtlas.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <Box2D/Common/b2Math.h>
+#include "../engine/core/EngineCore.hpp"
 
 class GameObject;
 class WorldComponent;
@@ -15,6 +16,7 @@ public:
 	void addTerrain(WorldComponent* world_comp);
 	void addIslands(WorldComponent* world_comp, int number);
 	void addIsland(WorldComponent* world_comp, int size, b2Vec2 position);
+	void addPortals(int couples);
 	std::vector<b2Vec2>  createIslandPositions(WorldComponent* world_comp, int number);
 	std::vector<int> createIslandDimensions(int number);
 	std::vector<b2Vec2> createTerrain(WorldComponent* world_comp);
@@ -22,9 +24,10 @@ public:
 
 	static constexpr int sampleDistancePX = 20;
 
-    LevelGenerator(glm::vec2 levelSize, float earthPercentage);
+    LevelGenerator(EngineCore& engine, glm::vec2 levelSize, float earthPercentage);
 
 private:
     glm::vec2 levelSize;
     float earthPercentage;
+	EngineCore& engine;
 };
