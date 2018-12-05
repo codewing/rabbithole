@@ -1,6 +1,7 @@
 #include "TerrainUtils.hpp"
 
 #include <math.h>
+#include "LevelGenerator.hpp"
 
     std::shared_ptr<sre::Mesh> TerrainUtils::generateMesh(const std::vector<b2Vec2>& chain) {
 
@@ -125,19 +126,6 @@
 		return convexRing;
 	}
 
-	float TerrainUtils::linearCongruentialGen() {
-		long int M = 294967296;
-		// a - 1 should be divisible by m's prime factors
-		int	A = 1664525;
-		// c and m should be co-prime
-		int	C = 1;
-		int Z = std::floor((static_cast<float>(rand())/RAND_MAX + 1)* M);
-
-		Z = (A * Z + C) % M;
-
-		return Z / M;
-	}
-
 	float TerrainUtils::coserp(float x, float y, float t) {
 		float tetha = t * glm::radians(180.f);
 		float f = (1 - cos(tetha)) * 0.5;
@@ -155,7 +143,7 @@
 		std::vector<float> result;
 
 		for (int i = 0; i < xPoints.size(); i++) {
-			if (i % wavelen == 0) {
+			if (xPoints.at(i) % wavelen == 0) {
 				a = b;
 				b = (static_cast<float>(rand()) / RAND_MAX + 1);
 				y = h / 2 + a * ampl;
@@ -191,5 +179,25 @@
 			result.push_back({static_cast<float>(xPoints.at(i)), yTotal});
 		}
 		return result;
+	}
+
+	// Curves the edges of the terrain to give it the shape of an island.
+	void TerrainUtils::reshapeEdges(std::vector<b2Vec2>& terrain) {
+		float curvatureLength = (LevelGenerator::roundTerrainRatio / 2) * terrainImageSize;
+		float angle, step;
+		float xPrev;
+
+		for (int i = 0; i < (curvatureLength/16); i++) {
+			step = i / (curvatureLength/16);
+			angle = glm::radians(step * 90.f);
+			
+			xPrev = terrain.at(i).x;
+			terrain.erase(terrain.begin() + i);
+			terrain.insert(terrain.begin() + i, b2Vec2{ xPrev, terrain.at(i).y * sin(angle) });
+
+			xPrev = terrain.at(terrain.size() - 1 - i).x;
+			terrain.erase(terrain.end() - 1 - i);
+			terrain.insert(terrain.end() - i, b2Vec2{ xPrev, terrain.at(terrain.size() - 1 - i).y * sin(angle) });
+		}
 	}
 

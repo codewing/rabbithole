@@ -13,29 +13,26 @@ MovementComponent::MovementComponent(GameObject *gameObject) : Component(gameObj
 
 void MovementComponent::onUpdate(float deltaTime) {
     physicsComponent->addImpulse(10 * deltaTime * glm::vec2{moveRight, moveUp});
+	moveUp = 0;
 }
 
 bool MovementComponent::onKeyEvent(SDL_Event &event) {
 
     if(event.key.state == SDL_PRESSED) {
-        if(event.key.keysym.sym == SDLK_w) {
+        if(event.key.keysym.sym == SDLK_w && isGrounded) {
             moveUp = 1;
         }
-
-        if(event.key.keysym.sym == SDLK_s) {
-            moveUp = -1;
-        }
-
+		
         if(event.key.keysym.sym == SDLK_d) {
             moveRight = 1;
         }
-
+		
         if(event.key.keysym.sym == SDLK_a) {
             moveRight = -1;
         }
 
     } else {
-        if(event.key.keysym.sym == SDLK_w || event.key.keysym.sym == SDLK_s) {
+        if(event.key.keysym.sym == SDLK_w) {
             moveUp = 0;
         }
 
@@ -46,4 +43,9 @@ bool MovementComponent::onKeyEvent(SDL_Event &event) {
 
 
     return true;
+}
+
+void MovementComponent::setGrounded(bool value)
+{
+	isGrounded = value;
 }

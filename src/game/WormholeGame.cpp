@@ -13,14 +13,14 @@
 
 WormholeGame::WormholeGame(EngineCore &engine) :
                     GameModule(engine),
-                    redRabbit {engine, "red", {200, 600}},
-                    blueRabbit {engine, "blue", {300, 700}} {}
+                    redRabbit {engine, "red", {600, 1000}},
+                    blueRabbit {engine, "blue", {700, 1100}} {}
 
 void WormholeGame::update(float deltaTime) {
     cameraController.update(deltaTime);
 
     if(cameraController.isAtTarget) {
-        cameraController.focusOn(redRabbit.getPosition(), 700, 0.5f);
+        cameraController.focusOn(redRabbit.getPosition(), 700, 0.f);
     }
 }
 

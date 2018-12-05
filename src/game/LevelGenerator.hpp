@@ -22,12 +22,14 @@ public:
 	std::vector<b2Vec2> createTerrain(WorldComponent* world_comp);
 	std::vector<b2Vec2> createIslandPoints(int size, b2Vec2 position);
 
-	static constexpr int sampleDistancePX = 20;
+	static constexpr float emptyTerrainRatio = 0.25f;
+	static constexpr float roundTerrainRatio = 0.25f;
+	static constexpr float straightTerrainRatio = 0.5f;
 
     LevelGenerator(EngineCore& engine, glm::vec2 levelSize, float earthPercentage);
 
 private:
-    glm::vec2 levelSize;
+	glm::vec2 levelSize;
     float earthPercentage;
 	EngineCore& engine;
 };

@@ -18,11 +18,15 @@ public:
 
     bool onKeyEvent(SDL_Event &event) override;
 
+	void setGrounded(bool value);
+
 private:
 
     std::shared_ptr<PhysicsComponent> physicsComponent = nullptr;
 
     float moveUp = 0;
     float moveRight = 0;
+
+	bool isGrounded = true;
 };
 

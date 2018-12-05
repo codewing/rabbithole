@@ -42,16 +42,21 @@ std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
 	std::vector<b2Vec2> result;
 	std::vector<int> xPoints;
 
-	for (int i = 0; i < levelSize.x; i++) {
+	int beginGenerationPointX = std::floor((emptyTerrainRatio / 2) * levelSize.x);
+	int endGenerationPointX = std::floor((1 - emptyTerrainRatio / 2) * levelSize.x);
+
+	for (int i = beginGenerationPointX; i < endGenerationPointX; i+=16) {
 		xPoints.emplace_back(i);
 	}
 
 	TerrainUtils tu;
 	
-	result = tu.combineNoise(xPoints, tu.generateNoise(xPoints, 128, 128, 5, 2));
-	result.emplace(result.begin(), b2Vec2(0, 0));
+	result = tu.combineNoise(xPoints, tu.generateNoise(xPoints, 256, 128, 3, 2));
+
+	tu.reshapeEdges(result);
+
 	result.emplace_back(b2Vec2(levelSize.x - 1, 0));
-	result.emplace_back(b2Vec2(0, 0));
+	result.emplace_back(b2Vec2(beginGenerationPointX, 0));
 
 	return result;
 }

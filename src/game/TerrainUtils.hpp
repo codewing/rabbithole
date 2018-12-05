@@ -23,6 +23,8 @@ public:
 	std::vector<std::vector<float>> generateNoise(std::vector<int> xPoints, int ampl, int wavelen, int octaves, int divisor);
 
 	std::vector<b2Vec2> combineNoise(std::vector<int> xPoints, std::vector<std::vector<float>> noiseOctaves);
+
+	void reshapeEdges(std::vector<b2Vec2>& terrain);
 	
 private:
 	std::shared_ptr<sre::Mesh> buildMesh(std::vector<p2t::Triangle*> triangles);
