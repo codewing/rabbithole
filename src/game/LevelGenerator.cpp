@@ -146,8 +146,11 @@ void LevelGenerator::addPortals(int couples) {
 		
 
 		//set position of the gameObjects //TODO: find a better way to find where locate portals
-		portal1->setPosition({ rand() % 700, rand() % (700) + levelSize.y * earthPercentage });
-		portal2->setPosition({ rand() % 700, rand() % (700) + levelSize.y * earthPercentage });
+		auto randX = [](){ return (rand() % 1800) + 100;};
+		auto randY = [&](){ return (rand() % static_cast<int>(levelSize.y * (1-earthPercentage)) + levelSize.y * earthPercentage);};
+
+		portal1->setPosition({ randX(), randY() });
+		portal2->setPosition({ randX(), randY() });
 
 		//initializing circles for physics
 		port1_comp->initCircle(b2_staticBody, blueSprite.getSpriteSize().x / 4, portal1->getPosition(), 0.0f);
