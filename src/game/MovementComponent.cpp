@@ -12,7 +12,7 @@ MovementComponent::MovementComponent(GameObject *gameObject) : Component(gameObj
 }
 
 void MovementComponent::onUpdate(float deltaTime) {
-    physicsComponent->setLinearVelocity(100 * deltaTime * glm::vec2{moveRight, moveUp});
+    physicsComponent->addImpulse(10 * deltaTime * glm::vec2{moveRight, moveUp});
 }
 
 bool MovementComponent::onKeyEvent(SDL_Event &event) {
