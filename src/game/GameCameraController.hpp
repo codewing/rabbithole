@@ -22,6 +22,7 @@ public:
 private:
     sre::Camera* cam;
 
+    static constexpr glm::vec3 up = {0, 1, 0};
 
     glm::vec2 targetPosition = {0, 0};
     glm::vec2 startPosition = {0, 0};

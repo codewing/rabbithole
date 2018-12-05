@@ -66,7 +66,6 @@ void GameCameraController::sanitizedFocusOn(glm::vec2 position, int distance, fl
 void GameCameraController::lookAtPosition(const glm::vec2 &position, float cameraDistance) {
     glm::vec3 eye (position.x, position.y, 0);
     glm::vec3 at (position.x, position.y, -1);
-    static const glm::vec3 up (0, 1, 0);
     cam->lookAt(eye, at, up);
 
     cam->setOrthographicProjection(cameraDistance, -1, 1);

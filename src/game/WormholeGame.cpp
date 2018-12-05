@@ -17,7 +17,7 @@ void WormholeGame::update(float deltaTime) {
     cameraController.update(deltaTime);
 
     if(cameraController.isAtTarget) {
-        cameraController.focusOn({1024, 300}, 1000, 0.5f);
+        cameraController.focusOn({1024, 0}, 700, 0.5f);
     }
 }
 
@@ -30,5 +30,5 @@ void WormholeGame::initialize() {
     level.generateLevel();
 
     cameraController.initialize();
-    cameraController.focusOn({0, 0}, 500, 0);
+    cameraController.focusOn({1024, 1024}, 700, 0);
 }
