@@ -13,15 +13,18 @@ void GameCameraController::initialize() {
     ObjectManager::GetInstance()->GetCameraManager().SetActiveCamera("main");
 
     cam = ObjectManager::GetInstance()->GetCameraManager().GetCamera("main");
+    cam->setWindowCoordinates();
 }
 
 void GameCameraController::focusOn(const glm::vec2& position, int distance, float time) {
-    float aspectRatio = getAspectRatio();
-
     auto sanitizedDistance = std::clamp<int>(distance, minDistance, maxDistance);
     auto sanitizedTime = std::clamp<float>(time, 0, 99999999);
-    auto sanitizedPositionX = std::clamp<float>(position.x, sanitizedDistance * aspectRatio - 1000, 4096 - sanitizedDistance* aspectRatio);
-    auto sanitizedPositionY = std::clamp<float>(position.y, sanitizedDistance - 1000, 4096 - sanitizedDistance);
+
+    float aspectRatio = getAspectRatio();
+    float cameraWidthHalf = sanitizedDistance * aspectRatio;
+
+    auto sanitizedPositionX = std::clamp<float>(position.x, cameraWidthHalf, 2048.0f -  cameraWidthHalf);
+    auto sanitizedPositionY = std::clamp<float>(position.y, sanitizedDistance, 2048.0f - sanitizedDistance);
 
     sanitizedFocusOn({sanitizedPositionX, sanitizedPositionY}, sanitizedDistance, sanitizedTime);
 }
@@ -55,7 +58,7 @@ void GameCameraController::sanitizedFocusOn(glm::vec2 position, int distance, fl
     targetDistance = distance;
 
     startPosition = cam->getPosition();
-    targetDistance = currentDistance;
+    startDistance = currentDistance;
 
     animationTime = 0;
     animationDuration = time;
