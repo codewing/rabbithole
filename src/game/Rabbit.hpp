@@ -12,6 +12,8 @@ class Rabbit {
 public:
     Rabbit(EngineCore& engine, const std::string& team, glm::vec2 position);
 
+    glm::vec2 getPosition();
+
 private:
 
     EngineCore& engine;

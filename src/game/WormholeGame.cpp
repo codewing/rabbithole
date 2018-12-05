@@ -11,20 +11,20 @@
 #include "GameCameraController.hpp"
 
 
-WormholeGame::WormholeGame(EngineCore &engine) : GameModule(engine) {}
+WormholeGame::WormholeGame(EngineCore &engine) :
+                    GameModule(engine),
+                    redRabbit {engine, "red", {200, 600}},
+                    blueRabbit {engine, "blue", {300, 700}} {}
 
 void WormholeGame::update(float deltaTime) {
     cameraController.update(deltaTime);
 
     if(cameraController.isAtTarget) {
-        cameraController.focusOn({1024, 0}, 700, 0.5f);
+        cameraController.focusOn(redRabbit.getPosition(), 700, 0.5f);
     }
 }
 
 void WormholeGame::initialize() {
-
-    Rabbit redRabbit {engine, "red", {200, 600}};
-    Rabbit blueRabbit {engine, "blue", {300, 700}};
 
     LevelGenerator level({2048,2048}, 0.6);
     level.generateLevel();

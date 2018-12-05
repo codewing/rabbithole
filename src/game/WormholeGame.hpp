@@ -7,6 +7,7 @@
 #include "../engine/core/EngineCore.hpp"
 #include "../engine/core/GameModule.hpp"
 #include <memory>
+#include "Rabbit.hpp"
 
 #include "GameCameraController.hpp"
 
@@ -17,6 +18,9 @@ public:
 private:
 
     GameCameraController cameraController;
+
+    Rabbit redRabbit;
+    Rabbit blueRabbit;
 
     void initialize() override;
     void update(float deltaTime);

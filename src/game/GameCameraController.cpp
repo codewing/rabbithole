@@ -20,8 +20,8 @@ void GameCameraController::focusOn(const glm::vec2& position, int distance, floa
 
     auto sanitizedDistance = std::clamp<int>(distance, minDistance, maxDistance);
     auto sanitizedTime = std::clamp<float>(time, 0, 99999999);
-    auto sanitizedPositionX = std::clamp<float>(position.x, sanitizedDistance * aspectRatio, 2048 - sanitizedDistance* aspectRatio);
-    auto sanitizedPositionY = std::clamp<float>(position.y, sanitizedDistance, 2048 - sanitizedDistance);
+    auto sanitizedPositionX = std::clamp<float>(position.x, sanitizedDistance * aspectRatio - 1000, 4096 - sanitizedDistance* aspectRatio);
+    auto sanitizedPositionY = std::clamp<float>(position.y, sanitizedDistance - 1000, 4096 - sanitizedDistance);
 
     sanitizedFocusOn({sanitizedPositionX, sanitizedPositionY}, sanitizedDistance, sanitizedTime);
 }

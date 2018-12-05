@@ -38,3 +38,7 @@ void Rabbit::spawnRabbitWeapon(glm::vec2 position) {
     spriteComp->setSprite(weaponSprite);
 
 }
+
+glm::vec2 Rabbit::getPosition() {
+    return rabbitBase->getPosition();
+}
