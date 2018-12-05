@@ -130,7 +130,3 @@ std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 position
 	result.push_back(result.at(0));
 	return result;
 }
-
-float LevelGenerator::evaluateTerrainFunction(float x) {
-	return -(x * (x-0.3f) * (x-0.6f) * (x-1)) * 25;
-}

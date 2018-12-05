@@ -27,6 +27,4 @@ public:
 private:
     glm::vec2 levelSize;
     float earthPercentage;
-
-	float evaluateTerrainFunction(float x);
 };

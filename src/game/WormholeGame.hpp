@@ -8,11 +8,15 @@
 #include "../engine/core/GameModule.hpp"
 #include <memory>
 
+#include "GameCameraController.hpp"
+
 class WormholeGame : public GameModule {
 public:
     WormholeGame(EngineCore &engine);
 
 private:
+
+    GameCameraController cameraController;
 
     void initialize() override;
     void update(float deltaTime);

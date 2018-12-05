@@ -9,6 +9,7 @@ Shooting game developed on 2D generated destructible terrain with strategy featu
 ## Setup
 
 - Clone the repo with the submodules: `git clone --recurse-submodules`
+- Set the C++ language level do C++17
 - Build using CMake
 
 ## Working with this repository
