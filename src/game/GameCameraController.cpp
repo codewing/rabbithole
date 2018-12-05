@@ -29,13 +29,22 @@ void GameCameraController::focusOn(const glm::vec2& position, int distance, floa
 void GameCameraController::update(float deltaTime) {
 
     if(!isAtTarget) {
+        float remainingAnimationDuration = animationDuration - animationTime;
 
-        if(remainingMovementTime < deltaTime) {
+        if(remainingAnimationDuration < deltaTime) {
             lookAtPosition(targetPosition, targetDistance);
 
             isAtTarget = true;
         } else {
 
+            animationTime += deltaTime;
+            float animationPercentage = std::clamp<float>(animationTime/animationDuration, 0.0f, 1.0f);
+            float t = glm::smoothstep(0.0f, 1.0f, animationPercentage);
+
+            glm::vec2 position = glm::mix(startPosition, targetPosition, t);
+            currentDistance = glm::mix(startDistance, targetDistance, t);
+
+            lookAtPosition(position, currentDistance);
         }
     }
 
@@ -44,7 +53,12 @@ void GameCameraController::update(float deltaTime) {
 void GameCameraController::sanitizedFocusOn(glm::vec2 position, int distance, float time) {
     targetPosition = position;
     targetDistance = distance;
-    remainingMovementTime = time;
+
+    startPosition = cam->getPosition();
+    targetDistance = currentDistance;
+
+    animationTime = 0;
+    animationDuration = time;
 
     isAtTarget = false;
 }

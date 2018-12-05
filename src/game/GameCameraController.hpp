@@ -17,13 +17,21 @@ public:
 
     void focusOn(const glm::vec2& position, int distance, float time);
 
+    bool isAtTarget = true;
+
 private:
     sre::Camera* cam;
 
-    bool isAtTarget = true;
+
     glm::vec2 targetPosition = {0, 0};
+    glm::vec2 startPosition = {0, 0};
+
+    float startDistance = 500;
     float targetDistance = 500;
-    float remainingMovementTime = 0;
+    float currentDistance = 500;
+
+    float animationTime = 0;
+    float animationDuration = 0;
 
     static constexpr int minDistance = 500;
     static constexpr int maxDistance = 700;
