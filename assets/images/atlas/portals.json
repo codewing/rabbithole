@@ -1,0 +1,44 @@
+{"frames": [
+
+{
+	"filename": "portal_blue_yellow.png",
+	"frame": {"x":0,"y":0,"w":111,"h":149},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":149},
+	"sourceSize": {"w":111,"h":149}
+},
+{
+	"filename": "portal_green_red.png",
+	"frame": {"x":111,"y":0,"w":111,"h":149},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":149},
+	"sourceSize": {"w":111,"h":149}
+},
+{
+	"filename": "portal_red_green.png",
+	"frame": {"x":0,"y":149,"w":111,"h":149},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":149},
+	"sourceSize": {"w":111,"h":149}
+},
+{
+	"filename": "portal_yellow_blue.png",
+	"frame": {"x":111,"y":149,"w":111,"h":149},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":111,"h":149},
+	"sourceSize": {"w":111,"h":149}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "portals.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":512},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:458830e4a49774f16059c4891d83f02d:9bf69d8cab2ba96b54450a7c18beda32:4f391df34ad65cd057efa18e50a5bf32$"
+}
+}

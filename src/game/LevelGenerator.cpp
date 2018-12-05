@@ -132,8 +132,8 @@ std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 position
 
 void LevelGenerator::addPortals(int couples) {
 	
-	auto blueSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("blue_anim_Rabbit_Idle_000.png", "bunny");
-	auto redSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("red_anim_Rabbit_Idle_000.png", "bunny");
+	auto blueSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("portal_blue_yellow.png", "portals");
+	auto redSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("portal_yellow_blue.png", "portals");
 	//building a couple of Portals every time
 	for (int i = 0; i < couples; i++) {
 		
