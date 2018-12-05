@@ -26,9 +26,12 @@ void WormholeGame::update(float deltaTime) {
 
 void WormholeGame::initialize() {
 
+    Rabbit redRabbit {engine, "red", {200, 600}};
+    Rabbit blueRabbit {engine, "blue", {300, 700}};
+
     LevelGenerator level({2048,2048}, 0.6);
     level.generateLevel();
 
     cameraController.initialize();
-    cameraController.focusOn({1024, 1024}, 700, 0);
+    cameraController.focusOn({500, 500}, 1400, 0);
 }
