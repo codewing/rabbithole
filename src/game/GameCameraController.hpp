@@ -34,7 +34,7 @@ private:
     float animationTime = 0;
     float animationDuration = 0;
 
-    static constexpr int minDistance = 500;
+    static constexpr int minDistance = 400;
     static constexpr int maxDistance = 700;
 
     void sanitizedFocusOn(glm::vec2 position, int distance, float time);

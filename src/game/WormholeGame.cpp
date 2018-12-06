@@ -20,7 +20,9 @@ void WormholeGame::update(float deltaTime) {
     cameraController.update(deltaTime);
 
     if(cameraController.isAtTarget) {
-        cameraController.focusOn(redRabbit.getPosition(), 700, 0.f);
+        auto middle = (redRabbit.getPosition() + blueRabbit.getPosition()) / 2.0f;
+        auto distance = glm::length(redRabbit.getPosition() - blueRabbit.getPosition());
+        cameraController.focusOn(middle, distance, 0.0f);
     }
 }
 
