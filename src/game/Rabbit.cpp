@@ -8,6 +8,7 @@
 #include "../engine/core/ObjectManager.hpp"
 #include "../engine/component/SpriteComponent.hpp"
 #include "MovementComponent.hpp"
+#include "RabbitPhysicsComponent.hpp"
 
 Rabbit::Rabbit(EngineCore& engine, const std::string& team, glm::vec2 position) : engine(engine), team{team} {
     spawnRabbitBase(position);
@@ -22,7 +23,7 @@ void Rabbit::spawnRabbitBase(glm::vec2 position) {
     auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(rabbitBase.get());
     spriteComp->setSprite(baseSprite);
 
-    auto physicsComp = ObjectManager::GetInstance()->CreateComponent<PhysicsComponent>(rabbitBase.get());
+    auto physicsComp = ObjectManager::GetInstance()->CreateComponent<RabbitPhysicsComponent>(rabbitBase.get());
     physicsComp->initCircle(b2_dynamicBody, baseSprite.getSpriteSize().x/2, rabbitBase->getPosition(), 0.0f);
 
     auto movementComp = ObjectManager::GetInstance()->CreateComponent<MovementComponent>(rabbitBase.get());
