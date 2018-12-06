@@ -10,12 +10,12 @@
 #include "MovementComponent.hpp"
 #include "RabbitPhysicsComponent.hpp"
 
-Rabbit::Rabbit(EngineCore& engine, const std::string& team, glm::vec2 position) : engine(engine), team{team} {
-    spawnRabbitBase(position);
+Rabbit::Rabbit(EngineCore& engine, const std::string& team, glm::vec2 position, int gamepadID) : engine(engine), team{team} {
+    spawnRabbitBase(position, gamepadID);
     spawnRabbitWeapon(position);
 }
 
-void Rabbit::spawnRabbitBase(glm::vec2 position) {
+void Rabbit::spawnRabbitBase(glm::vec2 position, int gamepadID) {
     auto baseSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas(team + "_anim_Rabbit_Idle_000.png", "bunny");
 
     rabbitBase = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe ("+team+")");
@@ -27,6 +27,7 @@ void Rabbit::spawnRabbitBase(glm::vec2 position) {
     physicsComp->initCircle(b2_dynamicBody, baseSprite.getSpriteSize().x/3, rabbitBase->getPosition(), 0.0f);
 
     auto movementComp = ObjectManager::GetInstance()->CreateComponent<MovementComponent>(rabbitBase.get());
+    movementComp->setupControllerInput(gamepadID);
 }
 
 void Rabbit::spawnRabbitWeapon(glm::vec2 position) {

@@ -13,8 +13,8 @@
 
 WormholeGame::WormholeGame(EngineCore &engine) :
                     GameModule(engine),
-                    redRabbit {engine, "red", {600, 1000}},
-                    blueRabbit {engine, "blue", {700, 1100}} {}
+                    redRabbit {engine, "red", {600, 1000}, 0},
+                    blueRabbit {engine, "blue", {700, 1100}, -1} {}
 
 void WormholeGame::update(float deltaTime) {
     cameraController.update(deltaTime);

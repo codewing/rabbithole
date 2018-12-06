@@ -10,7 +10,7 @@
 
 class Rabbit {
 public:
-    Rabbit(EngineCore& engine, const std::string& team, glm::vec2 position);
+    Rabbit(EngineCore& engine, const std::string& team, glm::vec2 position, int gamepadID);
 
     glm::vec2 getPosition();
 
@@ -22,7 +22,7 @@ private:
     std::shared_ptr<GameObject> rabbitBase;
     std::shared_ptr<GameObject> rabbitWeapon;
 
-    void spawnRabbitBase(glm::vec2 position);
+    void spawnRabbitBase(glm::vec2 position, int gamepadID);
     void spawnRabbitWeapon(glm::vec2 position);
 };
 
