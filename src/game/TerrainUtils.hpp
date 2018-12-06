@@ -25,6 +25,15 @@ public:
 	std::vector<b2Vec2> combineNoise(std::vector<int> xPoints, std::vector<std::vector<float>> noiseOctaves);
 
 	void reshapeEdges(std::vector<b2Vec2>& terrain);
+
+	// Conversion methods
+	glm::vec3 toGlm(p2t::Point* point);
+	ring_t toRing(std::vector<b2Vec2> ring);
+	ring_collection_t toRingCollection(std::vector<std::vector<b2Vec2>> collection);
+	std::vector<b2Vec2> tob2Ring(ring_t ring);
+	std::vector<std::vector<b2Vec2>> toWorldComponentStruct(ring_collection_t collection);
+	ring_t makeConvexRing(b2Vec2 position, float radius, int numberVertices);
+	ring_collection_t subtract(const ring_t& source, const ring_t& subtrahend);
 	
 private:
 	std::shared_ptr<sre::Mesh> buildMesh(std::vector<p2t::Triangle*> triangles);
@@ -36,15 +45,6 @@ private:
 	float coserp(float x, float y, float t);
 
 	std::vector<float> perlinNoise1D(std::vector<int> xPoints, int ampl, int wavelen);
-
-	// Conversion methods
-	glm::vec3 toGlm(p2t::Point* point);
-	ring_t toRing(std::vector<b2Vec2> ring);
-	ring_collection_t toRingCollection(std::vector<std::vector<b2Vec2>> collection);
-	std::vector<b2Vec2> tob2Ring(ring_t ring);
-	std::vector<std::vector<b2Vec2>> toWorldComponentStruct(ring_collection_t collection);
-	ring_t makeConvexRing(b2Vec2 position, float radius, int numberVertices);
-	ring_collection_t subtract(const ring_t& source, const ring_t& subtrahend);
 
 	static constexpr float terrainImageSize = 2048.0f;
 };

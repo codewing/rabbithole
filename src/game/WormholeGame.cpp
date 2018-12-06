@@ -27,7 +27,7 @@ void WormholeGame::update(float deltaTime) {
 }
 
 void WormholeGame::initialize() {
-    LevelGenerator level(engine, {2048,2048}, 0.6);
+    LevelGenerator level(engine, {2048,2048}, 0.3);
     level.generateLevel();
 
     cameraController.initialize();
