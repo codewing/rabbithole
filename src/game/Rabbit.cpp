@@ -24,7 +24,7 @@ void Rabbit::spawnRabbitBase(glm::vec2 position) {
     spriteComp->setSprite(baseSprite);
 
     auto physicsComp = ObjectManager::GetInstance()->CreateComponent<RabbitPhysicsComponent>(rabbitBase.get());
-    physicsComp->initCircle(b2_dynamicBody, baseSprite.getSpriteSize().x/2, rabbitBase->getPosition(), 0.0f);
+    physicsComp->initCircle(b2_dynamicBody, baseSprite.getSpriteSize().x/3, rabbitBase->getPosition(), 0.0f);
 
     auto movementComp = ObjectManager::GetInstance()->CreateComponent<MovementComponent>(rabbitBase.get());
 }

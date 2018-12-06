@@ -26,6 +26,7 @@ private:
 
     float moveUp = 0;
     float moveRight = 0;
+    bool jump = false;
 
 	bool isGrounded = false;
 };
