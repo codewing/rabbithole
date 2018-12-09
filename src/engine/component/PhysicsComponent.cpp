@@ -1,6 +1,5 @@
 //
 
-#include <iostream>
 #include "PhysicsComponent.hpp"
 #include "../core/GameObject.hpp"
 
@@ -11,14 +10,9 @@ PhysicsComponent::PhysicsComponent(GameObject *gameObject)
 PhysicsComponent::~PhysicsComponent() {}
 
 
+void PhysicsComponent::onCollisionStart(IInteractable *interactable) {}
 
-void PhysicsComponent::onCollisionStart(IInteractable *interactable) {
-
-}
-
-void PhysicsComponent::onCollisionEnd(IInteractable *interactable) {
-
-}
+void PhysicsComponent::onCollisionEnd(IInteractable *interactable) {}
 
 void PhysicsComponent::setPosition(glm::vec2 newPosition) {
     gameObject->setPosition(newPosition);

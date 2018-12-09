@@ -29,6 +29,7 @@ void SimpleRenderer::renderFrame() {
     auto spriteBatchBuilder = sre::SpriteBatch::create();
     for (auto& renderComp : ObjectManager::GetInstance()->GetRenderableComponents()){
         renderComp->onRenderSprite(spriteBatchBuilder);
+        renderComp->onRender(rp);
     }
 
     auto sb = spriteBatchBuilder.build();

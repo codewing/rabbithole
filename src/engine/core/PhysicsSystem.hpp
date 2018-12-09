@@ -25,7 +25,7 @@ private:
     const int velocityIterations = 6;
     float gravity = -9.81f;
 
-    const float timeStep = 0.2f;
+    const float timeStep = 0.01333f;
     float timeAccumulator = 0.0f;
 
     b2World* world = nullptr;

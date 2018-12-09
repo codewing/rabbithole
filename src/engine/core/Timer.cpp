@@ -5,8 +5,8 @@
 #include "Timer.hpp"
 
 Timer::Timer() :  startPoint(Clock::now()),
-                lastTick(Clock::now()),
-                lastDelta(0) {}
+                lastTick(Clock::now())
+                {}
 
 void Timer::start() {
     startPoint = Clock::now();
@@ -16,7 +16,8 @@ void Timer::start() {
 
 void Timer::tick() {
     auto tick = Clock::now();
-    lastDelta = std::chrono::duration_cast<MilliSeconds>(tick - lastTick).count();
+    Seconds dur = tick - lastTick;
+    lastDelta = dur.count();
     lastTick = tick;
 }
 

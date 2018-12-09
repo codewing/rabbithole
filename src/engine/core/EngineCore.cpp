@@ -47,6 +47,7 @@ void EngineCore::runGame(GameModule& gameModule) {
     timer->start();
 
     while (isRunning){
+        timer->tick();
 
         isRunning = input->handleInput();
 
@@ -56,8 +57,6 @@ void EngineCore::runGame(GameModule& gameModule) {
         physics->update(timer->getDeltaTime());
 
         graphics->render();
-
-        timer->tick();
     }
 }
 

@@ -16,10 +16,13 @@ private:
     sre::Camera* activeCamera;
 
 public:
-    void SetActiveCamera(std::string id);
+    sre::Camera* GetCamera(const std::string &id);
+
+    void SetActiveCamera(const std::string& id);
     sre::Camera* GetActiveCamera();
+
     void RegisterCamera(std::string id, sre::Camera camera);
-    void UnregisterCamera(std::string& id);
+    void UnregisterCamera(const std::string& id);
 };
 
 

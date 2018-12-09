@@ -1,12 +1,112 @@
-[submodule "external_libraries/spdlog"]
-	path = external_libraries/spdlog
-	url = git@github.com:gabime/spdlog.git
-	branch = v1.x
-[submodule "external_libraries/boost_geometry"]
-	path = external_libraries/boost_geometry
+[submodule "libs/boost/range"]
+	path = libs/boost/range
+	url = git@github.com:boostorg/range.git
+[submodule "libs/boost/config"]
+	path = libs/boost/config
+	url = git@github.com:boostorg/config.git
+[submodule "libs/boost/geometry"]
+	path = libs/boost/geometry
 	url = git@github.com:boostorg/geometry.git
-	branch = boost-1.68.0
-[submodule "external_libraries/boost_math"]
-	path = external_libraries/boost_math
+[submodule "libs/boost/mpl"]
+	path = libs/boost/mpl
+	url = git@github.com:boostorg/mpl.git
+[submodule "libs/boost/preprocessor"]
+	path = libs/boost/preprocessor
+	url = git@github.com:boostorg/preprocessor.git
+[submodule "libs/poly2tri"]
+	path = libs/poly2tri
+	url = git@github.com:jhasse/poly2tri.git
+[submodule "libs/spdlog"]
+	path = libs/spdlog
+	url = git@github.com:gabime/spdlog.git
+[submodule "libs/boost/type_traits"]
+	path = libs/boost/type_traits
+	url = git@github.com:boostorg/type_traits.git
+[submodule "libs/boost/iterator"]
+	path = libs/boost/iterator
+	url = git@github.com:boostorg/iterator.git
+[submodule "libs/boost/static_assert"]
+	path = libs/boost/static_assert
+	url = git@github.com:boostorg/static_assert.git
+[submodule "libs/boost/core"]
+	path = libs/boost/core
+	url = git@github.com:boostorg/core.git
+[submodule "libs/boost/numeric_conversion"]
+	path = libs/boost/numeric_conversion
+	url = git@github.com:boostorg/numeric_conversion.git
+[submodule "libs/boost/throw_exception"]
+	path = libs/boost/throw_exception
+	url = git@github.com:boostorg/throw_exception.git
+[submodule "libs/boost/utility"]
+	path = libs/boost/utility
+	url = git@github.com:boostorg/utility.git
+	branch = boost-1.55.0
+[submodule "libs/boost/math"]
+	path = libs/boost/math
 	url = git@github.com:boostorg/math.git
-	branch = boost-1.68.0
+[submodule "libs/boost/predef"]
+	path = libs/boost/predef
+	url = git@github.com:boostorg/predef.git
+[submodule "libs/boost/lexical_cast"]
+	path = libs/boost/lexical_cast
+	url = git@github.com:boostorg/lexical_cast.git
+[submodule "libs/boost/detail"]
+	path = libs/boost/detail
+	url = git@github.com:boostorg/detail.git
+[submodule "libs/boost/concept_check"]
+	path = libs/boost/concept_check
+	url = git@github.com:boostorg/concept_check.git
+[submodule "libs/boost/integer"]
+	path = libs/boost/integer
+	url = git@github.com:boostorg/integer.git
+[submodule "libs/boost/array"]
+	path = libs/boost/array
+	url = git@github.com:boostorg/array.git
+[submodule "libs/boost/container"]
+	path = libs/boost/container
+	url = git@github.com:boostorg/container.git
+[submodule "libs/boost/move"]
+	path = libs/boost/move
+	url = git@github.com:boostorg/move.git
+[submodule "libs/boost/variant"]
+	path = libs/boost/variant
+	url = git@github.com:boostorg/variant.git
+[submodule "libs/boost/tuple"]
+	path = libs/boost/tuple
+	url = git@github.com:boostorg/tuple.git
+[submodule "libs/boost/rational"]
+	path = libs/boost/rational
+	url = git@github.com:boostorg/rational.git
+[submodule "libs/boost/algorithm"]
+	path = libs/boost/algorithm
+	url = git@github.com:boostorg/algorithm.git
+[submodule "libs/boost/tokenizer"]
+	path = libs/boost/tokenizer
+	url = git@github.com:boostorg/tokenizer.git
+[submodule "libs/boost/function"]
+	path = libs/boost/function
+	url = git@github.com:boostorg/function.git
+[submodule "libs/boost/type_index"]
+	path = libs/boost/type_index
+	url = git@github.com:boostorg/type_index.git
+[submodule "libs/boost/container_hash"]
+	path = libs/boost/container_hash
+	url = git@github.com:boostorg/container_hash.git
+[submodule "libs/boost/bind"]
+	path = libs/boost/bind
+	url = git@github.com:boostorg/bind.git
+[submodule "libs/boost/function_types"]
+	path = libs/boost/function_types
+	url = git@github.com:boostorg/function_types.git
+[submodule "libs/boost/intrusive"]
+	path = libs/boost/intrusive
+	url = git@github.com:boostorg/intrusive.git
+[submodule "libs/boost/smart_ptr"]
+	path = libs/boost/smart_ptr
+	url = git@github.com:boostorg/smart_ptr.git
+[submodule "libs/boost/qvm"]
+	path = libs/boost/qvm
+	url = git@github.com:boostorg/qvm.git
+[submodule "libs/boost/exception"]
+	path = libs/boost/exception
+	url = git@github.com:boostorg/exception.git

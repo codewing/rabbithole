@@ -2,12 +2,14 @@
 // Created by codewing on 07.11.18.
 //
 
-#ifndef SIMPLERENDERENGINEPROJECT_WORMHOLEGAME_H
-#define SIMPLERENDERENGINEPROJECT_WORMHOLEGAME_H
+#pragma once
 
 #include "../engine/core/EngineCore.hpp"
 #include "../engine/core/GameModule.hpp"
 #include <memory>
+#include "Rabbit.hpp"
+
+#include "GameCameraController.hpp"
 
 class WormholeGame : public GameModule {
 public:
@@ -15,9 +17,11 @@ public:
 
 private:
 
+    GameCameraController cameraController;
+
+    Rabbit redRabbit;
+    Rabbit blueRabbit;
+
     void initialize() override;
     void update(float deltaTime);
 };
-
-
-#endif //SIMPLERENDERENGINEPROJECT_WORMHOLEGAME_H

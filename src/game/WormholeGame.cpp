@@ -4,41 +4,32 @@
 
 #include "WormholeGame.hpp"
 #include <glm/glm.hpp>
-#include "../engine/debug/Log.hpp"
-#include "../engine/core/ObjectManager.hpp"
-#include "../engine/component/SpriteComponent.hpp"
-#include "../engine/component/PhysicsComponent.hpp"
 #include "MovementComponent.hpp"
+#include "LevelGenerator.hpp"
+#include "Rabbit.hpp"
 #include <string>
+#include "GameCameraController.hpp"
 
-class PhysicsObject;
 
+WormholeGame::WormholeGame(EngineCore &engine) :
+                    GameModule(engine),
+                    redRabbit {engine, "red", {600, 1000}, 0},
+                    blueRabbit {engine, "blue", {700, 1100}, -1} {}
 
 void WormholeGame::update(float deltaTime) {
+    cameraController.update(deltaTime);
 
+    if(cameraController.isAtTarget) {
+        auto middle = (redRabbit.getPosition() + blueRabbit.getPosition()) / 2.0f;
+        auto distance = glm::length(redRabbit.getPosition() - blueRabbit.getPosition());
+        cameraController.focusOn(middle, distance, 0.0f);
+    }
 }
 
 void WormholeGame::initialize() {
+    LevelGenerator level(engine, {2048,2048}, 0.3);
+    level.generateLevel();
 
-    auto sprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("bird1.png", "bird");
-
-    std::shared_ptr<GameObject> isi = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe");
-    auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(isi.get());
-    spriteComp->setSprite(sprite);
-
-    auto movementComp = ObjectManager::GetInstance()->CreateComponent<MovementComponent>(isi.get());
-
-    auto physicsComp = ObjectManager::GetInstance()->CreateComponent<PhysicsComponent>(isi.get());
-    physicsComp->initCircle(b2_staticBody, sprite.getSpriteSize().x, glm::vec2{0,0}, 0.0f);
-
-    sre::Camera cam;
-    cam.setOrthographicProjection(600,-1,1);
-    glm::vec3 eye (300, 300, 0);
-    glm::vec3 at (300, 300, -1);
-    glm::vec3 up (0, 1, 0);
-    cam.lookAt(eye, at, up);
-    ObjectManager::GetInstance()->GetCameraManager().RegisterCamera("main", cam);
-    ObjectManager::GetInstance()->GetCameraManager().SetActiveCamera("main");
+    cameraController.initialize();
+    cameraController.focusOn({500, 500}, 1400, 0);
 }
-
-WormholeGame::WormholeGame(EngineCore &engine) : GameModule(engine) {}
