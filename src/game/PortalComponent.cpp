@@ -21,9 +21,9 @@ void PortalComponent::onCollisionEnd(IInteractable * interactable){
 }
 
 void PortalComponent::setPosition(glm::vec2 newPosition){
-	gameObject->setPosition(newPosition);
+    gameObject->setLocalPosition(newPosition);
 }
 
 void PortalComponent::setRotation(float newAngle){
-	gameObject->setRotation(newAngle);
+    gameObject->setLocalRotation(newAngle);
 }

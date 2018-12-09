@@ -15,9 +15,9 @@ void PhysicsComponent::onCollisionStart(IInteractable *interactable) {}
 void PhysicsComponent::onCollisionEnd(IInteractable *interactable) {}
 
 void PhysicsComponent::setPosition(glm::vec2 newPosition) {
-    gameObject->setPosition(newPosition);
+    gameObject->setLocalPosition(newPosition);
 }
 
 void PhysicsComponent::setRotation(float newAngle) {
-    gameObject->setRotation(newAngle);
+    gameObject->setLocalRotation(newAngle);
 }

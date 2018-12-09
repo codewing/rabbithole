@@ -19,12 +19,13 @@ void Rabbit::spawnRabbitBase(glm::vec2 position, int gamepadID) {
     auto baseSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas(team + "_anim_Rabbit_Idle_000.png", "bunny");
 
     rabbitBase = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe ("+team+")");
-    rabbitBase->setPosition(position);
+    rabbitBase->setLocalPosition(position);
     auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(rabbitBase.get());
+    baseSprite.setOrderInBatch(10);
     spriteComp->setSprite(baseSprite);
 
     auto physicsComp = ObjectManager::GetInstance()->CreateComponent<RabbitPhysicsComponent>(rabbitBase.get());
-    physicsComp->initCircle(b2_dynamicBody, baseSprite.getSpriteSize().x/3, rabbitBase->getPosition(), 0.0f);
+    physicsComp->initCircle(b2_dynamicBody, baseSprite.getSpriteSize().x/3, rabbitBase->getLocalPosition(), 0.0f);
 
     auto movementComp = ObjectManager::GetInstance()->CreateComponent<MovementComponent>(rabbitBase.get());
     movementComp->setupControllerInput(gamepadID);
@@ -34,13 +35,14 @@ void Rabbit::spawnRabbitWeapon(glm::vec2 position) {
     auto weaponSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("bunny_hand_right_with_bazooka.png", "bunny");
 
     rabbitWeapon = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe ("+team+") Weapon");
-    rabbitWeapon->setPosition(rabbitBase->getPosition());
+    rabbitWeapon->setParent(rabbitBase.get());
+    rabbitWeapon->setLocalPosition({0, 10});
     auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(rabbitWeapon.get());
-    weaponSprite.setOrderInBatch(10);
+    weaponSprite.setOrderInBatch(5);
     spriteComp->setSprite(weaponSprite);
 
 }
 
 glm::vec2 Rabbit::getPosition() {
-    return rabbitBase->getPosition();
+    return rabbitBase->getLocalPosition();
 }

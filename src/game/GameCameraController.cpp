@@ -71,7 +71,7 @@ void GameCameraController::lookAtPosition(const glm::vec2 &position, float camer
     glm::vec3 at (position.x, position.y, -1);
     cam->lookAt(eye, at, up);
 
-    cam->setOrthographicProjection(1024, -1, 1);
+    cam->setOrthographicProjection(cameraDistance, -1, 1);
 }
 
 float GameCameraController::getAspectRatio() {

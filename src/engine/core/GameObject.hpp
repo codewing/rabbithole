@@ -22,13 +22,17 @@ public:
     template <class T>                                   //  Get component of a given type to a gameObject. If not found return empty shared_ptr (==nullptr). example:
     std::shared_ptr<T> getComponent();                   // std::shared_ptr<SpriteComponent> spriteComponent = gameObject->getComponent<SpriteComponent>();
 
-    const glm::vec2 &getPosition() const;
+    const glm::vec2 &getLocalPosition() const;
+    const glm::vec2 getPosition() const;
 
-    void setPosition(const glm::vec2 &position);
+    void setLocalPosition(const glm::vec2 &position);
 
+    float getLocalRotation() const;
     float getRotation() const;
+    void setLocalRotation(float rotation);
 
-    void setRotation(float rotation);
+    GameObject* getParent() const;
+    void setParent(GameObject* parent);
 
     const std::vector<std::shared_ptr<Component>>& getComponents();
     std::string name = "_";
@@ -36,6 +40,8 @@ private:
     std::vector<std::shared_ptr<Component>> components;
 
     glm::vec2 position = glm::vec2{0, 0};
+    GameObject* parent = nullptr;
+
     float rotation;
 };
 

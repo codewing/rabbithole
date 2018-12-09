@@ -10,19 +10,19 @@ GameObject::~GameObject(){
     }
 }
 
-const glm::vec2 &GameObject::getPosition() const {
+const glm::vec2 &GameObject::getLocalPosition() const {
     return position;
 }
 
-void GameObject::setPosition(const glm::vec2 &position) {
+void GameObject::setLocalPosition(const glm::vec2 &position) {
     this->position = position;
 }
 
-float GameObject::getRotation() const {
+float GameObject::getLocalRotation() const {
     return rotation;
 }
 
-void GameObject::setRotation(float rotation) {
+void GameObject::setLocalRotation(float rotation) {
     this->rotation = rotation;
 }
 
@@ -32,4 +32,28 @@ const std::vector<std::shared_ptr<Component>>& GameObject::getComponents() {
 
 GameObject::GameObject(std::string name) {
     this->name = name;
+}
+
+GameObject* GameObject::getParent() const {
+    return parent;
+}
+
+void GameObject::setParent(GameObject* parent) {
+    this->parent = parent;
+}
+
+const glm::vec2 GameObject::getPosition() const {
+    if(parent != nullptr) {
+        return parent->position + position;
+    }
+
+    return position;
+}
+
+float GameObject::getRotation() const {
+    if(parent != nullptr) {
+        return parent->rotation + rotation;
+    }
+
+    return rotation;
 }
