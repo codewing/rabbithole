@@ -10,11 +10,15 @@
 RabbitPhysicsComponent::RabbitPhysicsComponent(GameObject *gameObject) : PhysicsComponent(gameObject) {}
 
 void RabbitPhysicsComponent::onCollisionStart(IInteractable *interactable) {
-    std::shared_ptr<MovementComponent> mc = std::dynamic_pointer_cast<MovementComponent>(gameObject->getComponent<MovementComponent>());
-    mc.get()->setGrounded(true);
+    if(!interactable->isSensor()) {
+        std::shared_ptr<MovementComponent> mc = std::dynamic_pointer_cast<MovementComponent>(gameObject->getComponent<MovementComponent>());
+        mc.get()->setGrounded(true);
+    }
 }
 
 void RabbitPhysicsComponent::onCollisionEnd(IInteractable *interactable) {
-    std::shared_ptr<MovementComponent> mc = std::dynamic_pointer_cast<MovementComponent>(gameObject->getComponent<MovementComponent>());
-    mc.get()->setGrounded(false);
+    if(!interactable->isSensor()) {
+        std::shared_ptr<MovementComponent> mc = std::dynamic_pointer_cast<MovementComponent>(gameObject->getComponent<MovementComponent>());
+        mc.get()->setGrounded(false);
+    }
 }

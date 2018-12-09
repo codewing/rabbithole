@@ -118,3 +118,8 @@ IInteractable::~IInteractable() {
         body = nullptr;
     }
 }
+
+void IInteractable::teleport(glm::vec2 newPosition, float newAngle) {
+    b2Vec2 newPos {newPosition.x / PhysicsSystem::PHYSICS_SCALE, newPosition.y / PhysicsSystem::PHYSICS_SCALE};
+    body->SetTransform(newPos, newAngle);
+}

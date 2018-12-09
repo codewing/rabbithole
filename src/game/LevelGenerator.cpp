@@ -136,9 +136,9 @@ std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 position
 }
 
 void LevelGenerator::addPortals(int couples) {
-	
-	auto blueSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("portal_blue_yellow.png", "portals");
-	auto redSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("portal_yellow_blue.png", "portals");
+
+    std::vector<std::string> portals = {"portal_blue_yellow.png", "portal_yellow_blue.png", "portal_red_green.png", "portal_green_red.png"};
+
 	//building a couple of Portals every time
 	for (int i = 0; i < couples; i++) {
 		
@@ -157,17 +157,23 @@ void LevelGenerator::addPortals(int couples) {
         portal1->setLocalPosition({randX(), randY()});
         portal2->setLocalPosition({randX(), randY()});
 
+        auto sprite1 = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas(portals[2*i], "portals");
+        auto sprite2 = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas(portals[2*i + 1], "portals");
+
 		//initializing circles for physics
-		port1_comp->initCircle(b2_staticBody, blueSprite.getSpriteSize().x / 4, portal1->getLocalPosition(), 0.0f);
-		port2_comp->initCircle(b2_staticBody, redSprite.getSpriteSize().x / 4, portal2->getLocalPosition(), 0.0f);
+		port1_comp->initCircle(b2_staticBody, sprite1.getSpriteSize().x / 4, portal1->getLocalPosition(), 0.0f);
+		port2_comp->initCircle(b2_staticBody, sprite2.getSpriteSize().x / 4, portal2->getLocalPosition(), 0.0f);
+
+		port1_comp->setSensor(true);
+		port2_comp->setSensor(true);
 
 		auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(portal1.get());
-		spriteComp->setSprite(blueSprite);
+		spriteComp->setSprite(sprite1);
 		auto spriteComp1 = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(portal2.get());
-		spriteComp1->setSprite(redSprite);
+		spriteComp1->setSprite(sprite2);
 
 		//connecting the couple
-		port1_comp->setOtherPortal(portal2);
-		port2_comp->setOtherPortal(portal1);
+		port1_comp->setOtherPortal(port2_comp.get());
+		port2_comp->setOtherPortal(port1_comp.get());
 	}
 }

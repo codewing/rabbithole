@@ -5,23 +5,33 @@
 #include "../engine/core/IInteractable.hpp"
 #include "../engine/component/PhysicsComponent.hpp"
 
-class PortalComponent : public Component, public IInteractable {
+class PortalComponent : public Component, public IInteractable, public IUpdatable {
 
 public:
 	explicit PortalComponent(GameObject *gameObject);
 
-	void setOtherPortal(std::shared_ptr<GameObject> gameObject);
-	std::shared_ptr<GameObject> getOtherPortal();
+	void setOtherPortal(PortalComponent* portal);
+	PortalComponent* getOtherPortal();
 
-	void onCollisionStart(IInteractable* interactable) override;  // Callback from physics engine when collision start is detected. Override when needed.
+    void onUpdate(float deltaTime) override;
+
+    void onCollisionStart(IInteractable* interactable) override;  // Callback from physics engine when collision start is detected. Override when needed.
 	void onCollisionEnd(IInteractable* interactable) override;    // Callback from physics engine when collision end is detected. Override when needed.
 
 	void setPosition(glm::vec2 newPosition) override;
 	void setRotation(float newAngle) override;
 
+	glm::vec2 getPosition();
+	float getRotation();
+
+	void addTeleportedObject(IInteractable* teleportedObject);
+
 private:
 
-	std::shared_ptr<GameObject> otherPortal;
+	PortalComponent* otherPortal;
+
+	std::vector<IInteractable*> teleportedObjects;
+    std::vector<PhysicsComponent*> objectsToTeleport;
 
 };
 

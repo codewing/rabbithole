@@ -33,7 +33,9 @@ public:
     void setLinearVelocity(glm::vec2 velocity);
     glm::vec2 getLinearVelocity();
 
-private:
+    void teleport(glm::vec2 newPosition, float newAngle);
+
+protected:
 
     b2Shape* shape = nullptr;
     b2Body* body = nullptr;
