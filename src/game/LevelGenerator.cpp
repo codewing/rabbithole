@@ -10,129 +10,145 @@
 #include "../engine/core/ObjectManager.hpp"
 
 LevelGenerator::LevelGenerator(EngineCore& engine, glm::vec2 levelSize, float earthPercentage) : engine(engine), levelSize(levelSize), earthPercentage(earthPercentage) {
-	srand((unsigned)time(0));
+    srand((unsigned)time(0));
 }
 
 void LevelGenerator::generateLevel() {
-	auto gameObject = ObjectManager::GetInstance()->CreateGameObject("World");
-	auto world_comp = ObjectManager::GetInstance()->CreateComponent<WorldComponent>(gameObject.get());
+    auto gameObject = ObjectManager::GetInstance()->CreateGameObject("World");
+    auto world_comp = ObjectManager::GetInstance()->CreateComponent<WorldComponent>(gameObject.get());
 
-	addTerrain(world_comp.get());
+    addTerrain(world_comp.get());
 
-	auto number = rand() % 3 + 3; // TODO: add clever number of islands 
+    auto number = rand() % 3 + 3; // TODO: add clever number of islands
 
-	std::cout << "Number of island: " << number << std::endl;
-	addIslands(world_comp.get(), number);
+    std::cout << "Number of island: " << number << std::endl;
+    addIslands(world_comp.get(), number);
 
-	addPortals(2);
-	// Building the visual representation
-	world_comp->updateMeshes();
+    addPortals(2);
+    // Building the visual representation
+    world_comp->updateMeshes();
 }
 
 void LevelGenerator::addTerrain(WorldComponent* world_comp) {
-	
-	std::vector<b2Vec2> points = createTerrain(world_comp);
-	world_comp->addRing(std::move(points));
+
+    std::vector<b2Vec2> points = createTerrain(world_comp);
+    world_comp->addRing(std::move(points));
 }
 
 // generating the list of positions of the terrain
 std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
-	auto yOffset = levelSize.y * earthPercentage;
-	auto yDeviation = yOffset * 0.8;
-	std::vector<b2Vec2> result;
-	std::vector<int> xPoints;
+    auto yOffset = levelSize.y * earthPercentage;
+    auto yDeviation = yOffset * 0.8;
+    std::vector<b2Vec2> result;
+    std::vector<int> xPoints;
 
-	int beginGenerationPointX = std::floor((emptyTerrainRatio / 2) * levelSize.x);
-	int endGenerationPointX = std::floor((1 - emptyTerrainRatio / 2) * levelSize.x);
+    int beginGenerationPointX = std::floor((emptyTerrainRatio / 2) * levelSize.x);
+    int endGenerationPointX = std::floor((1 - emptyTerrainRatio / 2) * levelSize.x);
 
-	for (int i = beginGenerationPointX; i < endGenerationPointX; i+=16) {
-		xPoints.emplace_back(i);
-	}
+    for (int i = beginGenerationPointX; i < endGenerationPointX; i+=16) {
+        xPoints.emplace_back(i);
+    }
 
-	TerrainUtils tu;
-	
-	result = tu.combineNoise(xPoints, tu.generateNoise(xPoints, 256, 128, 3, 2));
+    TerrainUtils tu;
 
-	tu.reshapeEdges(result);
+    result = tu.combineNoise(xPoints, tu.generateNoise(xPoints, 256, 128, 3, 4));
 
-	result.emplace_back(b2Vec2(levelSize.x - 1, 0));
-	result.emplace_back(b2Vec2(beginGenerationPointX, 0));
+    tu.reshapeEdges(result);
 
-	return result;
+    result.emplace_back(b2Vec2(levelSize.x - 1, 0));
+    result.emplace_back(b2Vec2(beginGenerationPointX, 0));
+
+    return result;
 }
 
 void LevelGenerator::addIslands(WorldComponent* world_comp, int amount) {
-	std::vector<b2Vec2> islandPositions = createIslandPositions(world_comp, amount);
-	std::vector<int> islandDimensions = createIslandDimensions(amount);
+    std::vector<b2Vec2> islandPositions = createIslandPositions(world_comp, amount);
+    std::vector<int> islandDimensions = createIslandDimensions(amount);
 
-	for (int i = 0; i < amount; i++) {
-		addIsland(world_comp, islandDimensions[i], islandPositions[i]);
-	}	
+    for (int i = 0; i < amount; i++) {
+        addIsland(world_comp, islandDimensions[i], islandPositions[i]);
+    }
 }
 
 std::vector<b2Vec2>  LevelGenerator::createIslandPositions(WorldComponent* world_comp, int number) {
-	auto start_y = levelSize.y * earthPercentage;
-	auto VERTICAL_DIVISION = 3;
-	auto HORIZONTAL_DIVISION = 2;
-	auto unit_x = levelSize.x / VERTICAL_DIVISION;
-	auto offset_x = unit_x / 2;
-	auto unit_y = (levelSize.y - start_y) / HORIZONTAL_DIVISION;
-	auto offset_y =  unit_y / 2;
-	//auto noise_x = 0;
-	//auto noise_y = 0;
-	//auto noise_scaler = 10;
+    auto start_y = levelSize.y * earthPercentage;
+    auto VERTICAL_DIVISION = 3;
+    auto HORIZONTAL_DIVISION = 2;
+    auto unit_x = levelSize.x / VERTICAL_DIVISION;
+    auto offset_x = unit_x / 2;
+    auto unit_y = (levelSize.y - start_y) / HORIZONTAL_DIVISION;
+    auto offset_y =  unit_y / 2;
+    //auto noise_x = 0;
+    //auto noise_y = 0;
+    //auto noise_scaler = 10;
 
-	std::vector<b2Vec2> res;
-	for (int i = 0; i < number; i++) {
-		//noise_x = rand() % noise_scaler;
-		//noise_y = rand() % noise_scaler;
-		b2Vec2 new_pos = { static_cast<float32> (rand() % VERTICAL_DIVISION * unit_x + offset_x), static_cast<float32> (rand() % HORIZONTAL_DIVISION * unit_y + offset_y + start_y) };
-		if (std::find(res.begin(), res.end(), new_pos) != res.end()) {
-			/* res contains already that position --> avoiding islands on same position */
-			i--;
-		}
-		else {
-			res.push_back(new_pos/* + b2Vec2(noise_x, noise_y)*/);
-		}
-	}
-	return res;
+    //std::vector<b2Vec2> res;
+    //for (int i = 0; i < number; i++) {
+    //	//noise_x = rand() % noise_scaler;
+    //	//noise_y = rand() % noise_scaler;
+    //	b2Vec2 new_pos = { static_cast<float32> (rand() % VERTICAL_DIVISION * unit_x + offset_x), static_cast<float32> (rand() % HORIZONTAL_DIVISION * unit_y + offset_y + start_y) };
+    //	if (std::find(res.begin(), res.end(), new_pos) != res.end()) {
+    //		/* res contains already that position --> avoiding islands on same position */
+    //		i--;
+    //	}
+    //	else {
+    //		res.push_back(new_pos/* + b2Vec2(noise_x, noise_y)*/);
+    //	}
+    //}
+    //
+    //return res;
+
+    b2Vec2 ringCentre = { levelSize.x / 2, (levelSize.y + start_y) / 2 };
+    float angle = 360.f / number;
+    float X_DIM = (levelSize.x / 2) * 0.6f;
+    float Y_DIM = ((levelSize.y + start_y) / 4) * 0.8f;
+    float positionDelta = (static_cast<float>(rand()) / (RAND_MAX + 1)) * angle;
+
+    std::vector<b2Vec2> result;
+
+    for (int i = 0; i < 360 / angle; i++) {
+        result.push_back({ ringCentre.x + X_DIM * cos(glm::radians(angle*i + positionDelta)),
+                           ringCentre.y + Y_DIM * sin(glm::radians(angle*i + positionDelta))});
+    }
+
+    result.push_back(result.at(0));
+    return result;
 }
 
 void LevelGenerator::addIsland(WorldComponent* world_comp, int size, b2Vec2 position) {
-	auto points = createIslandPoints(size, position);
-	world_comp->addRing(std::move(points));
+    auto points = createIslandPoints(size, position);
+    world_comp->addRing(std::move(points));
 }
 
 std::vector<int> LevelGenerator::createIslandDimensions(int number) {
-	auto SIZES = 3;
-	std::vector<int> res;
-	for (int i = 0; i < number; i++) {
-		res.push_back(rand() % SIZES);
-	}
-	return res;
+    auto SIZES = 2;
+    std::vector<int> res;
+    for (int i = 0; i < number; i++) {
+        res.push_back(rand() % SIZES + 1);
+    }
+    return res;
 }
 
 std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 position) {
-	// creating the vector of points of the island
-	auto angle = 10.f;
-	auto X_DIM = levelSize.x / 40 * (size+1);
-	auto Y_DIM = levelSize.y / 120 * (size+1);
-	float noise_y;
-	std::vector<b2Vec2> result;
+    // creating the vector of points of the island
+    auto angle = 10.f;
+    auto X_DIM = levelSize.x / 24 * (size+1);
+    auto Y_DIM = levelSize.y / 64 * (size+1);
+    float noise_y;
+    std::vector<b2Vec2> result;
 
-	for (int i = 0; i < 360/angle; i++) {
-		noise_y = rand() % 20;
-		
+    for (int i = 0; i < 360/angle; i++) {
+        noise_y = rand() % 20;
 
-		if (angle * i > 90 && angle * i < 270)
-			noise_y = -noise_y;
+        if (angle * i > 90 && angle * i < 270)
+            noise_y = -noise_y;
 
-		result.push_back({ position.x + X_DIM*cos(glm::radians(angle*i)),
-			position.y + Y_DIM*sin(glm::radians(angle*i)) + noise_y});
-	}
-	
-	result.push_back(result.at(0));
-	return result;
+        result.push_back({ position.x + X_DIM*cos(glm::radians(angle*i)),
+                           position.y + Y_DIM*sin(glm::radians(angle*i)) + noise_y});
+    }
+
+    result.push_back(result.at(0));
+    return result;
 }
 
 void LevelGenerator::addPortals(int couples) {
