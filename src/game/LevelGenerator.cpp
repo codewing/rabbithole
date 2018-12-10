@@ -8,9 +8,12 @@
 #include <time.h>
 #include <poly2tri/poly2tri.h>
 #include "../engine/core/ObjectManager.hpp"
+#include "../engine/debug/Log.hpp"
 
 LevelGenerator::LevelGenerator(EngineCore& engine, glm::vec2 levelSize, float earthPercentage) : engine(engine), levelSize(levelSize), earthPercentage(earthPercentage) {
-    srand((unsigned)time(0));
+    auto seed = (unsigned)time(0);
+    LOG_GAME_INFO("Seeded with: " + std::to_string(seed));
+    srand(seed);
 }
 
 void LevelGenerator::generateLevel() {
