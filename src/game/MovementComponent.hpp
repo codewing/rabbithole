@@ -9,6 +9,8 @@
 #include "../engine/core/IInputable.hpp"
 #include "../engine/component/PhysicsComponent.hpp"
 
+class SpriteComponent;
+
 class MovementComponent : public Component, public IUpdatable, public IInputable {
 
 public:
@@ -20,6 +22,7 @@ public:
     bool onControllerEvent(SDL_Event &event) override;
 
     void setupControllerInput(int gamepadID);
+    void setupSprites(SpriteComponent* spriteComponent, std::vector<sre::Sprite> idleSprites, std::vector<sre::Sprite> movementSprites);
 
     virtual ~MovementComponent();
 
@@ -27,10 +30,18 @@ private:
 
     std::shared_ptr<PhysicsComponent> physicsComponent = nullptr;
 
-    float moveUp = 0;
     float moveRight = 0;
     bool jump = false;
 	bool isGrounded = false;
+
+	SpriteComponent* spriteComponent;
+	std::vector<sre::Sprite> idleSprites;
+	std::vector<sre::Sprite> movementSprites;
+	bool isMoving = false;
+	int currentSpriteIndex = 0;
+	float currentTimeFrame = 0;
+    static constexpr float idleTimeFrame = 0.3;
+    static constexpr float movementTimeFrame = 0.1;
 
     int gamepadID = -1;
     SDL_GameController* controllerHandle = nullptr;

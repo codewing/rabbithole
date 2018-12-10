@@ -4,6 +4,7 @@
 
 #include <sstream>
 #include "MovementComponent.hpp"
+#include "../engine/component/SpriteComponent.hpp"
 #include "../engine/core/GameObject.hpp"
 #include "../engine/debug/Log.hpp"
 
@@ -21,6 +22,42 @@ void MovementComponent::onUpdate(float deltaTime) {
         physicsComponent->addImpulse(glm::vec2{0, 5});
         jump = false;
     }
+
+    auto velocity = physicsComponent->getLinearVelocity();
+    auto wasMoving = isMoving;
+    if(std::abs(velocity.x) < 0.05) {
+        isMoving = false;
+    } else {
+        isMoving = true;
+    }
+
+    if(wasMoving != isMoving) {
+        currentSpriteIndex = 0;
+        currentTimeFrame = 0;
+    } else {
+        auto timePerFrame = isMoving ? movementTimeFrame : idleTimeFrame;
+        currentTimeFrame += deltaTime;
+        // Go to next frame when time passed
+        if(currentTimeFrame > timePerFrame) {
+            currentTimeFrame = 0;
+            currentSpriteIndex++;
+            auto numberOfSprites = static_cast<int>(isMoving ? movementSprites.size() : idleSprites.size());
+            currentSpriteIndex = currentSpriteIndex % numberOfSprites;
+        }
+    }
+
+    sre::Sprite sprite;
+    if(isMoving) {
+        sprite = movementSprites[currentSpriteIndex];
+    } else {
+        sprite = idleSprites[currentSpriteIndex];
+    }
+
+    if(velocity.x > 0.0) {
+        sprite.setFlip({true, false});
+    }
+    spriteComponent->setSprite(sprite);
+
 }
 
 bool MovementComponent::onKeyEvent(SDL_Event &event) {
@@ -98,4 +135,11 @@ MovementComponent::~MovementComponent() {
         SDL_GameControllerClose(controllerHandle);
         controllerHandle = nullptr;
     }
+}
+
+void MovementComponent::setupSprites(SpriteComponent* spriteComponent, std::vector<sre::Sprite> idleSprites, std::vector<sre::Sprite> movementSprites) {
+    this->spriteComponent = spriteComponent;
+
+    this->idleSprites = idleSprites;
+    this->movementSprites = movementSprites;
 }

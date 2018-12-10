@@ -14,6 +14,7 @@ class TextureSystem {
 public:
     TextureSystem() = default;
     sre::Sprite getSpriteFromAtlas(const std::string& spriteName, const std::string& atlas);
+    std::vector<sre::Sprite> getSpritesFromAtlas(const std::vector<std::string>& spriteNames, const std::string& atlas);
 
 private:
     const std::string atlasPath = "assets/images/atlas/";

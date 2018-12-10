@@ -16,19 +16,26 @@ Rabbit::Rabbit(EngineCore& engine, const std::string& team, glm::vec2 position, 
 }
 
 void Rabbit::spawnRabbitBase(glm::vec2 position, int gamepadID) {
-    auto baseSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas(team + "_anim_Rabbit_Idle_000.png", "bunny");
+    auto movementSpriteNames = {team + "_anim_Rabbit_Movement_000.png", team + "_anim_Rabbit_Movement_001.png"};
+    auto idleSpriteNames =     {team + "_anim_Rabbit_Idle_000.png", team + "_anim_Rabbit_Idle_001.png",
+                                team + "_anim_Rabbit_Idle_002.png", team + "_anim_Rabbit_Idle_003.png"};
+
+    std::vector<sre::Sprite> movementSprites = engine.getGraphicsSystem().getTextureSystem().getSpritesFromAtlas(movementSpriteNames, "bunny");
+    std::vector<sre::Sprite> idleSprites = engine.getGraphicsSystem().getTextureSystem().getSpritesFromAtlas(idleSpriteNames, "bunny");
+    auto setSpritePosition = [](sre::Sprite& sprite) { sprite.setOrderInBatch(10); };
+    std::for_each(movementSprites.begin(), movementSprites.end(), setSpritePosition);
+    std::for_each(idleSprites.begin(), idleSprites.end(), setSpritePosition);
 
     rabbitBase = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe ("+team+")");
     rabbitBase->setLocalPosition(position);
     auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(rabbitBase.get());
-    baseSprite.setOrderInBatch(10);
-    spriteComp->setSprite(baseSprite);
 
     auto physicsComp = ObjectManager::GetInstance()->CreateComponent<RabbitPhysicsComponent>(rabbitBase.get());
-    physicsComp->initCircle(b2_dynamicBody, baseSprite.getSpriteSize().x/3, rabbitBase->getLocalPosition(), 0.0f);
+    physicsComp->initCircle(b2_dynamicBody, 25, rabbitBase->getLocalPosition(), 0.0f);
 
     auto movementComp = ObjectManager::GetInstance()->CreateComponent<MovementComponent>(rabbitBase.get());
     movementComp->setupControllerInput(gamepadID);
+    movementComp->setupSprites(spriteComp.get(), idleSprites, movementSprites);
 }
 
 void Rabbit::spawnRabbitWeapon(glm::vec2 position) {
