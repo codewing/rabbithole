@@ -7,13 +7,17 @@
 #include "../engine/component/SpriteComponent.hpp"
 #include "../engine/core/GameObject.hpp"
 #include "../engine/debug/Log.hpp"
+#include "RabbitPhysicsComponent.hpp"
 
 MovementComponent::MovementComponent(GameObject *gameObject)
                 : Component(gameObject, ComponentFlag::UPDATE | ComponentFlag::INPUT) {
-    physicsComponent = gameObject->getComponent<PhysicsComponent>();
+    physicsComponent = gameObject->getComponent<RabbitPhysicsComponent>();
 }
 
 void MovementComponent::onUpdate(float deltaTime) {
+    isGrounded = false;
+    physicsComponent->checkGrounded();
+
     if(moveRight != 0) {
         physicsComponent->addImpulse(10 * deltaTime * glm::vec2{moveRight, 0});
     }

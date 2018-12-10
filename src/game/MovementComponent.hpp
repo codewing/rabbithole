@@ -7,7 +7,8 @@
 #include "../engine/core/Component.hpp"
 #include "../engine/core/IUpdatable.hpp"
 #include "../engine/core/IInputable.hpp"
-#include "../engine/component/PhysicsComponent.hpp"
+
+#include "RabbitPhysicsComponent.hpp"
 
 class SpriteComponent;
 
@@ -28,7 +29,7 @@ public:
 
 private:
 
-    std::shared_ptr<PhysicsComponent> physicsComponent = nullptr;
+    std::shared_ptr<RabbitPhysicsComponent> physicsComponent = nullptr;
 
     float moveRight = 0;
     bool jump = false;
