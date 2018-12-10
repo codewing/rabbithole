@@ -78,28 +78,7 @@ std::vector<b2Vec2>  LevelGenerator::createIslandPositions(WorldComponent* world
     auto VERTICAL_DIVISION = 3;
     auto HORIZONTAL_DIVISION = 2;
     auto unit_x = levelSize.x / VERTICAL_DIVISION;
-    auto offset_x = unit_x / 2;
     auto unit_y = (levelSize.y - start_y) / HORIZONTAL_DIVISION;
-    auto offset_y =  unit_y / 2;
-    //auto noise_x = 0;
-    //auto noise_y = 0;
-    //auto noise_scaler = 10;
-
-    //std::vector<b2Vec2> res;
-    //for (int i = 0; i < number; i++) {
-    //	//noise_x = rand() % noise_scaler;
-    //	//noise_y = rand() % noise_scaler;
-    //	b2Vec2 new_pos = { static_cast<float32> (rand() % VERTICAL_DIVISION * unit_x + offset_x), static_cast<float32> (rand() % HORIZONTAL_DIVISION * unit_y + offset_y + start_y) };
-    //	if (std::find(res.begin(), res.end(), new_pos) != res.end()) {
-    //		/* res contains already that position --> avoiding islands on same position */
-    //		i--;
-    //	}
-    //	else {
-    //		res.push_back(new_pos/* + b2Vec2(noise_x, noise_y)*/);
-    //	}
-    //}
-    //
-    //return res;
 
     b2Vec2 ringCentre = { levelSize.x / 2, (levelSize.y + start_y) / 2 };
     float angle = 360.f / number;
