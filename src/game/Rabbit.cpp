@@ -9,10 +9,11 @@
 #include "../engine/component/SpriteComponent.hpp"
 #include "MovementComponent.hpp"
 #include "RabbitPhysicsComponent.hpp"
+#include "WeaponControllerComponent.hpp"
 
 Rabbit::Rabbit(EngineCore& engine, const std::string& team, glm::vec2 position, int gamepadID) : engine(engine), team{team} {
     spawnRabbitBase(position, gamepadID);
-    spawnRabbitWeapon(position);
+    spawnRabbitWeapon(gamepadID);
 }
 
 void Rabbit::spawnRabbitBase(glm::vec2 position, int gamepadID) {
@@ -38,16 +39,20 @@ void Rabbit::spawnRabbitBase(glm::vec2 position, int gamepadID) {
     movementComp->setupSprites(spriteComp.get(), idleSprites, movementSprites);
 }
 
-void Rabbit::spawnRabbitWeapon(glm::vec2 position) {
+void Rabbit::spawnRabbitWeapon(int gamepadID) {
     auto weaponSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("bunny_hand_right_with_bazooka.png", "bunny");
 
     rabbitWeapon = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe ("+team+") Weapon");
     rabbitWeapon->setParent(rabbitBase.get());
     rabbitWeapon->setLocalPosition({0, 10});
     auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(rabbitWeapon.get());
-    weaponSprite.setOrderInBatch(5);
     spriteComp->setSprite(weaponSprite);
 
+    auto weaponControllerComp = ObjectManager::GetInstance()->CreateComponent<WeaponControllerComponent>(rabbitWeapon.get());
+    weaponSprite.setOrderInBatch(5);
+    weaponControllerComp->setWeaponSprite(weaponSprite);
+    weaponControllerComp->setReferenceToSpriteComponent(spriteComp.get());
+    weaponControllerComp->setControllerID(gamepadID);
 }
 
 glm::vec2 Rabbit::getPosition() {

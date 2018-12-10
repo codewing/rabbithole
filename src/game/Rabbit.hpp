@@ -23,6 +23,6 @@ private:
     std::shared_ptr<GameObject> rabbitWeapon;
 
     void spawnRabbitBase(glm::vec2 position, int gamepadID);
-    void spawnRabbitWeapon(glm::vec2 position);
+    void spawnRabbitWeapon(int gamepadID);
 };
 
