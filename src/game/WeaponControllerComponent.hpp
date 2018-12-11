@@ -28,7 +28,6 @@ public:
 
 private:
     sre::Sprite weaponSprite;
-    sre::Sprite projectileSprite;
     SpriteComponent* spriteComponent;
     MovementComponent* movementComponent;
 
