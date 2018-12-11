@@ -35,6 +35,7 @@ void MovementComponent::onUpdate(float deltaTime) {
         isMoving = true;
     }
 
+    // Select and update animation frames depending on moving or not
     if(wasMoving != isMoving) {
         currentSpriteIndex = 0;
         currentTimeFrame = 0;
@@ -50,6 +51,8 @@ void MovementComponent::onUpdate(float deltaTime) {
         }
     }
 
+
+    // Update selected Sprite and set flipped state
     sre::Sprite sprite;
     if(isMoving) {
         sprite = movementSprites[currentSpriteIndex];
@@ -57,9 +60,19 @@ void MovementComponent::onUpdate(float deltaTime) {
         sprite = idleSprites[currentSpriteIndex];
     }
 
-    if(velocity.x > 0.0) {
-        sprite.setFlip({true, false});
+    if(isAiming) {
+        if(sprite.getFlip().x != isFlippedDueToAiming) {
+            sprite.setFlip({isFlippedDueToAiming, false});
+        }
+    } else {
+        if(velocity.x > 0.0) {
+            sprite.setFlip({true, false});
+            isFlippedDueToMovement = true;
+        } else {
+            isFlippedDueToMovement = false;
+        }
     }
+
     spriteComponent->setSprite(sprite);
 
 }
@@ -100,17 +113,18 @@ bool MovementComponent::onControllerEvent(SDL_Event &event) {
     // skip execution if id doesnt match
     if(event.cdevice.which != gamepadID) return false;
 
-    if(event.cbutton.state == SDL_PRESSED) {
+    if(event.type == SDL_CONTROLLERBUTTONDOWN) {
         if(event.cbutton.button == SDL_CONTROLLER_BUTTON_A && isGrounded) {
             jump = true;
         }
     }
 
-    if(event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX) {
-
-        moveRight = event.caxis.value / axisValueMax;
-        if(std::abs(moveRight) < controllerDeadzone) {
-            moveRight = 0;
+    if(event.type == SDL_CONTROLLERAXISMOTION) {
+        if(event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX) {
+            moveRight = event.caxis.value / axisValueMax;
+            if(std::abs(moveRight) < controllerDeadzone) {
+                moveRight = 0;
+            }
         }
     }
 
@@ -146,4 +160,16 @@ void MovementComponent::setupSprites(SpriteComponent* spriteComponent, std::vect
 
     this->idleSprites = idleSprites;
     this->movementSprites = movementSprites;
+}
+
+void MovementComponent::setIsAiming(bool isAiming) {
+    MovementComponent::isAiming = isAiming;
+}
+
+void MovementComponent::setIsFlippedDueToAiming(bool isFlippedDueToAiming) {
+    MovementComponent::isFlippedDueToAiming = isFlippedDueToAiming;
+}
+
+bool MovementComponent::isIsFlippedDueToMovement() const {
+    return isFlippedDueToMovement;
 }

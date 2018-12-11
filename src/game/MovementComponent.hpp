@@ -25,6 +25,11 @@ public:
     void setupControllerInput(int gamepadID);
     void setupSprites(SpriteComponent* spriteComponent, std::vector<sre::Sprite> idleSprites, std::vector<sre::Sprite> movementSprites);
 
+    void setIsAiming(bool isAiming);
+    void setIsFlippedDueToAiming(bool isFlippedDueToAiming);
+
+    bool isIsFlippedDueToMovement() const;
+
     virtual ~MovementComponent();
 
 private:
@@ -34,11 +39,14 @@ private:
     float moveRight = 0;
     bool jump = false;
 	bool isGrounded = false;
+	bool isAiming = false;
+	bool isFlippedDueToAiming = false;
 
 	SpriteComponent* spriteComponent;
 	std::vector<sre::Sprite> idleSprites;
 	std::vector<sre::Sprite> movementSprites;
 	bool isMoving = false;
+	bool isFlippedDueToMovement = false;
 	int currentSpriteIndex = 0;
 	float currentTimeFrame = 0;
     static constexpr float idleTimeFrame = 0.3;

@@ -52,7 +52,8 @@ void Rabbit::spawnRabbitWeapon(int gamepadID) {
     weaponSprite.setOrderInBatch(5);
     weaponControllerComp->setWeaponSprite(weaponSprite);
     weaponControllerComp->setReferenceToSpriteComponent(spriteComp.get());
-    weaponControllerComp->setControllerID(gamepadID);
+    weaponControllerComp->setGamepadID(gamepadID);
+    weaponControllerComp->setMovementComponent(rabbitBase->getComponent<MovementComponent>().get());
 }
 
 glm::vec2 Rabbit::getPosition() {

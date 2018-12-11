@@ -9,6 +9,7 @@
 #include "../engine/core/IInputable.hpp"
 
 class SpriteComponent;
+class MovementComponent;
 
 class WeaponControllerComponent : public Component, public IUpdatable, public IInputable {
 
@@ -21,14 +22,19 @@ public:
 
     void setWeaponSprite(const sre::Sprite &weaponSprite);
     void setReferenceToSpriteComponent(SpriteComponent *spriteComponent);
-    void setControllerID(int controllerID);
+    void setGamepadID(int gamepadID);
+
+    void setMovementComponent(MovementComponent *movementComponent);
 
 private:
     sre::Sprite weaponSprite;
     SpriteComponent* spriteComponent;
-    int controllerID;
+    MovementComponent* movementComponent;
 
-    glm::vec2 aimingDirection = {0, 0};
+    int gamepadID = -1;
+    static constexpr float axisValueMax = 32768;
+    static constexpr float controllerDeadzone = 0.1;
 
+    float aimRight, aimUp;
 };
 
