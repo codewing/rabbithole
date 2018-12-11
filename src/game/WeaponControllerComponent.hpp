@@ -28,6 +28,7 @@ public:
 
 private:
     sre::Sprite weaponSprite;
+    sre::Sprite projectileSprite;
     SpriteComponent* spriteComponent;
     MovementComponent* movementComponent;
 
@@ -36,5 +37,7 @@ private:
     static constexpr float controllerDeadzone = 0.1;
 
     float aimRight, aimUp;
+
+    void fireProjectile(glm::vec2 direction);
 };
 

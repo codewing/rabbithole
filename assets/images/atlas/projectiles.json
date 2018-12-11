@@ -1,0 +1,92 @@
+{"frames": [
+
+{
+	"filename": "bullet.png",
+	"frame": {"x":0,"y":0,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
+},
+{
+	"filename": "Oexplosion_1.png",
+	"frame": {"x":64,"y":0,"w":282,"h":266},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
+	"sourceSize": {"w":282,"h":266}
+},
+{
+	"filename": "Oexplosion_2.png",
+	"frame": {"x":346,"y":0,"w":282,"h":266},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
+	"sourceSize": {"w":282,"h":266}
+},
+{
+	"filename": "Oexplosion_3.png",
+	"frame": {"x":628,"y":0,"w":282,"h":266},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
+	"sourceSize": {"w":282,"h":266}
+},
+{
+	"filename": "Oexplosion_4.png",
+	"frame": {"x":0,"y":266,"w":282,"h":266},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
+	"sourceSize": {"w":282,"h":266}
+},
+{
+	"filename": "Oexplosion_5.png",
+	"frame": {"x":282,"y":266,"w":282,"h":266},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
+	"sourceSize": {"w":282,"h":266}
+},
+{
+	"filename": "Oexplosion_6.png",
+	"frame": {"x":564,"y":266,"w":282,"h":266},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
+	"sourceSize": {"w":282,"h":266}
+},
+{
+	"filename": "Oexplosion_7.png",
+	"frame": {"x":0,"y":532,"w":282,"h":266},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
+	"sourceSize": {"w":282,"h":266}
+},
+{
+	"filename": "Oexplosion_8.png",
+	"frame": {"x":282,"y":532,"w":282,"h":266},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
+	"sourceSize": {"w":282,"h":266}
+},
+{
+	"filename": "Oexplosion_9.png",
+	"frame": {"x":564,"y":532,"w":282,"h":266},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
+	"sourceSize": {"w":282,"h":266}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "projectiles.png",
+	"format": "RGBA8888",
+	"size": {"w":1024,"h":1024},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:e7bced93612da0ffceb9ea0d6a0dde49:e87d08be9dcfa72190e09255d738bb18:9b6e6842273e8724f51d1457138f1678$"
+}
+}

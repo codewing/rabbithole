@@ -7,6 +7,7 @@
 #include "../engine/component/SpriteComponent.hpp"
 #include "MovementComponent.hpp"
 #include "../engine/debug/Log.hpp"
+#include "../engine/core/ObjectManager.hpp"
 
 WeaponControllerComponent::WeaponControllerComponent(GameObject *gameObject) : Component(
         gameObject, ComponentFlag::UPDATE | ComponentFlag::INPUT) {}
@@ -30,12 +31,24 @@ void WeaponControllerComponent::onUpdate(float deltaTime) {
             weaponSprite.setFlip({true, false});
         }
 
+        // not only aim but also shoot!
+        if(aimUp + aimRight >= 0.8) {
+            fireProjectile(aimingDirection);
+        }
+
     } else {
         weaponSprite.setFlip({movementComponent->isIsFlippedDueToMovement(), false});
         movementComponent->setIsAiming(false);
     }
 
     spriteComponent->setSprite(weaponSprite);
+
+}
+
+void WeaponControllerComponent::fireProjectile(glm::vec2 direction) {
+    std::shared_ptr<GameObject> projectile = ObjectManager::GetInstance()->CreateGameObject("Projectile");
+
+    auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(projectile.get());
 
 }
 
