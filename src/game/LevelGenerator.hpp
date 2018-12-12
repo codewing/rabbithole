@@ -26,10 +26,9 @@ public:
 	static constexpr float roundTerrainRatio = 0.375f;
 	static constexpr float straightTerrainRatio = 0.50f;
 
-    LevelGenerator(EngineCore& engine, glm::vec2 levelSize, float earthPercentage);
+    LevelGenerator(glm::vec2 levelSize, float earthPercentage);
 
 private:
 	glm::vec2 levelSize;
     float earthPercentage;
-	EngineCore& engine;
 };

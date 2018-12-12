@@ -13,8 +13,8 @@
 
 WormholeGame::WormholeGame(EngineCore &engine) :
                     GameModule(engine),
-                    redRabbit {engine, "red", {500, 780}, 0},
-                    blueRabbit {engine, "blue", {1500, 750}, -1} {}
+                    redRabbit {"red", {500, 780}, 0},
+                    blueRabbit {"blue", {1500, 750}, -1} {}
 
 void WormholeGame::update(float deltaTime) {
     cameraController.update(deltaTime);
@@ -27,7 +27,7 @@ void WormholeGame::update(float deltaTime) {
 }
 
 void WormholeGame::initialize() {
-    LevelGenerator level(engine, {2048,2048}, 0.3);
+    LevelGenerator level({2048,2048}, 0.3);
     level.generateLevel();
 
     cameraController.initialize();

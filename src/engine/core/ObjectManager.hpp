@@ -17,6 +17,7 @@
 
 
 class EngineCore;
+class TextureSystem;
 
 class ObjectManager {
 
@@ -58,6 +59,7 @@ public:
     std::vector<std::shared_ptr<IInputable>>& GetInputComponents();
 
     CameraManager& GetCameraManager();
+    TextureSystem& GetTextureSystem();
 
 private:
     static ObjectManager* instance;

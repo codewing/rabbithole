@@ -10,7 +10,7 @@
 #include "../engine/core/ObjectManager.hpp"
 #include "../engine/debug/Log.hpp"
 
-LevelGenerator::LevelGenerator(EngineCore& engine, glm::vec2 levelSize, float earthPercentage) : engine(engine), levelSize(levelSize), earthPercentage(earthPercentage) {
+LevelGenerator::LevelGenerator(glm::vec2 levelSize, float earthPercentage) : levelSize(levelSize), earthPercentage(earthPercentage) {
     auto seed = (unsigned)time(0);
     LOG_GAME_INFO("Seeded with: " + std::to_string(seed));
     srand(seed);
@@ -155,8 +155,8 @@ void LevelGenerator::addPortals(int couples) {
         portal1->setLocalPosition({randX(), randY()});
         portal2->setLocalPosition({randX(), randY()});
 
-        auto sprite1 = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas(portals[2*i], "portals");
-        auto sprite2 = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas(portals[2*i + 1], "portals");
+        auto sprite1 = ObjectManager::GetInstance()->GetTextureSystem().getSpriteFromAtlas(portals[2*i], "portals");
+        auto sprite2 = ObjectManager::GetInstance()->GetTextureSystem().getSpriteFromAtlas(portals[2*i + 1], "portals");
 
 		//initializing circles for physics
 		port1_comp->initCircle(b2_staticBody, sprite1.getSpriteSize().x / 4, portal1->getLocalPosition(), 0.0f);

@@ -5,6 +5,8 @@
 #include "ObjectManager.hpp"
 #include "EngineCore.hpp"
 
+#include "TextureSystem.hpp"
+
 ObjectManager* ObjectManager::instance = 0;
 
 
@@ -66,5 +68,9 @@ std::map<b2Fixture *, IInteractable *> &ObjectManager::GetRegisteredPhysicsCompo
 
 b2World *ObjectManager::GetPhysicsWorld() {
     return engineCore->getPhysicsSystem().world;
+}
+
+TextureSystem &ObjectManager::GetTextureSystem() {
+    return engineCore->getGraphicsSystem().getTextureSystem();
 }
 

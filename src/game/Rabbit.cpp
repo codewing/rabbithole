@@ -11,7 +11,7 @@
 #include "RabbitPhysicsComponent.hpp"
 #include "WeaponControllerComponent.hpp"
 
-Rabbit::Rabbit(EngineCore& engine, const std::string& team, glm::vec2 position, int gamepadID) : engine(engine), team{team} {
+Rabbit::Rabbit(const std::string& team, glm::vec2 position, int gamepadID) : team{team} {
     spawnRabbitBase(position, gamepadID);
     spawnRabbitWeapon(gamepadID);
 }
@@ -21,8 +21,8 @@ void Rabbit::spawnRabbitBase(glm::vec2 position, int gamepadID) {
     auto idleSpriteNames =     {team + "_anim_Rabbit_Idle_000.png", team + "_anim_Rabbit_Idle_001.png",
                                 team + "_anim_Rabbit_Idle_002.png", team + "_anim_Rabbit_Idle_003.png"};
 
-    std::vector<sre::Sprite> movementSprites = engine.getGraphicsSystem().getTextureSystem().getSpritesFromAtlas(movementSpriteNames, "bunny");
-    std::vector<sre::Sprite> idleSprites = engine.getGraphicsSystem().getTextureSystem().getSpritesFromAtlas(idleSpriteNames, "bunny");
+    std::vector<sre::Sprite> movementSprites = ObjectManager::GetInstance()->GetTextureSystem().getSpritesFromAtlas(movementSpriteNames, "bunny");
+    std::vector<sre::Sprite> idleSprites = ObjectManager::GetInstance()->GetTextureSystem().getSpritesFromAtlas(idleSpriteNames, "bunny");
     auto setSpritePosition = [](sre::Sprite& sprite) { sprite.setOrderInBatch(10); };
     std::for_each(movementSprites.begin(), movementSprites.end(), setSpritePosition);
     std::for_each(idleSprites.begin(), idleSprites.end(), setSpritePosition);
@@ -40,7 +40,7 @@ void Rabbit::spawnRabbitBase(glm::vec2 position, int gamepadID) {
 }
 
 void Rabbit::spawnRabbitWeapon(int gamepadID) {
-    auto weaponSprite = engine.getGraphicsSystem().getTextureSystem().getSpriteFromAtlas("bunny_hand_right_with_bazooka.png", "bunny");
+    auto weaponSprite = ObjectManager::GetInstance()->GetTextureSystem().getSpriteFromAtlas("bunny_hand_right_with_bazooka.png", "bunny");
 
     rabbitWeapon = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe ("+team+") Weapon");
     rabbitWeapon->setParent(rabbitBase.get());

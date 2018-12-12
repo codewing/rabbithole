@@ -10,13 +10,12 @@
 
 class Rabbit {
 public:
-    Rabbit(EngineCore& engine, const std::string& team, glm::vec2 position, int gamepadID);
+    Rabbit(const std::string& team, glm::vec2 position, int gamepadID);
 
     glm::vec2 getPosition();
 
 private:
 
-    EngineCore& engine;
     std::string team;
 
     std::shared_ptr<GameObject> rabbitBase;
