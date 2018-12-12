@@ -9,84 +9,100 @@
 	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "Oexplosion_1.png",
-	"frame": {"x":64,"y":0,"w":282,"h":266},
+	"filename": "poof_1.png",
+	"frame": {"x":64,"y":0,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
-	"sourceSize": {"w":282,"h":266}
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "Oexplosion_2.png",
-	"frame": {"x":346,"y":0,"w":282,"h":266},
+	"filename": "poof_2.png",
+	"frame": {"x":128,"y":0,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
-	"sourceSize": {"w":282,"h":266}
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "Oexplosion_3.png",
-	"frame": {"x":628,"y":0,"w":282,"h":266},
+	"filename": "poof_3.png",
+	"frame": {"x":192,"y":0,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
-	"sourceSize": {"w":282,"h":266}
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "Oexplosion_4.png",
-	"frame": {"x":0,"y":266,"w":282,"h":266},
+	"filename": "poof_4.png",
+	"frame": {"x":0,"y":64,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
-	"sourceSize": {"w":282,"h":266}
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "Oexplosion_5.png",
-	"frame": {"x":282,"y":266,"w":282,"h":266},
+	"filename": "poof_5.png",
+	"frame": {"x":64,"y":64,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
-	"sourceSize": {"w":282,"h":266}
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "Oexplosion_6.png",
-	"frame": {"x":564,"y":266,"w":282,"h":266},
+	"filename": "poof_6.png",
+	"frame": {"x":128,"y":64,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
-	"sourceSize": {"w":282,"h":266}
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "Oexplosion_7.png",
-	"frame": {"x":0,"y":532,"w":282,"h":266},
+	"filename": "poof_7.png",
+	"frame": {"x":192,"y":64,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
-	"sourceSize": {"w":282,"h":266}
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "Oexplosion_8.png",
-	"frame": {"x":282,"y":532,"w":282,"h":266},
+	"filename": "poof_8.png",
+	"frame": {"x":0,"y":128,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
-	"sourceSize": {"w":282,"h":266}
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
 },
 {
-	"filename": "Oexplosion_9.png",
-	"frame": {"x":564,"y":532,"w":282,"h":266},
+	"filename": "poof_9.png",
+	"frame": {"x":64,"y":128,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":282,"h":266},
-	"sourceSize": {"w":282,"h":266}
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
+},
+{
+	"filename": "poof_10.png",
+	"frame": {"x":128,"y":128,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
+},
+{
+	"filename": "poof_11.png",
+	"frame": {"x":192,"y":128,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
 }],
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "projectiles.png",
 	"format": "RGBA8888",
-	"size": {"w":1024,"h":1024},
+	"size": {"w":256,"h":256},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e7bced93612da0ffceb9ea0d6a0dde49:e87d08be9dcfa72190e09255d738bb18:9b6e6842273e8724f51d1457138f1678$"
+	"smartupdate": "$TexturePacker:SmartUpdate:962a8a57e12b68ba6cc1e689b0048ff3:0cb9ce09038f3b92602f14901bd4e527:9b6e6842273e8724f51d1457138f1678$"
 }
 }
