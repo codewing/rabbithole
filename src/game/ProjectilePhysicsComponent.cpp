@@ -8,12 +8,14 @@
 #include "../engine/component/SpriteComponent.hpp"
 #include "../engine/component/SpriteAnimationComponent.hpp"
 #include "../engine/core/TextureSystem.hpp"
-
+#include "../engine/debug/Log.hpp"
+#include <sstream>
 
 ProjectilePhysicsComponent::ProjectilePhysicsComponent(GameObject *gameObject) : PhysicsComponent(gameObject) {}
 
 void ProjectilePhysicsComponent::onCollisionStart(IInteractable *interactable) {
-    if(!interactable->isSensor()) {
+    if(!interactable->isSensor() && !collided) {
+        collided = true;
         auto objManager = ObjectManager::GetInstance();
 
         auto explosionGO = objManager->CreateGameObject("Explosion");
@@ -28,6 +30,6 @@ void ProjectilePhysicsComponent::onCollisionStart(IInteractable *interactable) {
         spriteAnimComponent->setAnimationTime(0.016f);
         spriteAnimComponent->setDestroyWhenDone(true);
 
-        // TODO destroy self
+        objManager->DestroyGameObject(gameObject);
     }
 }

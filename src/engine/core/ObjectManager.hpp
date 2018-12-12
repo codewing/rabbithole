@@ -48,6 +48,8 @@ public:
     }
 
     std::shared_ptr<GameObject> CreateGameObject(std::string name);
+    void DestroyGameObject(GameObject* gameobject);
+    void DestroyComponent(Component* component);
 
     void EnablePhysics(IInteractable *interactable);
     void DisablePhysics(IInteractable *interactable);
@@ -67,6 +69,10 @@ private:
     ObjectManager();
     void setEngineCore(EngineCore* engineCore);
 
+    void Cleanup();
+    void DestroyGameObjectImmediately(GameObject* gameobject);
+    void DestroyComponentImmediately(Component* component);
+
     CameraManager cameraManager;
     EngineCore* engineCore;
 
@@ -77,6 +83,9 @@ private:
     std::map<b2Fixture*, IInteractable*> registeredPhysicsComponents;
     std::vector<std::shared_ptr<IRenderable>> renderableComponents;
     std::vector<std::shared_ptr<IInputable>> inputComponents;
+
+    std::vector<GameObject*> gameobjectToDelete;
+    std::vector<Component*> componentToDelete;
 
     friend class EngineCore;
 };

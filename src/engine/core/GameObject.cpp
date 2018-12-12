@@ -57,3 +57,9 @@ float GameObject::getRotation() const {
 
     return rotation;
 }
+
+void GameObject::removeComponent(Component* component) {
+    auto findComponent = [component](std::shared_ptr<Component> currComponent) { return currComponent.get() == component;};
+    auto iter(remove_if(components.begin(), components.end(), findComponent));
+    components.erase(iter);
+}

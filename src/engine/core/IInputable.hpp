@@ -10,6 +10,8 @@
 class IInputable {
 
 public:
+    virtual ~IInputable() = default;
+
     // The methods should return true, if the key event is consumed. This prevents other components to receive the event.
     virtual bool onKeyEvent(SDL_Event &event);
     virtual bool onMouseEvent(SDL_Event& event);

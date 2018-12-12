@@ -43,6 +43,10 @@ private:
     GameObject* parent = nullptr;
 
     float rotation;
+
+    void removeComponent(Component* component);
+
+    friend class ObjectManager;
 };
 
 // definition of the template member function addComponent(Component* comp)

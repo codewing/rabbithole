@@ -36,7 +36,7 @@ private:
     static constexpr float axisValueMax = 32768;
     static constexpr float controllerDeadzone = 0.1;
 
-    float aimRight, aimUp;
+    float aimRight = 0, aimUp = 0;
 
     float fireCooldown = 0.0f;
     Projectile currentWeapon = Projectile::SHELL;

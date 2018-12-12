@@ -10,6 +10,8 @@
 class IRenderable {
 
 public:
+    virtual ~IRenderable() = default;
+
     virtual void onRenderSprite(sre::SpriteBatch::SpriteBatchBuilder &spriteBatchBuilder);
     virtual void onRender(sre::RenderPass& renderPass);
 };

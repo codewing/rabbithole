@@ -7,6 +7,8 @@
 class IUpdatable {
 
 public:
+    virtual ~IUpdatable() = default;
+
     virtual void onUpdate(float deltaTime) = 0;
 
 };

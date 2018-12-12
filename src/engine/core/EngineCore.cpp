@@ -57,6 +57,8 @@ void EngineCore::runGame(GameModule& gameModule) {
         physics->update(timer->getDeltaTime());
 
         graphics->render();
+
+        ObjectManager::GetInstance()->Cleanup();
     }
 }
 

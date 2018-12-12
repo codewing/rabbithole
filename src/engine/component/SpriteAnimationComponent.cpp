@@ -1,5 +1,6 @@
 #include "SpriteAnimationComponent.hpp"
 #include "../core/GameObject.hpp"
+#include "../core/ObjectManager.hpp"
 #include <memory>
 
 SpriteAnimationComponent::SpriteAnimationComponent(GameObject *gameObject)
@@ -33,7 +34,7 @@ void SpriteAnimationComponent::onUpdate(float deltaTime) {
         spriteIndex++;
 
         if(destroyWhenDone && spriteIndex == sprites.size()) {
-            // TODO DESTORY GAMEOBJECT
+            ObjectManager::GetInstance()->DestroyGameObject(gameObject);
         } else {
             spriteIndex = static_cast<int>((spriteIndex) % sprites.size());
             spriteComponent->setSprite(sprites[spriteIndex]);
