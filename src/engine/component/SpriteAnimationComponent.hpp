@@ -15,11 +15,16 @@ public:
 
     float getAnimationTime() const;                         // time between animations (in seconds)
     void setAnimationTime(float animationTime);
+
+    void setDestroyWhenDone(bool destroyWhenDone);
+
 private:
     float animationTime = 0.300f;
     std::vector<sre::Sprite> sprites;
     float time = 0;
     int spriteIndex = 0;
+
+    bool destroyWhenDone = false;
 };
 
 

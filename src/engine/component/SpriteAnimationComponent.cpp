@@ -3,11 +3,14 @@
 #include <memory>
 
 SpriteAnimationComponent::SpriteAnimationComponent(GameObject *gameObject)
-    : Component(gameObject, ComponentFlag::RENDERABLE & ComponentFlag::UPDATE) {}
+    : Component(gameObject, ComponentFlag::UPDATE) {}
 
 
 void SpriteAnimationComponent::setSprites(std::vector<sre::Sprite> sprites) {
     this->sprites = sprites;
+
+    auto spriteComponent = gameObject->getComponent<SpriteComponent>();
+    spriteComponent->setSprite(sprites[spriteIndex]);
 }
 
 float SpriteAnimationComponent::getAnimationTime() const {
@@ -27,7 +30,18 @@ void SpriteAnimationComponent::onUpdate(float deltaTime) {
 
     if (time > animationTime){
         time = static_cast<float>(fmod(time, animationTime));
-        spriteIndex = static_cast<int>((spriteIndex + 1) % sprites.size());
-        spriteComponent->setSprite(sprites[spriteIndex]);
+        spriteIndex++;
+
+        if(destroyWhenDone && spriteIndex == sprites.size()) {
+            // TODO DESTORY GAMEOBJECT
+        } else {
+            spriteIndex = static_cast<int>((spriteIndex) % sprites.size());
+            spriteComponent->setSprite(sprites[spriteIndex]);
+        }
+
     }
+}
+
+void SpriteAnimationComponent::setDestroyWhenDone(bool destroyWhenDone) {
+    SpriteAnimationComponent::destroyWhenDone = destroyWhenDone;
 }

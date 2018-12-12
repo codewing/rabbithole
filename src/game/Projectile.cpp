@@ -8,6 +8,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/string_cast.hpp>
 #include "../engine/core/TextureSystem.hpp"
+#include "ProjectilePhysicsComponent.hpp"
 
 
 const Projectile Projectile::SHELL = Projectile("Shell", 8, 64, 100, 0.5, 0.5, "bullet.png");
@@ -19,13 +20,13 @@ Projectile::Projectile(const std::string &name, float collisionRadius, float exp
 void Projectile::spawnProjectile(Projectile projectile, glm::vec2 direction, glm::vec2 position) {
     auto objManager = ObjectManager::GetInstance();
 
-    auto projectileGO = objManager->CreateGameObject("Projectile " + glm::to_string(direction));
+    auto projectileGO = objManager->CreateGameObject("Projectile");
 
     auto projectileSprite = objManager->GetTextureSystem().getSpriteFromAtlas(projectile.getSpriteName(), "projectiles");
     auto spriteComponent = objManager->CreateComponent<SpriteComponent>(projectileGO.get());
     spriteComponent->setSprite(projectileSprite);
 
-    auto physicsComponent = objManager->CreateComponent<PhysicsComponent>(projectileGO.get());
+    auto physicsComponent = objManager->CreateComponent<ProjectilePhysicsComponent>(projectileGO.get());
     physicsComponent->initCircle(b2_dynamicBody, projectile.getCollisionRadius(), position, 1.0f);
     physicsComponent->addImpulse(direction * projectile.getVelocity());
 }
