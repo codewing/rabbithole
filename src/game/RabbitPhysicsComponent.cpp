@@ -27,6 +27,7 @@ void RabbitPhysicsComponent::checkGrounded() {
     b2Vec2 target1 {from.x - 15 / PhysicsSystem::PHYSICS_SCALE,from.y - (32 / PhysicsSystem::PHYSICS_SCALE) * 1.5f};
     b2Vec2 target2 {from.x + 15 / PhysicsSystem::PHYSICS_SCALE,from.y - (32 / PhysicsSystem::PHYSICS_SCALE) * 1.5f};
     world->RayCast(this, from, target1);
+    world->RayCast(this, from, target2);
 }
 
 float32

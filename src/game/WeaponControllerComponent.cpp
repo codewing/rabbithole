@@ -22,7 +22,7 @@ void WeaponControllerComponent::onUpdate(float deltaTime) {
 
     // Prevent normalization NaN
     if(aimUp != 0.0 || aimRight != 0.0) {
-        glm::vec2 aimingDirection = glm::normalize(glm::vec2{aimUp, aimRight});
+        glm::vec2 aimingDirection = glm::normalize(glm::vec2{aimRight, -aimUp});
         movementComponent->setIsAiming(true);
 
         if(aimRight < 0.0) {
