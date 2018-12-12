@@ -8,6 +8,7 @@
 #include "MovementComponent.hpp"
 #include "../engine/debug/Log.hpp"
 #include "../engine/core/ObjectManager.hpp"
+#include "Projectile.hpp"
 
 WeaponControllerComponent::WeaponControllerComponent(GameObject *gameObject) : Component(
         gameObject, ComponentFlag::UPDATE | ComponentFlag::INPUT) {}
@@ -45,11 +46,8 @@ void WeaponControllerComponent::onUpdate(float deltaTime) {
 
 }
 
-void WeaponControllerComponent::fireProjectile(glm::vec2 direction) {
-    std::shared_ptr<GameObject> projectile = ObjectManager::GetInstance()->CreateGameObject("Projectile");
-
-    auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(projectile.get());
-
+void WeaponControllerComponent::fireProjectile(glm::vec2 direction, glm::vec2 position) {
+    Projectile::spawnProjectile(Projectile::BAZOOKA, direction, position);
 }
 
 void WeaponControllerComponent::setReferenceToSpriteComponent(SpriteComponent *spriteComponent) {

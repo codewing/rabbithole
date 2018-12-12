@@ -37,6 +37,6 @@ private:
 
     float aimRight, aimUp;
 
-    void fireProjectile(glm::vec2 direction);
+    void fireProjectile(glm::vec2 direction, glm::vec2 position);
 };
 
