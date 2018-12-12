@@ -21,6 +21,8 @@ public:
     std::vector<std::shared_ptr<RingInteractable>>& getRings();
 	void addRing(std::vector<b2Vec2> ring);
 
+	void removeShapeFromRing(RingInteractable* ringToModify, ring_t shapeToRemove);
+
 	void updateMeshes();
 
 private:

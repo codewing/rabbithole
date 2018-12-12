@@ -65,3 +65,21 @@ void WorldComponent::initializeBackground() {
 			.build();
 	backgroundMaterial->setTexture(texture);
 }
+
+void WorldComponent::removeShapeFromRing(RingInteractable* ringToModify, ring_t shapeToRemove) {
+	std::vector<b2Vec2> previousRingData = ringToModify->getRingData();
+
+	// remove old ring from the list
+	auto iter(std::remove_if(rings.begin(), rings.end(), [ringToModify](std::shared_ptr<RingInteractable> currentRing) {return currentRing.get() == ringToModify;}));
+	rings.erase(iter);
+
+	// build a boost ring
+	auto boostRing = terrainUtils.toRing(previousRingData);
+	auto newRings = terrainUtils.subtract(boostRing, shapeToRemove);
+
+	// convert and add the rings
+	auto newB2Rings = terrainUtils.toWorldComponentStruct(newRings);
+	for(auto& b2Ring : newB2Rings) {
+		addRing(b2Ring);
+	}
+}
