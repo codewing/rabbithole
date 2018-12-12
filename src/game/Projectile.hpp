@@ -4,25 +4,37 @@
 
 #pragma once
 
+#include <string>
 #include <glm/vec2.hpp>
-
 
 class Projectile {
 
 public:
-    static const Projectile BAZOOKA;
+    static const Projectile SHELL;
 
     static void spawnProjectile(Projectile projectile, glm::vec2 direction, glm::vec2 position);
 
 private:
-    Projectile(float explosionRadius, float damage, float velocity);
+public:
+    Projectile(const std::string &name, float collisionRadius, float explosionRadius, float damage, float velocity,
+               const std::string &spriteName);
 
+    const std::string &getName() const;
+    float getExplosionRadius() const;
+    float getDamage() const;
+    float getVelocity() const;
+    float getCollisionRadius() const;
+    const std::string &getSpriteName() const;
+
+private:
+    std::string name;
+    float collisionRadius;
     float explosionRadius;
     float damage;
     float velocity;
-};
+    std::string spriteName;
 
-const Projectile Projectile::BAZOOKA = Projectile(64, 100, 20);
+};
 
 
 

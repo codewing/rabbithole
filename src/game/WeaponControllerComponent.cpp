@@ -33,8 +33,8 @@ void WeaponControllerComponent::onUpdate(float deltaTime) {
         }
 
         // not only aim but also shoot!
-        if(aimUp + aimRight >= 0.8) {
-            fireProjectile(aimingDirection);
+        if(std::abs(aimUp) + std::abs(aimRight) >= 0.8) {
+            fireProjectile(aimingDirection, gameObject->getPosition() + aimingDirection * 40.0f);
         }
 
     } else {
@@ -47,7 +47,7 @@ void WeaponControllerComponent::onUpdate(float deltaTime) {
 }
 
 void WeaponControllerComponent::fireProjectile(glm::vec2 direction, glm::vec2 position) {
-    Projectile::spawnProjectile(Projectile::BAZOOKA, direction, position);
+    Projectile::spawnProjectile(Projectile::SHELL, direction, position);
 }
 
 void WeaponControllerComponent::setReferenceToSpriteComponent(SpriteComponent *spriteComponent) {
