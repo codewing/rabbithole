@@ -9,32 +9,38 @@
 #include "RingInteractable.hpp"
 #include <sre/Mesh.hpp>
 #include "TerrainUtils.hpp"
+#include "../engine/core/IUpdatable.hpp"
 
 class GameObject;
 
-class WorldComponent : public Component, public IRenderable {
+class WorldComponent : public Component, public IRenderable, public IUpdatable {
 public:
     explicit WorldComponent(GameObject* gameObject);
 
     void onRender(sre::RenderPass &renderPass) override;
 
-    std::vector<std::shared_ptr<RingInteractable>>& getRings();
-	void addRing(std::vector<b2Vec2> ring);
+	void onUpdate(float deltaTime) override;
 
-	void removeShapeFromRing(RingInteractable* ringToModify, ring_t shapeToRemove);
+	std::vector<std::shared_ptr<RingInteractable>>& getRings();
+	void addRing(std::vector<b2Vec2> ring);
 
 	void updateMeshes();
 
+	void registerRemoveShapeFromRing(RingInteractable* ringToModify, ring_t shapeToRemove);
+
 private:
+
 	std::vector<std::shared_ptr<RingInteractable>> rings;
-
+	std::vector<std::pair<RingInteractable*, ring_t>> ringsToUpdate;
 	std::vector<std::shared_ptr<sre::Mesh>> worldMeshes;
+
 	std::shared_ptr<sre::Material> worldMaterial;
-
     std::shared_ptr<sre::Mesh> backgroundMesh;
-    std::shared_ptr<sre::Material> backgroundMaterial;
 
+	std::shared_ptr<sre::Material> backgroundMaterial;
 	TerrainUtils terrainUtils;
 
 	void initializeBackground();
+
+	void removeShapeFromRing(RingInteractable* ringToModify, ring_t shapeToRemove);
 };

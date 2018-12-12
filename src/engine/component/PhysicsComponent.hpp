@@ -14,6 +14,8 @@ public:
 
     void setPosition(glm::vec2 newPosition) override;
 
+    glm::vec2 getPosition() override;
+
     void setRotation(float newAngle) override;
 };
 

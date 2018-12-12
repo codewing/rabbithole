@@ -8,7 +8,7 @@
 #include <sre/Texture.hpp>
 
 
-WorldComponent::WorldComponent(GameObject* gameObject) : Component(gameObject, ComponentFlag::RENDERABLE) {
+WorldComponent::WorldComponent(GameObject* gameObject) : Component(gameObject, ComponentFlag::RENDERABLE | ComponentFlag::UPDATE) {
 	worldMaterial = sre::Shader::getUnlit()->createMaterial();
 	auto texture = sre::Texture::create().withFile("assets/images/scene/terrain_green.png")
 			.withGenerateMipmaps(false)
@@ -29,6 +29,8 @@ std::vector<std::shared_ptr<RingInteractable>> &WorldComponent::getRings() {
 }
 
 void WorldComponent::updateMeshes() {
+	worldMeshes.clear();
+
 	for(auto& ring : rings) {
 		auto mesh = terrainUtils.generateMesh(ring->getRingData());
 		worldMeshes.emplace_back(mesh);
@@ -82,4 +84,18 @@ void WorldComponent::removeShapeFromRing(RingInteractable* ringToModify, ring_t 
 	for(auto& b2Ring : newB2Rings) {
 		addRing(b2Ring);
 	}
+}
+
+void WorldComponent::onUpdate(float deltaTime) {
+	if(!ringsToUpdate.empty()) {
+		for(auto& ringToUpdate : ringsToUpdate) {
+			removeShapeFromRing(ringToUpdate.first, ringToUpdate.second);
+		}
+		ringsToUpdate.clear();
+		updateMeshes();
+	}
+}
+
+void WorldComponent::registerRemoveShapeFromRing(RingInteractable *ringToModify, ring_t shapeToRemove) {
+	ringsToUpdate.emplace_back(std::pair{ringToModify, shapeToRemove});
 }

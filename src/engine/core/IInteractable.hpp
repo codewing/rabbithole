@@ -20,6 +20,8 @@ public:
     virtual void setPosition(glm::vec2 newPosition) = 0;
     virtual void setRotation(float newAngle) = 0;
 
+    virtual glm::vec2 getPosition() = 0;
+
     bool isSensor();
     void setSensor(bool enabled);
 

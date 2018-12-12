@@ -21,6 +21,8 @@ public:
 
     void setRotation(float newAngle) override;
 
+    glm::vec2 getPosition() override;
+
     std::vector<b2Vec2> const getRingData();
 
 private:

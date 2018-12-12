@@ -3,9 +3,19 @@
 //
 
 #include "RingInteractable.hpp"
+#include "TerrainUtils.hpp"
+#include "WorldComponent.hpp"
+
+#include "../engine/debug/Log.hpp"
+#include "ProjectilePhysicsComponent.hpp"
 
 void RingInteractable::onCollisionStart(IInteractable *interactable) {
+    auto projectile = dynamic_cast<ProjectilePhysicsComponent*>(interactable);
 
+    if(projectile != nullptr) {
+        auto boostRing = TerrainUtils::makeConvexRing(b2Vec2{interactable->getPosition().x, interactable->getPosition().y}, 64, 8);
+        worldComponent->registerRemoveShapeFromRing(this, boostRing);
+    }
 }
 
 void RingInteractable::onCollisionEnd(IInteractable *interactable) {
@@ -23,4 +33,8 @@ RingInteractable::RingInteractable(WorldComponent* worldComponent, std::vector<b
 
 std::vector<b2Vec2> const RingInteractable::getRingData() {
     return ringData;
+}
+
+glm::vec2 RingInteractable::getPosition() {
+    return glm::vec2();
 }

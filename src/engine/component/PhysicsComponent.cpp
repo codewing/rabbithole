@@ -21,3 +21,7 @@ void PhysicsComponent::setPosition(glm::vec2 newPosition) {
 void PhysicsComponent::setRotation(float newAngle) {
     gameObject->setLocalRotation(newAngle);
 }
+
+glm::vec2 PhysicsComponent::getPosition() {
+    return gameObject->getPosition();
+}
