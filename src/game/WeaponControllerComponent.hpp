@@ -7,6 +7,7 @@
 #include "../engine/core/Component.hpp"
 #include "../engine/core/IUpdatable.hpp"
 #include "../engine/core/IInputable.hpp"
+#include "Projectile.hpp"
 
 class SpriteComponent;
 class MovementComponent;
@@ -37,6 +38,8 @@ private:
 
     float aimRight, aimUp;
 
+    float fireCooldown = 0.0f;
+    Projectile currentWeapon = Projectile::SHELL;
     void fireProjectile(glm::vec2 direction, glm::vec2 position);
 };
 

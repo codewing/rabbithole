@@ -18,6 +18,7 @@ void WeaponControllerComponent::setWeaponSprite(const sre::Sprite &weaponSprite)
 }
 
 void WeaponControllerComponent::onUpdate(float deltaTime) {
+    if(fireCooldown >= 0.0f) fireCooldown -= deltaTime;
 
     // Prevent normalization NaN
     if(aimUp != 0.0 || aimRight != 0.0) {
@@ -47,7 +48,10 @@ void WeaponControllerComponent::onUpdate(float deltaTime) {
 }
 
 void WeaponControllerComponent::fireProjectile(glm::vec2 direction, glm::vec2 position) {
-    Projectile::spawnProjectile(Projectile::SHELL, direction, position);
+    if(fireCooldown < 0.0f) {
+        Projectile::spawnProjectile(currentWeapon, direction, position);
+        fireCooldown = currentWeapon.getFireCooldown();
+    }
 }
 
 void WeaponControllerComponent::setReferenceToSpriteComponent(SpriteComponent *spriteComponent) {

@@ -17,7 +17,7 @@ public:
 private:
 public:
     Projectile(const std::string &name, float collisionRadius, float explosionRadius, float damage, float velocity,
-               const std::string &spriteName);
+               float fireCooldown, const std::string &spriteName);
 
     const std::string &getName() const;
     float getExplosionRadius() const;
@@ -26,12 +26,16 @@ public:
     float getCollisionRadius() const;
     const std::string &getSpriteName() const;
 
+    float getFireCooldown() const;
+
 private:
+
     std::string name;
     float collisionRadius;
     float explosionRadius;
     float damage;
     float velocity;
+    float fireCooldown;
     std::string spriteName;
 
 };
