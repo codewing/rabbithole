@@ -34,7 +34,7 @@ public:
 	std::vector<std::vector<b2Vec2>> toWorldComponentStruct(ring_collection_t collection);
 	static ring_t makeConvexRing(b2Vec2 position, float radius, int numberVertices);
 	static void simplify(ring_collection_t& rings);
-	ring_collection_t subtract(const ring_t& source, const ring_t& subtrahend);
+	static void subtract(const ring_t& source, const ring_t& subtrahend, ring_collection_t& result);
 	
 private:
 	std::shared_ptr<sre::Mesh> buildMesh(std::vector<p2t::Triangle*> triangles);

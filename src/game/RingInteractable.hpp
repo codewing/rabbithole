@@ -23,13 +23,14 @@ public:
 
     glm::vec2 getPosition() override;
 
-    std::vector<b2Vec2> const getRingData();
+    std::vector<b2Vec2>& getRingData();
 
 private:
 
     WorldComponent* worldComponent;
 
     std::vector<b2Vec2> ringData;
+    bool isBeingUpdated = false;
 
 };
 

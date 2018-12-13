@@ -20,8 +20,8 @@ WorldComponent::WorldComponent(GameObject* gameObject) : Component(gameObject, C
 }
 
 void WorldComponent::addRing(std::vector<b2Vec2> ring) {
-    std::shared_ptr<RingInteractable> physicsRing = std::make_shared<RingInteractable>(this, std::move(ring));
-	rings.push_back(std::move(physicsRing));
+    std::shared_ptr<RingInteractable> physicsRing = std::make_shared<RingInteractable>(this, ring);
+	rings.push_back(physicsRing);
 }
 
 std::vector<std::shared_ptr<RingInteractable>> &WorldComponent::getRings() {
@@ -77,14 +77,16 @@ void WorldComponent::removeShapeFromRing(RingInteractable* ringToModify, ring_t 
 
 	// build a boost ring
 	auto boostRing = terrainUtils.toRing(previousRingData);
-	auto newRings = terrainUtils.subtract(boostRing, shapeToRemove);
-
+	ring_collection_t newRings;
+	TerrainUtils::subtract(boostRing, shapeToRemove, newRings);
     TerrainUtils::simplify(newRings);
 
 	// convert and add the rings
 	auto newB2Rings = terrainUtils.toWorldComponentStruct(newRings);
 	for(auto& b2Ring : newB2Rings) {
-		addRing(b2Ring);
+		if(b2Ring.size() > 2) {
+			addRing(b2Ring);
+		}
 	}
 }
 

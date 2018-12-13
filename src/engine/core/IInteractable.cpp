@@ -5,6 +5,7 @@
 #include "IInteractable.hpp"
 
 #include "ObjectManager.hpp"
+#include "../debug/Log.hpp"
 
 IInteractable::IInteractable() {
     world = ObjectManager::GetInstance()->GetPhysicsWorld();
@@ -83,7 +84,8 @@ void IInteractable::initBox(b2BodyType type, glm::vec2 size, glm::vec2 center, f
 // points in local coordinates, position is the center of the polygon
 void IInteractable::initChain(b2BodyType type, std::vector<b2Vec2> points, glm::vec2 position, float density) {
     assert(body == nullptr);
-	std::for_each(points.begin(), points.end(), [](b2Vec2& point) {point.x /= PhysicsSystem::PHYSICS_SCALE; point.y /= PhysicsSystem::PHYSICS_SCALE; });
+    std::vector<b2Vec2> scaledPoints;
+	std::for_each(points.begin(), points.end(), [&](b2Vec2& point) {scaledPoints.emplace_back(b2Vec2{point.x / PhysicsSystem::PHYSICS_SCALE, point.y / PhysicsSystem::PHYSICS_SCALE}); });
 
     // do init
     shapeType = b2Shape::Type::e_chain;
@@ -93,7 +95,8 @@ void IInteractable::initChain(b2BodyType type, std::vector<b2Vec2> points, glm::
     bd.position = b2Vec2(position.x / PhysicsSystem::PHYSICS_SCALE, position.y / PhysicsSystem::PHYSICS_SCALE);
     body = world->CreateBody(&bd);
     auto chain = new b2ChainShape();
-    chain->CreateChain(points.data(), points.size());
+    LOG_GAME_INFO(std::to_string(scaledPoints.size()));
+    chain->CreateChain(scaledPoints.data(), scaledPoints.size());
     shape = chain;
 
     b2FixtureDef fxD;

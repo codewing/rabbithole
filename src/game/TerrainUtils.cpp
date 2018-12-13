@@ -59,11 +59,9 @@ ring_t TerrainUtils::toRing(std::vector<b2Vec2> ring) {
 	return result;
 }
 
-ring_collection_t TerrainUtils::subtract(const ring_t& source, const ring_t& subtrahend)
+void TerrainUtils::subtract(const ring_t& source, const ring_t& subtrahend, ring_collection_t& result)
 {
-	ring_collection_t out;
-	boost::geometry::difference(source, subtrahend, out);
-	return out;
+	boost::geometry::difference(source, subtrahend, result);
 }
 
 std::vector<std::vector<b2Vec2>> TerrainUtils::toWorldComponentStruct(ring_collection_t collection) {
@@ -189,7 +187,7 @@ void TerrainUtils::reshapeEdges(std::vector<b2Vec2>& terrain) {
 void TerrainUtils::simplify(ring_collection_t& rings) {
 	std::transform(rings.begin(), rings.end(), rings.begin(), [](const ring_t& r){
 		ring_t simplified;
-		boost::geometry::simplify(r, simplified, 0.05);
+		boost::geometry::simplify(r, simplified, 0.05 * PhysicsSystem::PHYSICS_SCALE);
 		// Discard self intersecting rings
 		return boost::geometry::intersects(simplified) ? r : simplified;
 	});

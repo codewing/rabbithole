@@ -19,7 +19,7 @@ void ProjectilePhysicsComponent::onCollisionStart(IInteractable *interactable) {
         auto objManager = ObjectManager::GetInstance();
 
         auto explosionGO = objManager->CreateGameObject("Explosion");
-        explosionGO->setLocalPosition(gameObject->getPosition());
+        explosionGO->setLocalPosition(glm::vec2{body->GetPosition().x * PhysicsSystem::PHYSICS_SCALE, body->GetPosition().y * PhysicsSystem::PHYSICS_SCALE});
         explosionGO->setLocalRotation(gameObject->getRotation());
 
         auto spriteComponent = objManager->CreateComponent<SpriteComponent>(explosionGO.get());

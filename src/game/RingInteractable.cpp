@@ -12,7 +12,8 @@
 void RingInteractable::onCollisionStart(IInteractable *interactable) {
     auto projectile = dynamic_cast<ProjectilePhysicsComponent*>(interactable);
 
-    if(projectile != nullptr) {
+    if(projectile != nullptr && !isBeingUpdated) {
+        isBeingUpdated = true;
         auto boostRing = TerrainUtils::makeConvexRing(b2Vec2{interactable->getPosition().x, interactable->getPosition().y}, 64, 8);
         worldComponent->registerRemoveShapeFromRing(this, boostRing);
     }
@@ -28,10 +29,10 @@ void RingInteractable::setRotation(float newAngle) {}
 
 RingInteractable::RingInteractable(WorldComponent* worldComponent, std::vector<b2Vec2> ringData)
     : worldComponent(worldComponent), ringData(ringData) {
-    initChain(b2BodyType::b2_staticBody, ringData, {0, 0}, 1);
+    initChain(b2BodyType::b2_staticBody, this->ringData, {0, 0}, 1);
 }
 
-std::vector<b2Vec2> const RingInteractable::getRingData() {
+std::vector<b2Vec2>& RingInteractable::getRingData() {
     return ringData;
 }
 
