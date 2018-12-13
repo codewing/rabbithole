@@ -2,16 +2,13 @@
 
 #define BOOST_GEOMETRY_OVERLAY_NO_THROW
 #include <boost/geometry/geometry.hpp>
-#include <boost/geometry/geometries/register/point.hpp>
-#include <boost/geometry/geometries/ring.hpp>
 #include <sre/Mesh.hpp>
 #include <Box2D/Box2D.h>
 #include <poly2tri/poly2tri.h>
 #include <boost/geometry/geometry.hpp>
 
-BOOST_GEOMETRY_REGISTER_POINT_2D(b2Vec2, float, boost::geometry::cs::cartesian, x, y);
-
-using ring_t = boost::geometry::model::ring<b2Vec2, false, true>;
+using point_t = boost::geometry::model::point<double, 2, boost::geometry::cs::cartesian>;
+using ring_t = boost::geometry::model::ring<point_t, false, true>;
 using ring_collection_t = std::vector<ring_t>;
 
 class TerrainUtils {
@@ -28,13 +25,15 @@ public:
 
 	// Conversion methods
 	glm::vec3 toGlm(p2t::Point* point);
-	ring_t toRing(std::vector<b2Vec2> ring);
+	ring_t toBoostRing(std::vector<b2Vec2> b2Ring);
 	ring_collection_t toRingCollection(std::vector<std::vector<b2Vec2>> collection);
 	std::vector<b2Vec2> tob2Ring(ring_t ring);
 	std::vector<std::vector<b2Vec2>> toWorldComponentStruct(ring_collection_t collection);
 	static ring_t makeConvexRing(b2Vec2 position, float radius, int numberVertices);
 	static void simplify(ring_collection_t& rings);
-	static void subtract(const ring_t& source, const ring_t& subtrahend, ring_collection_t& result);
+	static void subtract(ring_t& source, const ring_t& subtrahend, ring_collection_t& result);
+	static b2Vec2 toB2DPoint(point_t point);
+	static point_t toBoostPoint(b2Vec2 point);
 	
 private:
 	std::shared_ptr<sre::Mesh> buildMesh(std::vector<p2t::Triangle*> triangles);

@@ -76,7 +76,7 @@ void WorldComponent::removeShapeFromRing(RingInteractable* ringToModify, ring_t 
 	rings.erase(iter);
 
 	// build a boost ring
-	auto boostRing = terrainUtils.toRing(previousRingData);
+	auto boostRing = terrainUtils.toBoostRing(previousRingData);
 	ring_collection_t newRings;
 	TerrainUtils::subtract(boostRing, shapeToRemove, newRings);
     TerrainUtils::simplify(newRings);

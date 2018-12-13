@@ -2,6 +2,7 @@
 
 #include <math.h>
 #include "LevelGenerator.hpp"
+#include "../engine/debug/Log.hpp"
 
 std::shared_ptr<sre::Mesh> TerrainUtils::generateMesh(const std::vector<b2Vec2>& chain) {
     static std::vector<p2t::Point*> p2tPoints;
@@ -50,18 +51,20 @@ glm::vec3 TerrainUtils::toGlm(p2t::Point* point) {
 	return glm::vec3{ point->x, point->y, 0 };
 }
 
-ring_t TerrainUtils::toRing(std::vector<b2Vec2> ring) {
+ring_t TerrainUtils::toBoostRing(std::vector<b2Vec2> b2Ring) {
 	ring_t result;
-	for (auto point : ring) {
-		result.push_back(point);
+	for (auto point : b2Ring) {
+		result.push_back({point.x, point.y});
 	}
 
 	return result;
 }
 
-void TerrainUtils::subtract(const ring_t& source, const ring_t& subtrahend, ring_collection_t& result)
+void TerrainUtils::subtract(ring_t& source, const ring_t& subtrahend, ring_collection_t& result)
 {
+	boost::geometry::correct(source);
 	boost::geometry::difference(source, subtrahend, result);
+	LOG_GAME_INFO("Number of results: " + std::to_string(result.size()));
 }
 
 std::vector<std::vector<b2Vec2>> TerrainUtils::toWorldComponentStruct(ring_collection_t collection) {
@@ -76,7 +79,7 @@ std::vector<std::vector<b2Vec2>> TerrainUtils::toWorldComponentStruct(ring_colle
 std::vector<b2Vec2> TerrainUtils::tob2Ring(ring_t ring) {
 	std::vector<b2Vec2> result;
 	for (auto point : ring) {
-		result.push_back(point);
+		result.push_back(toB2DPoint(point));
 	}
 
 	return result;
@@ -96,7 +99,7 @@ ring_t TerrainUtils::makeConvexRing(b2Vec2 position, float radius, int numberVer
 	{
 		float v_x = x + position.x;
 		float v_y = y + position.y;
-		boost::geometry::append(convexRing, b2Vec2(v_x, v_y));
+		boost::geometry::append(convexRing, toBoostPoint(b2Vec2(v_x, v_y)));
 
 		float lastX = x;
 		x = c * x - s * y;
@@ -191,4 +194,12 @@ void TerrainUtils::simplify(ring_collection_t& rings) {
 		// Discard self intersecting rings
 		return boost::geometry::intersects(simplified) ? r : simplified;
 	});
+}
+
+b2Vec2 TerrainUtils::toB2DPoint(point_t point) {
+	return b2Vec2(static_cast<float>(point.get<0>()), static_cast<float>(point.get<1>()));
+}
+
+point_t TerrainUtils::toBoostPoint(b2Vec2 point) {
+	return point_t(point.x, point.y);
 }
