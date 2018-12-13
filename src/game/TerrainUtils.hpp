@@ -8,8 +8,8 @@
 #include <boost/geometry/geometry.hpp>
 
 using point_t = boost::geometry::model::point<double, 2, boost::geometry::cs::cartesian>;
-using ring_t = boost::geometry::model::ring<point_t, false, true>;
-using ring_collection_t = std::vector<ring_t>;
+using polygon_t = boost::geometry::model::polygon<point_t, false, true >;
+using polygon_collection_t = std::vector<polygon_t>;
 
 class TerrainUtils {
 
@@ -25,12 +25,12 @@ public:
 
 	// Conversion methods
 	glm::vec3 toGlm(p2t::Point* point);
-	ring_t toBoostRing(std::vector<b2Vec2> b2Ring);
-	std::vector<b2Vec2> tob2Ring(ring_t ring);
-	std::vector<std::vector<b2Vec2>> toWorldComponentStruct(ring_collection_t collection);
-	static ring_t makeConvexRing(b2Vec2 position, float radius, int numberVertices);
-	static void simplify(ring_collection_t& rings);
-	static void subtract(ring_t& source, const ring_t& subtrahend, ring_collection_t& result);
+	polygon_t toBoostRing(std::vector<b2Vec2> b2Ring);
+	std::vector<b2Vec2> tob2Ring(polygon_t ring);
+	std::vector<std::vector<b2Vec2>> toWorldComponentStruct(polygon_collection_t collection);
+	static polygon_t makeConvexRing(b2Vec2 position, float radius, int numberVertices);
+	static void simplify(polygon_collection_t& rings);
+	static void subtract(polygon_t& source, const polygon_t& subtrahend, polygon_collection_t& result);
 	static b2Vec2 toB2DPoint(point_t point);
 	static point_t toBoostPoint(b2Vec2 point);
 	

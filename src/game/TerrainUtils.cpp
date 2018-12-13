@@ -1,6 +1,7 @@
 #include "TerrainUtils.hpp"
 
 #include <math.h>
+#include <boost/geometry/algorithms/assign.hpp>
 #include "LevelGenerator.hpp"
 #include "../engine/debug/Log.hpp"
 
@@ -51,23 +52,25 @@ glm::vec3 TerrainUtils::toGlm(p2t::Point* point) {
 	return glm::vec3{ point->x, point->y, 0 };
 }
 
-ring_t TerrainUtils::toBoostRing(std::vector<b2Vec2> b2Ring) {
-	ring_t result;
-	for (auto point : b2Ring) {
-		result.push_back({point.x, point.y});
-	}
+polygon_t TerrainUtils::toBoostRing(std::vector<b2Vec2> b2Ring) {
+	polygon_t result;
 
+	std::vector<point_t> points;
+	for (auto point : b2Ring) {
+		points.push_back({point.x, point.y});
+	}
+	boost::geometry::assign_points(result, points);
 	return result;
 }
 
-void TerrainUtils::subtract(ring_t& source, const ring_t& subtrahend, ring_collection_t& result)
+void TerrainUtils::subtract(polygon_t& source, const polygon_t& subtrahend, polygon_collection_t& result)
 {
 	boost::geometry::correct(source);
 	boost::geometry::difference(source, subtrahend, result);
 	LOG_GAME_INFO("Number of results: " + std::to_string(result.size()));
 }
 
-std::vector<std::vector<b2Vec2>> TerrainUtils::toWorldComponentStruct(ring_collection_t collection) {
+std::vector<std::vector<b2Vec2>> TerrainUtils::toWorldComponentStruct(polygon_collection_t collection) {
 	std::vector<std::vector<b2Vec2>> result;
 	for (auto ring : collection) {
 		result.push_back(tob2Ring(ring));
@@ -76,18 +79,22 @@ std::vector<std::vector<b2Vec2>> TerrainUtils::toWorldComponentStruct(ring_colle
 	return result;
 }
 
-std::vector<b2Vec2> TerrainUtils::tob2Ring(ring_t ring) {
+std::vector<b2Vec2> TerrainUtils::tob2Ring(polygon_t ring) {
+
 	std::vector<b2Vec2> result;
-	for (auto point : ring) {
-		result.push_back(toB2DPoint(point));
+	for(auto it = boost::begin(boost::geometry::exterior_ring(ring)); it != boost::end(boost::geometry::exterior_ring(ring)); ++it)
+	{
+		float x = boost::geometry::get<0>(*it);
+		float y = boost::geometry::get<1>(*it);
+		result.push_back({x, y});
 	}
 
 	return result;
 }
 
-ring_t TerrainUtils::makeConvexRing(b2Vec2 position, float radius, int numberVertices)
+polygon_t TerrainUtils::makeConvexRing(b2Vec2 position, float radius, int numberVertices)
 {
-	ring_t convexRing;
+	polygon_t convexRing;
 	const float theta = static_cast<float>(glm::radians(360.f) / numberVertices);
 
 	float c = std::cos(theta);
@@ -106,6 +113,7 @@ ring_t TerrainUtils::makeConvexRing(b2Vec2 position, float radius, int numberVer
 		y = s * lastX + c * y;
 	}
 
+	boost::geometry::correct(convexRing);
 	return convexRing;
 }
 
@@ -187,9 +195,9 @@ void TerrainUtils::reshapeEdges(std::vector<b2Vec2>& terrain) {
 	}
 }
 
-void TerrainUtils::simplify(ring_collection_t& rings) {
-	std::transform(rings.begin(), rings.end(), rings.begin(), [](const ring_t& r){
-		ring_t simplified;
+void TerrainUtils::simplify(polygon_collection_t& rings) {
+	std::transform(rings.begin(), rings.end(), rings.begin(), [](const polygon_t& r){
+		polygon_t simplified;
 		boost::geometry::simplify(r, simplified, 0.05 * PhysicsSystem::PHYSICS_SCALE);
 		// Discard self intersecting rings
 		return boost::geometry::intersects(simplified) ? r : simplified;

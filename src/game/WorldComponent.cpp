@@ -68,7 +68,7 @@ void WorldComponent::initializeBackground() {
 	backgroundMaterial->setTexture(texture);
 }
 
-void WorldComponent::removeShapeFromRing(RingInteractable* ringToModify, ring_t shapeToRemove) {
+void WorldComponent::removeShapeFromRing(RingInteractable* ringToModify, polygon_t shapeToRemove) {
 	std::vector<b2Vec2> previousRingData = ringToModify->getRingData();
 
 	// remove old ring from the list
@@ -77,7 +77,7 @@ void WorldComponent::removeShapeFromRing(RingInteractable* ringToModify, ring_t 
 
 	// build a boost ring
 	auto boostRing = terrainUtils.toBoostRing(previousRingData);
-	ring_collection_t newRings;
+	polygon_collection_t newRings;
 	TerrainUtils::subtract(boostRing, shapeToRemove, newRings);
     TerrainUtils::simplify(newRings);
 
@@ -100,6 +100,6 @@ void WorldComponent::onUpdate(float deltaTime) {
 	}
 }
 
-void WorldComponent::registerRemoveShapeFromRing(RingInteractable *ringToModify, ring_t shapeToRemove) {
+void WorldComponent::registerRemoveShapeFromRing(RingInteractable *ringToModify, polygon_t shapeToRemove) {
 	ringsToUpdate.emplace_back(std::pair{ringToModify, shapeToRemove});
 }

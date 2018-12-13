@@ -26,12 +26,12 @@ public:
 
 	void updateMeshes();
 
-	void registerRemoveShapeFromRing(RingInteractable* ringToModify, ring_t shapeToRemove);
+	void registerRemoveShapeFromRing(RingInteractable* ringToModify, polygon_t shapeToRemove);
 
 private:
 
 	std::vector<std::shared_ptr<RingInteractable>> rings;
-	std::vector<std::pair<RingInteractable*, ring_t>> ringsToUpdate;
+	std::vector<std::pair<RingInteractable*, polygon_t>> ringsToUpdate;
 	std::vector<std::shared_ptr<sre::Mesh>> worldMeshes;
 
 	std::shared_ptr<sre::Material> worldMaterial;
@@ -42,5 +42,5 @@ private:
 
 	void initializeBackground();
 
-	void removeShapeFromRing(RingInteractable* ringToModify, ring_t shapeToRemove);
+	void removeShapeFromRing(RingInteractable* ringToModify, polygon_t shapeToRemove);
 };
