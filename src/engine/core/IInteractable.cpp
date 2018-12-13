@@ -95,7 +95,6 @@ void IInteractable::initChain(b2BodyType type, std::vector<b2Vec2> points, glm::
     bd.position = b2Vec2(position.x / PhysicsSystem::PHYSICS_SCALE, position.y / PhysicsSystem::PHYSICS_SCALE);
     body = world->CreateBody(&bd);
     auto chain = new b2ChainShape();
-    LOG_GAME_INFO(std::to_string(scaledPoints.size()));
     chain->CreateChain(scaledPoints.data(), scaledPoints.size());
     shape = chain;
 
