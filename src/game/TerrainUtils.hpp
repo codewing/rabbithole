@@ -26,7 +26,6 @@ public:
 	// Conversion methods
 	glm::vec3 toGlm(p2t::Point* point);
 	ring_t toBoostRing(std::vector<b2Vec2> b2Ring);
-	ring_collection_t toRingCollection(std::vector<std::vector<b2Vec2>> collection);
 	std::vector<b2Vec2> tob2Ring(ring_t ring);
 	std::vector<std::vector<b2Vec2>> toWorldComponentStruct(ring_collection_t collection);
 	static ring_t makeConvexRing(b2Vec2 position, float radius, int numberVertices);
@@ -37,10 +36,6 @@ public:
 	
 private:
 	std::shared_ptr<sre::Mesh> buildMesh(std::vector<p2t::Triangle*> triangles);
-
-	std::shared_ptr<sre::Mesh> buildTrianglesAndMesh(const std::vector<b2Vec2>& chain);
-
-	float linearCongruentialGen();
 
 	float coserp(float x, float y, float t);
 
