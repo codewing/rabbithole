@@ -71,12 +71,12 @@ include_directories(libs/poly2tri)
 target_link_libraries(Worm poly2tri)
 
 # copy files to dest
-IF (WIN32)
+IF (WIN32 AND NOT $ENV{JETBRAINS_IDE})
     file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
     file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
-ELSE(WIN32)
+ELSE(WIN32 AND NOT $ENV{JETBRAINS_IDE})
     file(COPY assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-ENDIF(WIN32)
+ENDIF(WIN32 AND NOT $ENV{JETBRAINS_IDE})
 
 IF (WIN32)
     # Copy dll files to ${CMAKE_CURRENT_BINARY_DIR}/Debug
