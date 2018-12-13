@@ -17,10 +17,10 @@ public:
 	void addIslands(WorldComponent* world_comp, int number);
 	void addIsland(WorldComponent* world_comp, int size, b2Vec2 position);
 	void addPortals(int couples);
-	std::vector<b2Vec2>  createIslandPositions(WorldComponent* world_comp, int number);
-	std::vector<int> createIslandDimensions(int number);
+	std::vector<b2Vec2>  createIslandCenterPoints(WorldComponent *world_comp, int number);
+	std::vector<int> createRandomIslandSizes(int number);
 	std::vector<b2Vec2> createTerrain(WorldComponent* world_comp);
-	std::vector<b2Vec2> createIslandPoints(int size, b2Vec2 position);
+	std::vector<b2Vec2> createIslandPoints(int size, b2Vec2 islandCenter);
 
 	static constexpr float emptyTerrainRatio = 0.125f;
 	static constexpr float roundTerrainRatio = 0.375f;

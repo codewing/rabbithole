@@ -48,7 +48,7 @@ std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
     int beginGenerationPointX = std::floor((emptyTerrainRatio / 2) * levelSize.x);
     int endGenerationPointX = std::floor((1 - emptyTerrainRatio / 2) * levelSize.x);
 
-    for (int i = beginGenerationPointX; i < endGenerationPointX; i+=16) {
+    for (int i = beginGenerationPointX; i <= endGenerationPointX; i+=16) {
         xPoints.emplace_back(i);
     }
 
@@ -58,22 +58,21 @@ std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
 
     tu.reshapeEdges(result);
 
-    result.emplace_back(b2Vec2(levelSize.x - 1, 0));
     result.emplace_back(b2Vec2(beginGenerationPointX, 0));
 
     return result;
 }
 
 void LevelGenerator::addIslands(WorldComponent* world_comp, int amount) {
-    std::vector<b2Vec2> islandPositions = createIslandPositions(world_comp, amount);
-    std::vector<int> islandDimensions = createIslandDimensions(amount);
+    std::vector<b2Vec2> islandPositions = createIslandCenterPoints(world_comp, amount);
+    std::vector<int> islandDimensions = createRandomIslandSizes(amount);
 
     for (int i = 0; i < amount; i++) {
         addIsland(world_comp, islandDimensions[i], islandPositions[i]);
     }
 }
 
-std::vector<b2Vec2>  LevelGenerator::createIslandPositions(WorldComponent* world_comp, int number) {
+std::vector<b2Vec2>  LevelGenerator::createIslandCenterPoints(WorldComponent *world_comp, int number) {
     auto start_y = levelSize.y * earthPercentage;
     auto VERTICAL_DIVISION = 3;
     auto HORIZONTAL_DIVISION = 2;
@@ -102,7 +101,7 @@ void LevelGenerator::addIsland(WorldComponent* world_comp, int size, b2Vec2 posi
     world_comp->addRing(std::move(points));
 }
 
-std::vector<int> LevelGenerator::createIslandDimensions(int number) {
+std::vector<int> LevelGenerator::createRandomIslandSizes(int number) {
     auto SIZES = 2;
     std::vector<int> res;
     for (int i = 0; i < number; i++) {
@@ -111,7 +110,7 @@ std::vector<int> LevelGenerator::createIslandDimensions(int number) {
     return res;
 }
 
-std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 position) {
+std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 islandCenter) {
     // creating the vector of points of the island
     auto angle = 10.f;
     auto X_DIM = levelSize.x / 24 * (size+1);
@@ -125,8 +124,8 @@ std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 position
         if (angle * i > 90 && angle * i < 270)
             noise_y = -noise_y;
 
-        result.push_back({ position.x + X_DIM*cos(glm::radians(angle*i)),
-                           position.y + Y_DIM*sin(glm::radians(angle*i)) + noise_y});
+        result.push_back({ islandCenter.x + X_DIM*cos(glm::radians(angle*i)),
+                           islandCenter.y + Y_DIM*sin(glm::radians(angle*i)) + noise_y});
     }
 
     result.push_back(result.at(0));

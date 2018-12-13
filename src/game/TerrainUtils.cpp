@@ -4,33 +4,24 @@
 #include "LevelGenerator.hpp"
 
 std::shared_ptr<sre::Mesh> TerrainUtils::generateMesh(const std::vector<b2Vec2>& chain) {
+    static std::vector<p2t::Point*> p2tPoints;
+    for (int i = 0; i < chain.size() -1; i++) {
+        auto& point = chain.at(i);
+        p2tPoints.push_back(new p2t::Point(point.x, point.y));
+    }
+    p2t::SweepContext sc{ p2tPoints };
+    p2t::Sweep sweep = p2t::Sweep();
+    sweep.Triangulate(sc);
 
-	/*std::vector<p2t::Triangle*> triangles = createTriangulation(chain);
-	return buildMesh(triangles);*/
+    std::shared_ptr<sre::Mesh> result = buildMesh(sc.GetTriangles());
 
-	return buildTrianglesAndMesh(chain);
+    // free the points again
+    for (auto it = p2tPoints.begin(); it != p2tPoints.end(); ++it ) {
+        delete *it;
+    }
+    p2tPoints.clear();
 
-}
-
-std::shared_ptr<sre::Mesh> TerrainUtils::buildTrianglesAndMesh(const std::vector<b2Vec2>& chain) {
-	static std::vector<p2t::Point*> p2tPoints;
-	for (int i = 0; i < chain.size() -1; i++) {
-		auto& point = chain.at(i);
-		p2tPoints.push_back(new p2t::Point(point.x, point.y));
-	}
-	p2t::SweepContext sc{ p2tPoints };
-	p2t::Sweep sweep = p2t::Sweep();
-	sweep.Triangulate(sc);
-
-	std::shared_ptr<sre::Mesh> result = buildMesh(sc.GetTriangles());
-
-	// free the points again
-	for (auto it = p2tPoints.begin(); it != p2tPoints.end(); ++it ) {
-		delete *it;
-	}
-	p2tPoints.clear();
-
-	return result;
+    return result;
 }
 
 std::shared_ptr<sre::Mesh> TerrainUtils::buildMesh(std::vector<p2t::Triangle*> triangles) {
@@ -63,15 +54,6 @@ ring_t TerrainUtils::toRing(std::vector<b2Vec2> ring) {
 	ring_t result;
 	for (auto point : ring) {
 		result.push_back(point);
-	}
-
-	return result;
-}
-
-ring_collection_t TerrainUtils::toRingCollection(std::vector<std::vector<b2Vec2>> collection) {
-	ring_collection_t result;
-	for (auto ring : collection) {
-		result.push_back(toRing(ring));
 	}
 
 	return result;
@@ -185,19 +167,22 @@ std::vector<b2Vec2> TerrainUtils::combineNoise(std::vector<int> xPoints, std::ve
 void TerrainUtils::reshapeEdges(std::vector<b2Vec2>& terrain) {
 	float curvatureLength = (LevelGenerator::roundTerrainRatio / 2) * terrainImageSize;
 	float angle, step;
-	float xPrev;
 
 	for (int i = 0; i < (curvatureLength/16); i++) {
 		step = i / (curvatureLength/16);
 		angle = glm::radians(step * 90.f);
 
-		xPrev = terrain.at(i).x;
+        auto xPrev = terrain.at(i).x;
+		auto yPrev = terrain.at(i).y * sin(angle);
+
 		terrain.erase(terrain.begin() + i);
-		terrain.insert(terrain.begin() + i, b2Vec2{ xPrev, terrain.at(i).y * sin(angle) });
+		terrain.insert(terrain.begin() + i, b2Vec2{ xPrev, yPrev });
 
 		xPrev = terrain.at(terrain.size() - 1 - i).x;
-		terrain.erase(terrain.end() - 1 - i);
-		terrain.insert(terrain.end() - i, b2Vec2{ xPrev, terrain.at(terrain.size() - 1 - i).y * sin(angle) });
+        yPrev = terrain.at(terrain.size() - 1 - i).y * sin(angle);
+
+        terrain.erase(terrain.end() - 1 - i);
+		terrain.insert(terrain.end() - i, b2Vec2{ xPrev, yPrev });
 	}
 }
 
