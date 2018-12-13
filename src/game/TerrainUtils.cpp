@@ -52,7 +52,7 @@ glm::vec3 TerrainUtils::toGlm(p2t::Point* point) {
 	return glm::vec3{ point->x, point->y, 0 };
 }
 
-polygon_t TerrainUtils::toBoostRing(std::vector<b2Vec2> b2Ring) {
+polygon_t TerrainUtils::toBoostPolygon(std::vector<b2Vec2> b2Ring) {
 	polygon_t result;
 
 	std::vector<point_t> points;
@@ -67,7 +67,6 @@ void TerrainUtils::subtract(polygon_t& source, const polygon_t& subtrahend, poly
 {
 	boost::geometry::correct(source);
 	boost::geometry::difference(source, subtrahend, result);
-	LOG_GAME_INFO("Number of results: " + std::to_string(result.size()));
 }
 
 std::vector<std::vector<b2Vec2>> TerrainUtils::toWorldComponentStruct(polygon_collection_t collection) {
@@ -79,10 +78,10 @@ std::vector<std::vector<b2Vec2>> TerrainUtils::toWorldComponentStruct(polygon_co
 	return result;
 }
 
-std::vector<b2Vec2> TerrainUtils::tob2Ring(polygon_t ring) {
+std::vector<b2Vec2> TerrainUtils::tob2Ring(polygon_t shape) {
 
 	std::vector<b2Vec2> result;
-	for(auto it = boost::begin(boost::geometry::exterior_ring(ring)); it != boost::end(boost::geometry::exterior_ring(ring)); ++it)
+	for(auto it = boost::begin(boost::geometry::exterior_ring(shape)); it != boost::end(boost::geometry::exterior_ring(shape)); ++it)
 	{
 		float x = boost::geometry::get<0>(*it);
 		float y = boost::geometry::get<1>(*it);

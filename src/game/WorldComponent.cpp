@@ -20,11 +20,11 @@ WorldComponent::WorldComponent(GameObject* gameObject) : Component(gameObject, C
 }
 
 void WorldComponent::addRing(std::vector<b2Vec2> ring) {
-    std::shared_ptr<RingInteractable> physicsRing = std::make_shared<RingInteractable>(this, ring);
+    std::shared_ptr<TerrainInteractable> physicsRing = std::make_shared<TerrainInteractable>(this, ring);
 	rings.push_back(physicsRing);
 }
 
-std::vector<std::shared_ptr<RingInteractable>> &WorldComponent::getRings() {
+std::vector<std::shared_ptr<TerrainInteractable>> &WorldComponent::getRings() {
 	return rings;
 }
 
@@ -32,7 +32,7 @@ void WorldComponent::updateMeshes() {
 	worldMeshes.clear();
 
 	for(auto& ring : rings) {
-		auto mesh = terrainUtils.generateMesh(ring->getRingData());
+		auto mesh = terrainUtils.generateMesh(ring->getTerrainData());
 		worldMeshes.emplace_back(mesh);
 	}
 }
@@ -68,15 +68,15 @@ void WorldComponent::initializeBackground() {
 	backgroundMaterial->setTexture(texture);
 }
 
-void WorldComponent::removeShapeFromRing(RingInteractable* ringToModify, polygon_t shapeToRemove) {
-	std::vector<b2Vec2> previousRingData = ringToModify->getRingData();
+void WorldComponent::removeShapeFromRing(TerrainInteractable* ringToModify, polygon_t shapeToRemove) {
+	std::vector<b2Vec2> previousRingData = ringToModify->getTerrainData();
 
 	// remove old ring from the list
-	auto iter(std::remove_if(rings.begin(), rings.end(), [ringToModify](std::shared_ptr<RingInteractable> currentRing) {return currentRing.get() == ringToModify;}));
+	auto iter(std::remove_if(rings.begin(), rings.end(), [ringToModify](std::shared_ptr<TerrainInteractable> currentRing) {return currentRing.get() == ringToModify;}));
 	rings.erase(iter);
 
 	// build a boost ring
-	auto boostRing = terrainUtils.toBoostRing(previousRingData);
+	auto boostRing = terrainUtils.toBoostPolygon(previousRingData);
 	polygon_collection_t newRings;
 	TerrainUtils::subtract(boostRing, shapeToRemove, newRings);
     TerrainUtils::simplify(newRings);
@@ -100,6 +100,6 @@ void WorldComponent::onUpdate(float deltaTime) {
 	}
 }
 
-void WorldComponent::registerRemoveShapeFromRing(RingInteractable *ringToModify, polygon_t shapeToRemove) {
+void WorldComponent::registerRemoveShapeFromRing(TerrainInteractable *ringToModify, polygon_t shapeToRemove) {
 	ringsToUpdate.emplace_back(std::pair{ringToModify, shapeToRemove});
 }

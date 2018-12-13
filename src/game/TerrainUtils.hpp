@@ -25,8 +25,8 @@ public:
 
 	// Conversion methods
 	glm::vec3 toGlm(p2t::Point* point);
-	polygon_t toBoostRing(std::vector<b2Vec2> b2Ring);
-	std::vector<b2Vec2> tob2Ring(polygon_t ring);
+	polygon_t toBoostPolygon(std::vector<b2Vec2> b2Ring);
+	std::vector<b2Vec2> tob2Ring(polygon_t shape);
 	std::vector<std::vector<b2Vec2>> toWorldComponentStruct(polygon_collection_t collection);
 	static polygon_t makeConvexRing(b2Vec2 position, float radius, int numberVertices);
 	static void simplify(polygon_collection_t& rings);

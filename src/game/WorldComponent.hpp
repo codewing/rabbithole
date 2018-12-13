@@ -6,7 +6,7 @@
 #include <memory>
 #include <glm/glm.hpp>
 #include <Box2D/Box2D.h>
-#include "RingInteractable.hpp"
+#include "TerrainInteractable.hpp"
 #include <sre/Mesh.hpp>
 #include "TerrainUtils.hpp"
 #include "../engine/core/IUpdatable.hpp"
@@ -21,17 +21,17 @@ public:
 
 	void onUpdate(float deltaTime) override;
 
-	std::vector<std::shared_ptr<RingInteractable>>& getRings();
+	std::vector<std::shared_ptr<TerrainInteractable>>& getRings();
 	void addRing(std::vector<b2Vec2> ring);
 
 	void updateMeshes();
 
-	void registerRemoveShapeFromRing(RingInteractable* ringToModify, polygon_t shapeToRemove);
+	void registerRemoveShapeFromRing(TerrainInteractable* ringToModify, polygon_t shapeToRemove);
 
 private:
 
-	std::vector<std::shared_ptr<RingInteractable>> rings;
-	std::vector<std::pair<RingInteractable*, polygon_t>> ringsToUpdate;
+	std::vector<std::shared_ptr<TerrainInteractable>> rings;
+	std::vector<std::pair<TerrainInteractable*, polygon_t>> ringsToUpdate;
 	std::vector<std::shared_ptr<sre::Mesh>> worldMeshes;
 
 	std::shared_ptr<sre::Material> worldMaterial;
@@ -42,5 +42,5 @@ private:
 
 	void initializeBackground();
 
-	void removeShapeFromRing(RingInteractable* ringToModify, polygon_t shapeToRemove);
+	void removeShapeFromRing(TerrainInteractable* ringToModify, polygon_t shapeToRemove);
 };

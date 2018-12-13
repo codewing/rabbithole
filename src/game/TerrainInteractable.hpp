@@ -9,9 +9,9 @@
 
 class WorldComponent;
 
-class RingInteractable : public IInteractable{
+class TerrainInteractable : public IInteractable{
 public:
-    RingInteractable(WorldComponent *worldComponent, std::vector<b2Vec2> ringData);
+    TerrainInteractable(WorldComponent *worldComponent, std::vector<b2Vec2> terrainData);
 
     void onCollisionStart(IInteractable *interactable) override;
 
@@ -23,13 +23,13 @@ public:
 
     glm::vec2 getPosition() override;
 
-    std::vector<b2Vec2>& getRingData();
+    std::vector<b2Vec2>& getTerrainData();
 
 private:
 
     WorldComponent* worldComponent;
 
-    std::vector<b2Vec2> ringData;
+    std::vector<b2Vec2> terrainData;
     bool isBeingUpdated = false;
 
 };
