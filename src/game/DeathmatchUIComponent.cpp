@@ -9,9 +9,9 @@ DeathmatchUIComponent::DeathmatchUIComponent(GameObject *gameObject) : Component
 
 void DeathmatchUIComponent::onRender(sre::RenderPass &renderPass) {
 
-    if(scoreBlue > maxScore) {
+    if(scoreBlue >= maxScore) {
         displayWinner(true);
-    } else if(scoreRed > maxScore) {
+    } else if(scoreRed >= maxScore) {
         displayWinner(false);
     } else {
         displayStats();
@@ -39,9 +39,10 @@ void DeathmatchUIComponent::updateScore(int red, int blue) {
 
 void DeathmatchUIComponent::displayStats() {
     bool open = true;
+    ImGui::SetNextWindowSize(ImVec2(125,75));
     ImGui::Begin("#TestLabel", &open, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoInputs);
     ImGui::SetWindowFontScale(2.0f);
-    auto textRed = "Red: " + std::to_string(scoreRed);
+    auto textRed = "Red:  " + std::to_string(scoreRed);
     auto textBlue = "Blue: " + std::to_string(scoreBlue);
     ImGui::TextColored(colorRed, textRed.c_str());
     ImGui::TextColored(colorBlue, textBlue.c_str());

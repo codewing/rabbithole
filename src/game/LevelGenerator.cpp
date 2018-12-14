@@ -104,11 +104,12 @@ void LevelGenerator::addIslandsSpawnPointsAndPortals(WorldComponent *world_comp,
 
 std::vector<b2Vec2>  LevelGenerator::createIslandCenterPoints(int number) {
     auto start_y = levelSize.y * earthPercentage;
+    float ringScaleY = 0.5f;
 
-    b2Vec2 ringCentre = { levelSize.x / 2, (levelSize.y + start_y) / 2 };
+    b2Vec2 ringCentre = { levelSize.x / 2, (levelSize.y + start_y) / 2.0f - 0.2f * ringScaleY * levelSize.y };
     float angle = 360.f / number;
     float X_DIM = (levelSize.x / 2) * 0.6f;
-    float Y_DIM = ((levelSize.y + start_y) / 4) * 0.8f;
+    float Y_DIM = ((levelSize.y + start_y) / 4) * ringScaleY;
     float positionDelta = (static_cast<float>(rand()) / (RAND_MAX)) * angle;
 
     std::vector<b2Vec2> result;
