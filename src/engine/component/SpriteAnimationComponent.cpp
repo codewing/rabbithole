@@ -37,7 +37,9 @@ void SpriteAnimationComponent::onUpdate(float deltaTime) {
             ObjectManager::GetInstance()->DestroyGameObject(gameObject);
         } else {
             spriteIndex = static_cast<int>((spriteIndex) % sprites.size());
-            spriteComponent->setSprite(sprites[spriteIndex]);
+            auto& sprite = sprites[spriteIndex];
+            sprite.setScale(spriteScale);
+            spriteComponent->setSprite(sprite);
         }
 
     }
@@ -45,4 +47,8 @@ void SpriteAnimationComponent::onUpdate(float deltaTime) {
 
 void SpriteAnimationComponent::setDestroyWhenDone(bool destroyWhenDone) {
     SpriteAnimationComponent::destroyWhenDone = destroyWhenDone;
+}
+
+void SpriteAnimationComponent::setSpriteScale(const glm::vec2 &spriteScale) {
+    SpriteAnimationComponent::spriteScale = spriteScale;
 }

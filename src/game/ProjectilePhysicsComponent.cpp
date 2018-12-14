@@ -29,6 +29,7 @@ void ProjectilePhysicsComponent::onCollisionStart(IInteractable *interactable) {
         spriteAnimComponent->setSprites(explosionSprites);
         spriteAnimComponent->setAnimationTime(0.016f);
         spriteAnimComponent->setDestroyWhenDone(true);
+        spriteAnimComponent->setSpriteScale({2,2});
 
         objManager->DestroyGameObject(gameObject);
     }
