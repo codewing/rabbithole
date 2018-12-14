@@ -32,7 +32,7 @@ void WorldComponent::updateMeshes() {
 	worldMeshes.clear();
 
 	for(auto& ring : rings) {
-		auto mesh = terrainUtils.generateMesh(ring->getTerrainData());
+		auto mesh = TerrainUtils::generateMesh(ring->getTerrainData());
 		worldMeshes.emplace_back(mesh);
 	}
 }
@@ -76,13 +76,13 @@ void WorldComponent::removeShapeFromRing(TerrainInteractable* ringToModify, poly
 	rings.erase(iter);
 
 	// build a boost ring
-	auto boostRing = terrainUtils.toBoostPolygon(previousRingData);
+	auto boostRing = TerrainUtils::toBoostPolygon(previousRingData);
 	polygon_collection_t newRings;
 	TerrainUtils::subtract(boostRing, shapeToRemove, newRings);
     TerrainUtils::simplify(newRings);
 
 	// convert and add the rings
-	auto newB2Rings = terrainUtils.toWorldComponentStruct(newRings);
+	auto newB2Rings = TerrainUtils::toWorldComponentStruct(newRings);
 	for(auto& b2Ring : newB2Rings) {
 		if(b2Ring.size() > 2) {
 			addRing(b2Ring);

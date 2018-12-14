@@ -38,7 +38,6 @@ private:
     std::shared_ptr<sre::Mesh> backgroundMesh;
 
 	std::shared_ptr<sre::Material> backgroundMaterial;
-	TerrainUtils terrainUtils;
 
 	void initializeBackground();
 

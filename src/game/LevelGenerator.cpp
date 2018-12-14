@@ -23,8 +23,7 @@ void LevelGenerator::generateLevel() {
     addTerrain(world_comp.get());
 
     auto number = rand() % 3 + 3;
-
-    std::cout << "Number of island: " << number << std::endl;
+    LOG_GAME_INFO("Number of island: " + std::to_string(number));
     addIslands(world_comp.get(), number);
 
     addPortals(2);
@@ -40,9 +39,6 @@ void LevelGenerator::addTerrain(WorldComponent* world_comp) {
 
 // generating the list of positions of the terrain
 std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
-    auto yOffset = levelSize.y * earthPercentage;
-    auto yDeviation = yOffset * 0.8;
-    std::vector<b2Vec2> result;
     std::vector<int> xPoints;
 
     int beginGenerationPointX = static_cast<int>(std::floor((emptyTerrainRatio / 2) * levelSize.x));
@@ -52,11 +48,8 @@ std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
         xPoints.emplace_back(i);
     }
 
-    TerrainUtils tu;
-
-    result = tu.combineNoise(xPoints, tu.generateNoise(xPoints, 256, 128, 3, 4));
-
-    tu.reshapeEdges(result);
+    std::vector<b2Vec2> result = TerrainUtils::combineNoise(xPoints, TerrainUtils::generateNoise(xPoints, 256, 128, 3, 4));
+    TerrainUtils::reshapeEdges(result);
 
     result.emplace_back(b2Vec2(beginGenerationPointX, 0));
 
@@ -64,7 +57,7 @@ std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
 }
 
 void LevelGenerator::addIslands(WorldComponent* world_comp, int amount) {
-    std::vector<b2Vec2> islandPositions = createIslandCenterPoints(world_comp, amount);
+    std::vector<b2Vec2> islandPositions = createIslandCenterPoints(amount);
     std::vector<int> islandDimensions = createRandomIslandSizes(amount);
 
     for (int i = 0; i < amount; i++) {
@@ -72,7 +65,7 @@ void LevelGenerator::addIslands(WorldComponent* world_comp, int amount) {
     }
 }
 
-std::vector<b2Vec2>  LevelGenerator::createIslandCenterPoints(WorldComponent *world_comp, int number) {
+std::vector<b2Vec2>  LevelGenerator::createIslandCenterPoints(int number) {
     auto start_y = levelSize.y * earthPercentage;
 
     b2Vec2 ringCentre = { levelSize.x / 2, (levelSize.y + start_y) / 2 };

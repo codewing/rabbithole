@@ -14,32 +14,30 @@ using polygon_collection_t = std::vector<polygon_t>;
 class TerrainUtils {
 
 public:
+	static std::shared_ptr<sre::Mesh> generateMesh(const std::vector<b2Vec2>& chain);
 
-	std::shared_ptr<sre::Mesh> generateMesh(const std::vector<b2Vec2>& chain);
-
-	std::vector<std::vector<float>> generateNoise(std::vector<int> xPoints, int ampl, int wavelen, int octaves, int divisor);
-
-	std::vector<b2Vec2> combineNoise(std::vector<int> xPoints, std::vector<std::vector<float>> noiseOctaves);
-
-	void reshapeEdges(std::vector<b2Vec2>& terrain);
-
-	// Conversion methods
-	glm::vec3 toGlm(p2t::Point* point);
-	polygon_t toBoostPolygon(std::vector<b2Vec2> b2Ring);
-	std::vector<b2Vec2> tob2Ring(polygon_t shape);
-	std::vector<std::vector<b2Vec2>> toWorldComponentStruct(polygon_collection_t collection);
 	static polygon_t makeConvexRing(b2Vec2 position, float radius, int numberVertices);
+	static std::vector<std::vector<float>> generateNoise(std::vector<int> xPoints, int ampl, int wavelen, int octaves, int divisor);
+	static std::vector<b2Vec2> combineNoise(std::vector<int> xPoints, std::vector<std::vector<float>> noiseOctaves);
+	static void reshapeEdges(std::vector<b2Vec2>& terrain);
 	static void simplify(polygon_collection_t& rings);
 	static void subtract(polygon_t& source, const polygon_t& subtrahend, polygon_collection_t& result);
+
+	// Conversion methods
+	static glm::vec3 toGlm(p2t::Point* point);
+	static polygon_t toBoostPolygon(std::vector<b2Vec2> b2Ring);
+	static std::vector<b2Vec2> tob2Ring(polygon_t shape);
+	static std::vector<std::vector<b2Vec2>> toWorldComponentStruct(polygon_collection_t collection);
 	static b2Vec2 toB2DPoint(point_t point);
 	static point_t toBoostPoint(b2Vec2 point);
 	
 private:
-	std::shared_ptr<sre::Mesh> buildMesh(std::vector<p2t::Triangle*> triangles);
+	TerrainUtils() = default;
 
-	float coserp(float x, float y, float t);
+	static std::shared_ptr<sre::Mesh> buildMesh(std::vector<p2t::Triangle*> triangles);
 
-	std::vector<float> perlinNoise1D(std::vector<int> xPoints, int ampl, int wavelen);
+	static float coserp(float x, float y, float t);
+	static std::vector<float> perlinNoise1D(std::vector<int> xPoints, int ampl, int wavelen);
 
 	static constexpr float terrainImageSize = 2048.0f;
 };
