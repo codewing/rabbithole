@@ -11,6 +11,8 @@
 
 class GameObject;
 class Rabbit;
+class RabbitPhysicsComponent;
+class DeathmatchUIComponent;
 
 class DeathmatchGameMode : public GameMode {
 
@@ -20,17 +22,22 @@ public:
     void initialize() override;
     void update(float deltaTime) override;
 
+    void gameObjectDied(RabbitPhysicsComponent* rabbitPhysicsComponent);
+
 private:
-
-    int waterHeight = 200;
-
     std::shared_ptr<GameObject> level = nullptr;
-    std::shared_ptr<GameObject> water = nullptr;
+    std::shared_ptr<GameObject> waterGO = nullptr;
     std::shared_ptr<GameObject> hudElements = nullptr;
+    std::shared_ptr<DeathmatchUIComponent> uiComponent = nullptr;
 
     GameCameraController cameraController;
     std::unique_ptr<Rabbit> redRabbit;
     std::unique_ptr<Rabbit> blueRabbit;
+
+    int scoreRed = 0;
+    int scoreBlue = 0;
+
+    bool isPlaying = false;
 
     void spawnLevel();
     void spawnWater();

@@ -27,7 +27,7 @@ void Rabbit::spawnRabbitBase(glm::vec2 position, int gamepadID) {
     std::for_each(movementSprites.begin(), movementSprites.end(), setSpritePosition);
     std::for_each(idleSprites.begin(), idleSprites.end(), setSpritePosition);
 
-    rabbitBase = ObjectManager::GetInstance()->CreateGameObject("IsiLiebe ("+team+")");
+    rabbitBase = ObjectManager::GetInstance()->CreateGameObject("Rabbit_"+team);
     rabbitBase->setLocalPosition(position);
     auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(rabbitBase.get());
 
