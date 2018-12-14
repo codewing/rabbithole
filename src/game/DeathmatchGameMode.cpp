@@ -50,6 +50,7 @@ void DeathmatchGameMode::spawnWater() {
 void DeathmatchGameMode::spawnLevel() {
     LevelGenerator level({2048,2048}, 0.3);
     std::shared_ptr<GameObject> world = level.generateLevel();
+    spawnPositions = {level.getSpawnPoints()};
 }
 
 void DeathmatchGameMode::initializeInterface() {
@@ -61,8 +62,8 @@ void DeathmatchGameMode::initializeInterface() {
 }
 
 void DeathmatchGameMode::spawnRabbits() {
-    redRabbit = std::make_unique<Rabbit>("red", glm::vec2{500, 780}, 0);
-    blueRabbit = std::make_unique<Rabbit>("blue", glm::vec2{1500, 750}, -1);
+    redRabbit = std::make_unique<Rabbit>("red", spawnPositions[0], 0);
+    blueRabbit = std::make_unique<Rabbit>("blue", spawnPositions[1], -1);
 }
 
 void DeathmatchGameMode::gameObjectDied(RabbitPhysicsComponent* rabbitPhysicsComponent) {

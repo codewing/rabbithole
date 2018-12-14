@@ -34,6 +34,8 @@ private:
     std::unique_ptr<Rabbit> redRabbit;
     std::unique_ptr<Rabbit> blueRabbit;
 
+    std::vector<glm::vec2> spawnPositions;
+
     int scoreRed = 0;
     int scoreBlue = 0;
 

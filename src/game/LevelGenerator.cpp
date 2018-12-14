@@ -5,7 +5,9 @@
 #include <boost/geometry/geometry.hpp>
 #include <iostream>
 #include <math.h>
+#include <algorithm>
 #include <time.h>
+#include <random>
 #include <poly2tri/poly2tri.h>
 #include "../engine/core/ObjectManager.hpp"
 #include "../engine/debug/Log.hpp"
@@ -24,9 +26,8 @@ std::shared_ptr<GameObject> LevelGenerator::generateLevel() {
 
     auto number = rand() % 3 + 3;
     LOG_GAME_INFO("Number of island: " + std::to_string(number));
-    addIslands(worldComponent.get(), number);
+    addIslandsSpawnPointsAndPortals(worldComponent.get(), number);
 
-    addPortals(2);
     // Building the visual representation
     worldComponent->updateMeshes();
 
@@ -58,13 +59,47 @@ std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
     return result;
 }
 
-void LevelGenerator::addIslands(WorldComponent* world_comp, int amount) {
+void LevelGenerator::addIslandsSpawnPointsAndPortals(WorldComponent *world_comp, int amount) {
     std::vector<b2Vec2> islandPositions = createIslandCenterPoints(amount);
     std::vector<int> islandDimensions = createRandomIslandSizes(amount);
 
     for (int i = 0; i < amount; i++) {
         addIsland(world_comp, islandDimensions[i], islandPositions[i]);
     }
+
+    std::random_device rd;
+    std::mt19937 g(rd());
+
+    // build possible spawn and portal points
+    auto possibleSpawnPositions = createPossibleSpawnPoints(islandPositions, islandDimensions);
+    std::shuffle(possibleSpawnPositions.begin(), possibleSpawnPositions.end(), g);
+
+    // randomly select for spawn or portal
+    std::vector<glm::vec2> portalPoints;
+    // Add portal to one of the sides (Dont do this at home)
+    rand() % 2 == 0 ? portalPoints.push_back({150, 400}) : portalPoints.push_back({levelSize.x - 150, 400});
+
+    // add elements of pair either to portal or spawn
+    for(auto& spawnPair : possibleSpawnPositions) {
+        if(portalPoints.size() != 4) {
+            if(rand() % 2 == 0) {
+                portalPoints.push_back(spawnPair.first);
+                spawnPoints.push_back(spawnPair.second);
+            } else {
+                portalPoints.push_back(spawnPair.second);
+                spawnPoints.push_back(spawnPair.first);
+            }
+        } else {
+            if(rand() % 2 == 0) {
+                spawnPoints.push_back(spawnPair.first);
+            } else {
+                spawnPoints.push_back(spawnPair.second);
+            }
+        }
+    }
+
+    addPortals(2, portalPoints);
+
 }
 
 std::vector<b2Vec2>  LevelGenerator::createIslandCenterPoints(int number) {
@@ -123,7 +158,7 @@ std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 islandCe
     return result;
 }
 
-void LevelGenerator::addPortals(int couples) {
+void LevelGenerator::addPortals(int couples, const std::vector<glm::vec2>& portalPositions) {
 
     std::vector<std::string> portals = {"portal_blue_yellow.png", "portal_yellow_blue.png", "portal_red_green.png", "portal_green_red.png"};
 
@@ -136,14 +171,9 @@ void LevelGenerator::addPortals(int couples) {
 
 		auto portal2 = ObjectManager::GetInstance()->CreateGameObject("Portal_" + std::to_string(i) + "_b");
 		auto port2_comp = ObjectManager::GetInstance()->CreateComponent<PortalComponent>(portal2.get());
-		
 
-		//set position of the gameObjects //TODO: find a better way to find where locate portals
-		auto randX = [](){ return (rand() % 1800) + 100;};
-		auto randY = [&](){ return (rand() % static_cast<int>(levelSize.y * (1-earthPercentage)) + levelSize.y * earthPercentage);};
-
-        portal1->setLocalPosition({randX(), randY()});
-        portal2->setLocalPosition({randX(), randY()});
+        portal1->setLocalPosition(portalPositions[2*i]);
+        portal2->setLocalPosition(portalPositions[2*i+1]);
 
         auto sprite1 = ObjectManager::GetInstance()->GetTextureSystem().getSpriteFromAtlas(portals[2*i], "portals");
         auto sprite2 = ObjectManager::GetInstance()->GetTextureSystem().getSpriteFromAtlas(portals[2*i + 1], "portals");
@@ -164,4 +194,20 @@ void LevelGenerator::addPortals(int couples) {
 		port1_comp->setOtherPortal(port2_comp.get());
 		port2_comp->setOtherPortal(port1_comp.get());
 	}
+}
+
+std::vector<glm::vec2>& LevelGenerator::getSpawnPoints() {
+    return spawnPoints;
+}
+
+std::vector<std::pair<glm::vec2, glm::vec2>>
+LevelGenerator::createPossibleSpawnPoints(const std::vector<b2Vec2> &islandPositions, const std::vector<int>& islandDimensions) {
+    std::vector<std::pair<glm::vec2, glm::vec2>> result;
+    for(auto i = 0; i < islandPositions.size(); i++) {
+        glm::vec2 pos1{islandPositions[i].x + 100 + 50 * islandDimensions[i], islandPositions[i].y + 200};
+        glm::vec2 pos2{islandPositions[i].x - 100 + 50 * islandDimensions[i], islandPositions[i].y + 200};
+
+        result.push_back({pos1, pos2});
+    }
+    return result;
 }
