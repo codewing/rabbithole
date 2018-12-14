@@ -6,10 +6,8 @@
 
 #include "../engine/core/EngineCore.hpp"
 #include "../engine/core/GameModule.hpp"
+#include "../engine/core/GameMode.hpp"
 #include <memory>
-#include "Rabbit.hpp"
-
-#include "GameCameraController.hpp"
 
 class WormholeGame : public GameModule {
 public:
@@ -17,10 +15,7 @@ public:
 
 private:
 
-    GameCameraController cameraController;
-
-    Rabbit redRabbit;
-    Rabbit blueRabbit;
+    std::unique_ptr<GameMode> gameMode;
 
     void initialize() override;
     void update(float deltaTime);

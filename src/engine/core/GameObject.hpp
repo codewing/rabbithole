@@ -42,7 +42,7 @@ private:
     glm::vec2 position = glm::vec2{0, 0};
     GameObject* parent = nullptr;
 
-    float rotation;
+    float rotation = 0;
 
     void removeComponent(Component* component);
 

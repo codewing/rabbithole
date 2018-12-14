@@ -14,7 +14,7 @@ class LevelGenerator {
 public:
 	LevelGenerator(glm::vec2 levelSize, float earthPercentage);
 
-	void generateLevel();
+	std::shared_ptr<GameObject> generateLevel();
 	void addTerrain(WorldComponent* world_comp);
 	void addIslands(WorldComponent* world_comp, int number);
 	void addIsland(WorldComponent* world_comp, int size, b2Vec2 position);

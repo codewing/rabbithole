@@ -1,0 +1,20 @@
+{"frames": [
+
+{
+	"filename": "water.png",
+	"frame": {"x":0,"y":0,"w":2048,"h":185},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":2048,"h":185},
+	"sourceSize": {"w":2048,"h":185}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "environment.png",
+	"format": "RGBA8888",
+	"size": {"w":2048,"h":256},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:5849b33f4462e815f1e1b13f3bbd3fde:9c335ae8ef2e066513d36b85ff4c0cae:7abea815e3107eecbafa95ee71efdc50$"
+}
+}

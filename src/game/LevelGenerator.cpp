@@ -16,19 +16,21 @@ LevelGenerator::LevelGenerator(glm::vec2 levelSize, float earthPercentage) : lev
     srand(seed);
 }
 
-void LevelGenerator::generateLevel() {
-    auto gameObject = ObjectManager::GetInstance()->CreateGameObject("World");
-    auto world_comp = ObjectManager::GetInstance()->CreateComponent<WorldComponent>(gameObject.get());
+std::shared_ptr<GameObject> LevelGenerator::generateLevel() {
+    auto worldGO = ObjectManager::GetInstance()->CreateGameObject("World");
+    auto worldComponent = ObjectManager::GetInstance()->CreateComponent<WorldComponent>(worldGO.get());
 
-    addTerrain(world_comp.get());
+    addTerrain(worldComponent.get());
 
     auto number = rand() % 3 + 3;
     LOG_GAME_INFO("Number of island: " + std::to_string(number));
-    addIslands(world_comp.get(), number);
+    addIslands(worldComponent.get(), number);
 
     addPortals(2);
     // Building the visual representation
-    world_comp->updateMeshes();
+    worldComponent->updateMeshes();
+
+    return worldGO;
 }
 
 void LevelGenerator::addTerrain(WorldComponent* world_comp) {

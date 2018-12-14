@@ -9,27 +9,18 @@
 #include "Rabbit.hpp"
 #include <string>
 #include "GameCameraController.hpp"
+#include "../engine/core/GameMode.hpp"
+#include "DeathmatchGameMode.hpp"
 
 
 WormholeGame::WormholeGame(EngineCore &engine) :
-                    GameModule(engine),
-                    redRabbit {"red", {500, 780}, 0},
-                    blueRabbit {"blue", {1500, 750}, -1} {}
+                    GameModule(engine){}
 
 void WormholeGame::update(float deltaTime) {
-    cameraController.update(deltaTime);
-
-    if(cameraController.isAtTarget) {
-        auto middle = (redRabbit.getPosition() + blueRabbit.getPosition()) / 2.0f;
-        auto distance = glm::length(redRabbit.getPosition() - blueRabbit.getPosition());
-        cameraController.focusOn(middle, distance, 0.0f);
-    }
+    gameMode->update(deltaTime);
 }
 
 void WormholeGame::initialize() {
-    LevelGenerator level({2048,2048}, 0.3);
-    level.generateLevel();
-
-    cameraController.initialize();
-    cameraController.focusOn({500, 500}, 1400, 0);
+    gameMode = std::make_unique<DeathmatchGameMode>();
+    gameMode->initialize();
 }
