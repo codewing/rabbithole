@@ -22,7 +22,7 @@ void LevelGenerator::generateLevel() {
 
     addTerrain(world_comp.get());
 
-    auto number = rand() % 3 + 3; // TODO: add clever number of islands
+    auto number = rand() % 3 + 3;
 
     std::cout << "Number of island: " << number << std::endl;
     addIslands(world_comp.get(), number);
@@ -45,8 +45,8 @@ std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
     std::vector<b2Vec2> result;
     std::vector<int> xPoints;
 
-    int beginGenerationPointX = std::floor((emptyTerrainRatio / 2) * levelSize.x);
-    int endGenerationPointX = std::floor((1 - emptyTerrainRatio / 2) * levelSize.x);
+    int beginGenerationPointX = static_cast<int>(std::floor((emptyTerrainRatio / 2) * levelSize.x));
+    int endGenerationPointX = static_cast<int>(std::floor((1 - emptyTerrainRatio / 2) * levelSize.x));
 
     for (int i = beginGenerationPointX; i <= endGenerationPointX; i+=16) {
         xPoints.emplace_back(i);
@@ -74,10 +74,6 @@ void LevelGenerator::addIslands(WorldComponent* world_comp, int amount) {
 
 std::vector<b2Vec2>  LevelGenerator::createIslandCenterPoints(WorldComponent *world_comp, int number) {
     auto start_y = levelSize.y * earthPercentage;
-    auto VERTICAL_DIVISION = 3;
-    auto HORIZONTAL_DIVISION = 2;
-    auto unit_x = levelSize.x / VERTICAL_DIVISION;
-    auto unit_y = (levelSize.y - start_y) / HORIZONTAL_DIVISION;
 
     b2Vec2 ringCentre = { levelSize.x / 2, (levelSize.y + start_y) / 2 };
     float angle = 360.f / number;
@@ -158,8 +154,8 @@ void LevelGenerator::addPortals(int couples) {
         auto sprite2 = ObjectManager::GetInstance()->GetTextureSystem().getSpriteFromAtlas(portals[2*i + 1], "portals");
 
 		//initializing circles for physics
-		port1_comp->initCircle(b2_staticBody, sprite1.getSpriteSize().x / 4, portal1->getLocalPosition(), 0.0f);
-		port2_comp->initCircle(b2_staticBody, sprite2.getSpriteSize().x / 4, portal2->getLocalPosition(), 0.0f);
+		port1_comp->initCircle(b2_staticBody, sprite1.getSpriteSize().x / 4.0f, portal1->getLocalPosition(), 0.0f);
+		port2_comp->initCircle(b2_staticBody, sprite2.getSpriteSize().x / 4.0f, portal2->getLocalPosition(), 0.0f);
 
 		port1_comp->setSensor(true);
 		port2_comp->setSensor(true);
