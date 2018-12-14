@@ -35,7 +35,9 @@ void DeathmatchGameMode::update(float deltaTime) {
     if(!playersToRespawn.empty()) {
         for(auto player : playersToRespawn) {
             int spawnNumber = static_cast<int>(rng->rnd());
-            player->teleport(spawnPositions[spawnNumber], 0);
+            auto spawnLocation = spawnPositions[spawnNumber];
+            LOG_GAME_INFO(glm::to_string(spawnLocation));
+            player->teleport(spawnLocation, 0);
             player->setLinearVelocity({0, 0});
         }
         playersToRespawn.clear();

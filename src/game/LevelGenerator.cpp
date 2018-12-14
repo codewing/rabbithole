@@ -109,7 +109,7 @@ std::vector<b2Vec2>  LevelGenerator::createIslandCenterPoints(int number) {
     float angle = 360.f / number;
     float X_DIM = (levelSize.x / 2) * 0.6f;
     float Y_DIM = ((levelSize.y + start_y) / 4) * 0.8f;
-    float positionDelta = (static_cast<float>(rand()) / (RAND_MAX + 1)) * angle;
+    float positionDelta = (static_cast<float>(rand()) / (RAND_MAX)) * angle;
 
     std::vector<b2Vec2> result;
 
@@ -118,7 +118,6 @@ std::vector<b2Vec2>  LevelGenerator::createIslandCenterPoints(int number) {
                            ringCentre.y + Y_DIM * sin(glm::radians(angle*i + positionDelta))});
     }
 
-    result.push_back(result.at(0));
     return result;
 }
 
@@ -202,6 +201,8 @@ std::vector<glm::vec2>& LevelGenerator::getSpawnPoints() {
 
 std::vector<std::pair<glm::vec2, glm::vec2>>
 LevelGenerator::createPossibleSpawnPoints(const std::vector<b2Vec2> &islandPositions, const std::vector<int>& islandDimensions) {
+    assert(islandPositions.size() == islandDimensions.size());
+
     std::vector<std::pair<glm::vec2, glm::vec2>> result;
     for(auto i = 0; i < islandPositions.size(); i++) {
         glm::vec2 pos1{islandPositions[i].x + 100 + 50 * islandDimensions[i], islandPositions[i].y + 200};

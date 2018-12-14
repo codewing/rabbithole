@@ -9,9 +9,9 @@ DeathmatchUIComponent::DeathmatchUIComponent(GameObject *gameObject) : Component
 
 void DeathmatchUIComponent::onRender(sre::RenderPass &renderPass) {
 
-    if(scoreBlue > 1) {
+    if(scoreBlue > maxScore) {
         displayWinner(true);
-    } else if(scoreRed > 1) {
+    } else if(scoreRed > maxScore) {
         displayWinner(false);
     } else {
         displayStats();
