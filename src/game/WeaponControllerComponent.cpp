@@ -9,6 +9,7 @@
 #include "../engine/debug/Log.hpp"
 #include "../engine/core/ObjectManager.hpp"
 #include "Projectile.hpp"
+#include <glm/gtx/vector_angle.hpp>
 
 WeaponControllerComponent::WeaponControllerComponent(GameObject *gameObject) : Component(
         gameObject, ComponentFlag::UPDATE | ComponentFlag::INPUT) {}
@@ -20,17 +21,22 @@ void WeaponControllerComponent::setWeaponSprite(const sre::Sprite &weaponSprite)
 void WeaponControllerComponent::onUpdate(float deltaTime) {
     if(fireCooldown >= 0.0f) fireCooldown -= deltaTime;
 
+    float angle;
     // Prevent normalization NaN
     if(aimUp != 0.0 || aimRight != 0.0) {
         glm::vec2 aimingDirection = glm::normalize(glm::vec2{aimRight, -aimUp});
+        angle = glm::angle(glm::vec2{0,-1}, aimingDirection);
+
         movementComponent->setIsAiming(true);
 
         if(aimRight < 0.0) {
             movementComponent->setIsFlippedDueToAiming(false);
             weaponSprite.setFlip({false, false});
+            gameObject->setLocalRotation(180-(glm::degrees(angle) - 55));
         } else {
             movementComponent->setIsFlippedDueToAiming(true);
             weaponSprite.setFlip({true, false});
+            gameObject->setLocalRotation(glm::degrees(angle) - 55);
         }
 
         // not only aim but also shoot!
