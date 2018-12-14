@@ -41,6 +41,7 @@ private:
 
     int scoreRed = 0;
     int scoreBlue = 0;
+    int maxScore = 15;
 
     bool isPlaying = false;
     std::vector<RabbitPhysicsComponent*> playersToRespawn;

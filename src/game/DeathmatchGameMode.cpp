@@ -70,6 +70,7 @@ void DeathmatchGameMode::initializeInterface() {
 
     hudElements = ObjectManager::GetInstance()->CreateGameObject("GUI");
     uiComponent = ObjectManager::GetInstance()->CreateComponent<DeathmatchUIComponent>(hudElements.get());
+    uiComponent->setMaxScore(maxScore);
 }
 
 void DeathmatchGameMode::spawnRabbits() {
@@ -84,4 +85,7 @@ void DeathmatchGameMode::gameObjectDied(RabbitPhysicsComponent* rabbitPhysicsCom
         if(isPlaying) scoreRed++;
     }
     playersToRespawn.push_back(rabbitPhysicsComponent);
+    if(scoreBlue >= maxScore || scoreRed >= maxScore) {
+        isPlaying = false;
+    }
 }

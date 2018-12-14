@@ -9,6 +9,35 @@ DeathmatchUIComponent::DeathmatchUIComponent(GameObject *gameObject) : Component
 
 void DeathmatchUIComponent::onRender(sre::RenderPass &renderPass) {
 
+    if(scoreBlue > 1) {
+        displayWinner(true);
+    } else if(scoreRed > 1) {
+        displayWinner(false);
+    } else {
+        displayStats();
+    }
+}
+
+void DeathmatchUIComponent::displayWinner(bool isBlue) {
+    bool open = true;
+    ImGui::SetNextWindowSize(ImVec2(300,100));
+    ImGui::Begin("#TestLabel", &open, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoInputs);
+    ImGui::SetWindowFontScale(3.0f);
+    std::string team = isBlue ? "TEAM BLUE" : "TEAM RED";
+    auto textWinner = team + " WON";
+    ImGui::TextColored(isBlue ? colorBlue : colorRed, textWinner.c_str());
+
+    auto textScore = "  Score " + std::to_string(isBlue ? scoreBlue : scoreRed) + "-" + std::to_string(isBlue ? scoreRed : scoreBlue);
+    ImGui::Text(textScore.c_str());
+    ImGui::End();
+}
+
+void DeathmatchUIComponent::updateScore(int red, int blue) {
+    scoreRed = red;
+    scoreBlue = blue;
+}
+
+void DeathmatchUIComponent::displayStats() {
     bool open = true;
     ImGui::Begin("#TestLabel", &open, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoInputs);
     ImGui::SetWindowFontScale(2.0f);
@@ -16,11 +45,9 @@ void DeathmatchUIComponent::onRender(sre::RenderPass &renderPass) {
     auto textBlue = "Blue: " + std::to_string(scoreBlue);
     ImGui::TextColored(colorRed, textRed.c_str());
     ImGui::TextColored(colorBlue, textBlue.c_str());
-
     ImGui::End();
 }
 
-void DeathmatchUIComponent::updateScore(int red, int blue) {
-    scoreRed = red;
-    scoreBlue = blue;
+void DeathmatchUIComponent::setMaxScore(int maxScore) {
+    DeathmatchUIComponent::maxScore = maxScore;
 }
