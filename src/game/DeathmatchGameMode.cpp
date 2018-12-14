@@ -11,6 +11,7 @@
 #include "RabbitPhysicsComponent.hpp"
 #include "ResetPhysicsComponent.hpp"
 #include "DeathmatchUIComponent.hpp"
+#include "../engine/debug/Log.hpp"
 #include <sre/Sprite.hpp>
 
 void DeathmatchGameMode::initialize() {
@@ -30,6 +31,15 @@ void DeathmatchGameMode::update(float deltaTime) {
     cameraController.focusOn(middle, distance, 0.0f);
 
     uiComponent->updateScore(scoreRed, scoreBlue);
+
+    if(!playersToRespawn.empty()) {
+        for(auto player : playersToRespawn) {
+            int spawnNumber = static_cast<int>(rng->rnd());
+            player->teleport(spawnPositions[spawnNumber], 0);
+            player->setLinearVelocity({0, 0});
+        }
+        playersToRespawn.clear();
+    }
 }
 
 void DeathmatchGameMode::spawnWater() {
@@ -51,6 +61,7 @@ void DeathmatchGameMode::spawnLevel() {
     LevelGenerator level({2048,2048}, 0.3);
     std::shared_ptr<GameObject> world = level.generateLevel();
     spawnPositions = {level.getSpawnPoints()};
+    rng = std::make_unique<NumberGenerator>(0, spawnPositions.size());
 }
 
 void DeathmatchGameMode::initializeInterface() {
@@ -72,4 +83,5 @@ void DeathmatchGameMode::gameObjectDied(RabbitPhysicsComponent* rabbitPhysicsCom
     } else if (rabbitPhysicsComponent->getGameObject()->name.compare("Rabbit_blue") == 0) {
         if(isPlaying) scoreRed++;
     }
+    playersToRespawn.push_back(rabbitPhysicsComponent);
 }

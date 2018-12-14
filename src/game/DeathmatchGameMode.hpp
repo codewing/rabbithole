@@ -5,9 +5,12 @@
 #pragma once
 
 #include <memory>
+#include <vector>
+#include <random>
 
 #include "GameCameraController.hpp"
 #include "../engine/core/GameMode.hpp"
+#include "../engine/core/NumberGenerator.hpp"
 
 class GameObject;
 class Rabbit;
@@ -40,6 +43,11 @@ private:
     int scoreBlue = 0;
 
     bool isPlaying = false;
+    std::vector<RabbitPhysicsComponent*> playersToRespawn;
+
+    std::unique_ptr<NumberGenerator> rng;
+
+private:
 
     void spawnLevel();
     void spawnWater();
