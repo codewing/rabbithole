@@ -3,8 +3,8 @@
 //
 
 #include "MovementComponent.hpp"
-#include "../engine/core/GameObject.hpp"
-#include "../engine/debug/Log.hpp"
+#include "../../engine/core/GameObject.hpp"
+#include "../../engine/debug/Log.hpp"
 
 RabbitPhysicsComponent::RabbitPhysicsComponent(GameObject *gameObject) : PhysicsComponent(gameObject) {}
 

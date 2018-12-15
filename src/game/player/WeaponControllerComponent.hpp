@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "../engine/core/Component.hpp"
-#include "../engine/core/IUpdatable.hpp"
-#include "../engine/core/IInputable.hpp"
-#include "Projectile.hpp"
+#include "../../engine/core/Component.hpp"
+#include "../../engine/core/IUpdatable.hpp"
+#include "../../engine/core/IInputable.hpp"
+#include "../Projectile.hpp"
 
 class SpriteComponent;
 class MovementComponent;

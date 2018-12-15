@@ -3,7 +3,7 @@
 #include <Box2D/Box2D.h>
 #include <iostream>
 #include <glm/ext.hpp>
-#include "../engine/core/GameObject.hpp"
+#include "../../engine/core/GameObject.hpp"
 #include <sre/Shader.hpp>
 #include <sre/Texture.hpp>
 

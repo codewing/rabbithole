@@ -6,7 +6,7 @@
 
 
 #include <glm/vec2.hpp>
-#include "../engine/core/EngineCore.hpp"
+#include "../../engine/core/EngineCore.hpp"
 
 class Rabbit {
 public:

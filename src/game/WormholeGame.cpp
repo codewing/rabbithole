@@ -4,9 +4,9 @@
 
 #include "WormholeGame.hpp"
 #include <glm/glm.hpp>
-#include "MovementComponent.hpp"
-#include "LevelGenerator.hpp"
-#include "Rabbit.hpp"
+#include "player/MovementComponent.hpp"
+#include "terrain/LevelGenerator.hpp"
+#include "player/Rabbit.hpp"
 #include <string>
 #include "GameCameraController.hpp"
 #include "../engine/core/GameMode.hpp"

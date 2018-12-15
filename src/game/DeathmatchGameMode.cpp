@@ -4,11 +4,11 @@
 
 #include "DeathmatchGameMode.hpp"
 
-#include "Rabbit.hpp"
-#include "LevelGenerator.hpp"
+#include "player/Rabbit.hpp"
+#include "terrain/LevelGenerator.hpp"
 #include "../engine/core/GameObject.hpp"
 #include "../engine/component/SpriteComponent.hpp"
-#include "RabbitPhysicsComponent.hpp"
+#include "player/RabbitPhysicsComponent.hpp"
 #include "ResetPhysicsComponent.hpp"
 #include "DeathmatchUIComponent.hpp"
 #include "../engine/debug/Log.hpp"

@@ -3,7 +3,7 @@
 #include <math.h>
 #include <boost/geometry/algorithms/assign.hpp>
 #include "LevelGenerator.hpp"
-#include "../engine/debug/Log.hpp"
+#include "../../engine/debug/Log.hpp"
 
 std::shared_ptr<sre::Mesh> TerrainUtils::generateMesh(const std::vector<b2Vec2>& chain) {
     static std::vector<p2t::Point*> p2tPoints;

@@ -4,9 +4,9 @@
 
 #include "Rabbit.hpp"
 
-#include "../engine/core/GameObject.hpp"
-#include "../engine/core/ObjectManager.hpp"
-#include "../engine/component/SpriteComponent.hpp"
+#include "../../engine/core/GameObject.hpp"
+#include "../../engine/core/ObjectManager.hpp"
+#include "../../engine/component/SpriteComponent.hpp"
 #include "MovementComponent.hpp"
 #include "RabbitPhysicsComponent.hpp"
 #include "WeaponControllerComponent.hpp"

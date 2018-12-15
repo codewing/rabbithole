@@ -5,7 +5,7 @@
 #include <sre/SpriteAtlas.hpp>
 #include <boost/geometry/geometry.hpp>
 #include <Box2D/Common/b2Math.h>
-#include "../engine/core/EngineCore.hpp"
+#include "../../engine/core/EngineCore.hpp"
 
 class GameObject;
 class WorldComponent;

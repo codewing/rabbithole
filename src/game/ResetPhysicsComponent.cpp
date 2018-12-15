@@ -5,7 +5,7 @@
 #include "ResetPhysicsComponent.hpp"
 
 #include "DeathmatchGameMode.hpp"
-#include "RabbitPhysicsComponent.hpp"
+#include "player/RabbitPhysicsComponent.hpp"
 
 void ResetPhysicsComponent::onCollisionStart(IInteractable *interactable) {
     auto rabbitPhysicsComponent = dynamic_cast<RabbitPhysicsComponent*>(interactable);

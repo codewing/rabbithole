@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "../engine/core/Component.hpp"
-#include "../engine/core/IUpdatable.hpp"
-#include "../engine/core/IInputable.hpp"
+#include "../../engine/core/Component.hpp"
+#include "../../engine/core/IUpdatable.hpp"
+#include "../../engine/core/IInputable.hpp"
 
 #include "RabbitPhysicsComponent.hpp"
 

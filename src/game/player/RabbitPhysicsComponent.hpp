@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../engine/component/PhysicsComponent.hpp"
+#include "../../engine/component/PhysicsComponent.hpp"
 
 
 class RabbitPhysicsComponent : public PhysicsComponent, public b2RayCastCallback {

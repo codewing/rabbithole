@@ -6,8 +6,8 @@
 #include "TerrainUtils.hpp"
 #include "WorldComponent.hpp"
 
-#include "../engine/debug/Log.hpp"
-#include "ProjectilePhysicsComponent.hpp"
+#include "../../engine/debug/Log.hpp"
+#include "../ProjectilePhysicsComponent.hpp"
 
 void TerrainInteractable::onCollisionStart(IInteractable *interactable) {
     auto projectile = dynamic_cast<ProjectilePhysicsComponent*>(interactable);

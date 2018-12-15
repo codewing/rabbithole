@@ -4,11 +4,11 @@
 
 #include "WeaponControllerComponent.hpp"
 
-#include "../engine/component/SpriteComponent.hpp"
+#include "../../engine/component/SpriteComponent.hpp"
 #include "MovementComponent.hpp"
-#include "../engine/debug/Log.hpp"
-#include "../engine/core/ObjectManager.hpp"
-#include "Projectile.hpp"
+#include "../../engine/debug/Log.hpp"
+#include "../../engine/core/ObjectManager.hpp"
+#include "../Projectile.hpp"
 #include <glm/gtx/vector_angle.hpp>
 
 WeaponControllerComponent::WeaponControllerComponent(GameObject *gameObject) : Component(

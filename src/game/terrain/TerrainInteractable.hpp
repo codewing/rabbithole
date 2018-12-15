@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "../engine/core/IInteractable.hpp"
+#include "../../engine/core/IInteractable.hpp"
 #include <Box2D/Box2D.h>
 
 class WorldComponent;

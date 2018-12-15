@@ -4,9 +4,9 @@
 
 #include <sstream>
 #include "MovementComponent.hpp"
-#include "../engine/component/SpriteComponent.hpp"
-#include "../engine/core/GameObject.hpp"
-#include "../engine/debug/Log.hpp"
+#include "../../engine/component/SpriteComponent.hpp"
+#include "../../engine/core/GameObject.hpp"
+#include "../../engine/debug/Log.hpp"
 #include "RabbitPhysicsComponent.hpp"
 
 MovementComponent::MovementComponent(GameObject *gameObject)

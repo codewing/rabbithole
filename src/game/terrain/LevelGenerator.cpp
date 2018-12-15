@@ -1,6 +1,6 @@
 #include "LevelGenerator.hpp"
-#include "PortalComponent.hpp"
-#include "../engine/component/SpriteComponent.hpp"
+#include "../PortalComponent.hpp"
+#include "../../engine/component/SpriteComponent.hpp"
 #include "WorldComponent.hpp"
 #include <boost/geometry/geometry.hpp>
 #include <iostream>
@@ -9,8 +9,8 @@
 #include <time.h>
 #include <random>
 #include <poly2tri/poly2tri.h>
-#include "../engine/core/ObjectManager.hpp"
-#include "../engine/debug/Log.hpp"
+#include "../../engine/core/ObjectManager.hpp"
+#include "../../engine/debug/Log.hpp"
 
 LevelGenerator::LevelGenerator(glm::vec2 levelSize, float earthPercentage) : levelSize(levelSize), earthPercentage(earthPercentage) {
     auto seed = (unsigned)time(0);

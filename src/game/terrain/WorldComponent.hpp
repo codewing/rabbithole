@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../engine/core/Component.hpp"
-#include "../engine/core/IRenderable.hpp"
+#include "../../engine/core/Component.hpp"
+#include "../../engine/core/IRenderable.hpp"
 #include <vector>
 #include <memory>
 #include <glm/glm.hpp>
@@ -9,7 +9,7 @@
 #include "TerrainInteractable.hpp"
 #include <sre/Mesh.hpp>
 #include "TerrainUtils.hpp"
-#include "../engine/core/IUpdatable.hpp"
+#include "../../engine/core/IUpdatable.hpp"
 
 class GameObject;
 
