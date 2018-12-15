@@ -41,7 +41,7 @@ void WeaponControllerComponent::onUpdate(float deltaTime) {
 
         // not only aim but also shoot!
         if(std::abs(aimUp) + std::abs(aimRight) >= 0.8) {
-            fireProjectile(aimingDirection, gameObject->getParent()->getLocalPosition() + aimingDirection * 35.0f);
+            fireProjectile(aimingDirection, gameObject->getParent()->getLocalPosition() + aimingDirection * 34.0f);
         }
 
     } else {
