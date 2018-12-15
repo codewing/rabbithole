@@ -30,7 +30,7 @@ void TerrainInteractable::setRotation(float newAngle) {}
 
 TerrainInteractable::TerrainInteractable(WorldComponent* worldComponent, std::vector<b2Vec2> terrainData)
     : worldComponent(worldComponent), terrainData(terrainData) {
-    initChain(b2BodyType::b2_staticBody, this->terrainData, {0, 0}, 1);
+    initChain(b2BodyType::b2_staticBody, this->terrainData, {0, 0}, 0);
 }
 
 std::vector<b2Vec2>& TerrainInteractable::getTerrainData() {

@@ -13,6 +13,7 @@
 #include "DeathmatchUIComponent.hpp"
 #include "../engine/debug/Log.hpp"
 #include <sre/Sprite.hpp>
+#include "player/HealthComponent.hpp"
 
 void DeathmatchGameMode::initialize() {
     scoreRed = scoreBlue = 0;
@@ -30,6 +31,9 @@ void DeathmatchGameMode::update(float deltaTime) {
     auto distance = glm::length(redRabbit->getPosition() - blueRabbit->getPosition());
     cameraController.focusOn(middle, distance, 0.0f);
 
+    if(redRabbit->getHealthValue() <= 0.0f) gameObjectDied(redRabbit->getRabbitPhysicsComponent());
+    if(blueRabbit->getHealthValue() <= 0.0f) gameObjectDied(blueRabbit->getRabbitPhysicsComponent());
+
     uiComponent->updateScore(scoreRed, scoreBlue);
 
     if(!playersToRespawn.empty()) {
@@ -38,6 +42,7 @@ void DeathmatchGameMode::update(float deltaTime) {
             auto spawnLocation = spawnPositions[spawnNumber];
             player->teleport(spawnLocation, 0);
             player->setLinearVelocity({0, 0});
+            player->getGameObject()->getComponent<HealthComponent>()->setHealthValue(100);
         }
         playersToRespawn.clear();
     }

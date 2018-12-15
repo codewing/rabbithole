@@ -7,7 +7,8 @@
 
 namespace ComponentFlag {
 
-    constexpr uint8_t   UPDATE      = 1,
+    constexpr uint8_t   NONE        = 0,
+                        UPDATE      = 1,
                         RENDERABLE  = 2,
                         PHYSICS     = 4,
                         INPUT       = 8;

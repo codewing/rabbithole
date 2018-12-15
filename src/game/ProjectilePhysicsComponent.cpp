@@ -9,7 +9,7 @@
 #include "../engine/component/SpriteAnimationComponent.hpp"
 #include "../engine/core/TextureSystem.hpp"
 #include "../engine/debug/Log.hpp"
-#include <sstream>
+#include "ExplosionQueryComponent.hpp"
 
 ProjectilePhysicsComponent::ProjectilePhysicsComponent(GameObject *gameObject) : PhysicsComponent(gameObject) {}
 
@@ -18,8 +18,9 @@ void ProjectilePhysicsComponent::onCollisionStart(IInteractable *interactable) {
         collided = true;
         auto objManager = ObjectManager::GetInstance();
 
+        auto explosionLocation = glm::vec2{body->GetPosition().x * PhysicsSystem::PHYSICS_SCALE, body->GetPosition().y * PhysicsSystem::PHYSICS_SCALE};
         auto explosionGO = objManager->CreateGameObject("Explosion");
-        explosionGO->setLocalPosition(glm::vec2{body->GetPosition().x * PhysicsSystem::PHYSICS_SCALE, body->GetPosition().y * PhysicsSystem::PHYSICS_SCALE});
+        explosionGO->setLocalPosition(explosionLocation);
         explosionGO->setLocalRotation(gameObject->getRotation());
 
         auto spriteComponent = objManager->CreateComponent<SpriteComponent>(explosionGO.get());
@@ -30,6 +31,9 @@ void ProjectilePhysicsComponent::onCollisionStart(IInteractable *interactable) {
         spriteAnimComponent->setAnimationTime(0.016f);
         spriteAnimComponent->setDestroyWhenDone(true);
         spriteAnimComponent->setSpriteScale({2,2});
+
+        auto explosionQueryComp = objManager->CreateComponent<ExplosionQueryComponent>(explosionGO.get());
+        explosionQueryComp->explode(64, explosionLocation);
 
         objManager->DestroyGameObject(gameObject);
     }

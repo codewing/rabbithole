@@ -32,15 +32,15 @@ void Rabbit::spawnRabbitBase(glm::vec2 position, int gamepadID) {
     rabbitBase->setLocalPosition(position);
     auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(rabbitBase.get());
 
-    auto physicsComp = ObjectManager::GetInstance()->CreateComponent<RabbitPhysicsComponent>(rabbitBase.get());
-    physicsComp->initCircle(b2_dynamicBody, 25, rabbitBase->getLocalPosition(), 0.0f);
+    basePhysicsComponent = ObjectManager::GetInstance()->CreateComponent<RabbitPhysicsComponent>(rabbitBase.get());
+    basePhysicsComponent->initCircle(b2_dynamicBody, 25, rabbitBase->getLocalPosition(), 0.0f);
 
     auto movementComp = ObjectManager::GetInstance()->CreateComponent<MovementComponent>(rabbitBase.get());
     movementComp->setupControllerInput(gamepadID);
     movementComp->setupSprites(spriteComp.get(), idleSprites, movementSprites);
 
-    auto healthComp = ObjectManager::GetInstance()->CreateComponent<HealthComponent>(rabbitBase.get());
-    healthComp->setHealthValue(100);
+    healthComponent = ObjectManager::GetInstance()->CreateComponent<HealthComponent>(rabbitBase.get());
+    healthComponent->setHealthValue(100);
 }
 
 void Rabbit::spawnRabbitWeapon(int gamepadID) {
@@ -62,4 +62,12 @@ void Rabbit::spawnRabbitWeapon(int gamepadID) {
 
 glm::vec2 Rabbit::getPosition() {
     return rabbitBase->getLocalPosition();
+}
+
+float Rabbit::getHealthValue() {
+    return healthComponent->getHealthValue();
+}
+
+RabbitPhysicsComponent *Rabbit::getRabbitPhysicsComponent() {
+    return basePhysicsComponent.get();
 }
