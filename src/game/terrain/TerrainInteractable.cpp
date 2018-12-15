@@ -14,7 +14,8 @@ void TerrainInteractable::onCollisionStart(IInteractable *interactable) {
 
     if(projectile != nullptr && !isBeingUpdated) {
         isBeingUpdated = true;
-        auto boostRing = TerrainUtils::makeConvexRing(b2Vec2{interactable->getPosition().x, interactable->getPosition().y}, 64, 8);
+        auto position = projectile->getPhysicsLocation() * PhysicsSystem::PHYSICS_SCALE;
+        auto boostRing = TerrainUtils::makeConvexRing(position, 64, 12);
         worldComponent->registerRemoveShapeFromRing(this, boostRing);
     }
 }

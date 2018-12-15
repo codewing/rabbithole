@@ -10,6 +10,7 @@
 #include "MovementComponent.hpp"
 #include "RabbitPhysicsComponent.hpp"
 #include "WeaponControllerComponent.hpp"
+#include "HealthComponent.hpp"
 
 Rabbit::Rabbit(const std::string& team, glm::vec2 position, int gamepadID) : team{team} {
     spawnRabbitBase(position, gamepadID);
@@ -37,6 +38,9 @@ void Rabbit::spawnRabbitBase(glm::vec2 position, int gamepadID) {
     auto movementComp = ObjectManager::GetInstance()->CreateComponent<MovementComponent>(rabbitBase.get());
     movementComp->setupControllerInput(gamepadID);
     movementComp->setupSprites(spriteComp.get(), idleSprites, movementSprites);
+
+    auto healthComp = ObjectManager::GetInstance()->CreateComponent<HealthComponent>(rabbitBase.get());
+    healthComp->setHealthValue(100);
 }
 
 void Rabbit::spawnRabbitWeapon(int gamepadID) {

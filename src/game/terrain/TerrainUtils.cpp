@@ -91,7 +91,7 @@ std::vector<b2Vec2> TerrainUtils::tob2Ring(polygon_t shape) {
 	return result;
 }
 
-polygon_t TerrainUtils::makeConvexRing(b2Vec2 position, float radius, int numberVertices)
+polygon_t TerrainUtils::makeConvexRing(glm::vec2 position, float radius, int numberVertices)
 {
 	polygon_t convexRing;
 	const float theta = static_cast<float>(glm::radians(360.f) / numberVertices);

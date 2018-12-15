@@ -16,7 +16,7 @@ class TerrainUtils {
 public:
 	static std::shared_ptr<sre::Mesh> generateMesh(const std::vector<b2Vec2>& chain);
 
-	static polygon_t makeConvexRing(b2Vec2 position, float radius, int numberVertices);
+	static polygon_t makeConvexRing(glm::vec2 position, float radius, int numberVertices);
 	static std::vector<std::vector<float>> generateNoise(std::vector<int> xPoints, int ampl, int wavelen, int octaves, int divisor);
 	static std::vector<b2Vec2> combineNoise(std::vector<int> xPoints, std::vector<std::vector<float>> noiseOctaves);
 	static void reshapeEdges(std::vector<b2Vec2>& terrain);

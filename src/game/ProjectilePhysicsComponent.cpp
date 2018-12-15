@@ -34,3 +34,7 @@ void ProjectilePhysicsComponent::onCollisionStart(IInteractable *interactable) {
         objManager->DestroyGameObject(gameObject);
     }
 }
+
+glm::vec2 ProjectilePhysicsComponent::getPhysicsLocation() {
+    return glm::vec2(body->GetPosition().x, body->GetPosition().y);
+}

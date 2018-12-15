@@ -7,11 +7,15 @@
 
 #include "../engine/component/PhysicsComponent.hpp"
 
+class ProjectilePhysicsComponent;
+
 class ProjectilePhysicsComponent : public PhysicsComponent {
 public:
     ProjectilePhysicsComponent(GameObject *gameObject);
 
     void onCollisionStart(IInteractable *interactable) override;
+
+    glm::vec2 getPhysicsLocation();
 
 private:
     std::vector<std::string> explosionSpriteNames = {"poof_1.png", "poof_2.png", "poof_3.png", "poof_4.png", "poof_5.png",
