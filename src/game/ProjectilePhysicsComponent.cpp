@@ -33,7 +33,7 @@ void ProjectilePhysicsComponent::onCollisionStart(IInteractable *interactable) {
         spriteAnimComponent->setSpriteScale({2,2});
 
         auto explosionQueryComp = objManager->CreateComponent<ExplosionQueryComponent>(explosionGO.get());
-        explosionQueryComp->explode(64, explosionLocation);
+        explosionQueryComp->explode(50, explosionLocation);
 
         objManager->DestroyGameObject(gameObject);
     }

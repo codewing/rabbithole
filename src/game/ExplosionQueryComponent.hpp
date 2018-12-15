@@ -19,7 +19,7 @@ public:
 private:
     b2World* world;
 
-    float currentRadius;
+    float radius;
     b2Vec2 explosionLocation;
 };
 
