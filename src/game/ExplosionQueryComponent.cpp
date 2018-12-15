@@ -27,7 +27,10 @@ bool ExplosionQueryComponent::ReportFixture(b2Fixture *fixture) {
                 glm::vec2 explosionPos = glm::vec2{explosionLocation.x, explosionLocation.y};
                 physicsComponent->addImpulse(glm::normalize(playerPos - explosionPos) * 10.0f);
 
-                healthComponent->applyDamage(25);
+                auto distanceToExplosion = glm::distance(playerPos, explosionPos) * PhysicsSystem::PHYSICS_SCALE;
+                distanceToExplosion -= 32;  // subtract min distance
+                distanceToExplosion /= 32.0f; // divide by radius to map to 0 -> 1
+                healthComponent->applyDamage(55 * (1-distanceToExplosion));
             }
         }
     }
