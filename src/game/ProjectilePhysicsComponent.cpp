@@ -10,6 +10,7 @@
 #include "../engine/core/TextureSystem.hpp"
 #include "../engine/debug/Log.hpp"
 #include "ExplosionQueryComponent.hpp"
+#include "ResetPhysicsComponent.hpp"
 
 ProjectilePhysicsComponent::ProjectilePhysicsComponent(GameObject *gameObject) : PhysicsComponent(gameObject) {}
 
@@ -36,6 +37,10 @@ void ProjectilePhysicsComponent::onCollisionStart(IInteractable *interactable) {
         explosionQueryComp->explode(50, explosionLocation);
 
         objManager->DestroyGameObject(gameObject);
+    } else {
+        if(dynamic_cast<ResetPhysicsComponent*>(interactable) != nullptr) {
+            ObjectManager::GetInstance()->DestroyGameObject(gameObject);
+        }
     }
 }
 
