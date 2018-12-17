@@ -81,7 +81,7 @@ void DeathmatchGameMode::initializeInterface() {
 
 void DeathmatchGameMode::spawnRabbits() {
     redRabbit = std::make_unique<Rabbit>("red", spawnPositions[0], 0);
-    blueRabbit = std::make_unique<Rabbit>("blue", spawnPositions[1], -1);
+    blueRabbit = std::make_unique<Rabbit>("blue", spawnPositions[1], 1);
 }
 
 void DeathmatchGameMode::gameObjectDied(RabbitPhysicsComponent* rabbitPhysicsComponent) {
