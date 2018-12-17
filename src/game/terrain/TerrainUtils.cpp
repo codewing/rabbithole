@@ -5,6 +5,16 @@
 #include "LevelGenerator.hpp"
 #include "../../engine/debug/Log.hpp"
 
+/*
+	class containing all the utils for the terrain:
+	- generating mesh for rendering
+	- triangulation of convex and non-convex shapes
+	- subtraction for bullet explosion
+	- format conversion (b2Vec2, polygon_t, Triangle)
+	- perlin noise
+	- smooth edges of the ground diving into the water
+*/
+
 std::shared_ptr<sre::Mesh> TerrainUtils::generateMesh(const std::vector<b2Vec2>& chain) {
     static std::vector<p2t::Point*> p2tPoints;
     for (int i = 0; i < chain.size() -1; i++) {

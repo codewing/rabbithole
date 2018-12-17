@@ -12,6 +12,17 @@
 #include "../../engine/core/ObjectManager.hpp"
 #include "../../engine/debug/Log.hpp"
 
+/*
+	class managing the whole level generation:
+	- splitting world into two parts (ground and islands) --> everything in an object with worldComponent
+	- generation of the terrain
+	- dynamically selecting number and size of islands
+	- generating single islands
+	- generating portals
+	- generating rabbits spawn points after dying
+	- rendering the level with meshes
+*/
+
 LevelGenerator::LevelGenerator(glm::vec2 levelSize, float earthPercentage) : levelSize(levelSize), earthPercentage(earthPercentage) {
     auto seed = (unsigned)time(0);
     LOG_GAME_INFO("Seeded with: " + std::to_string(seed));
@@ -40,7 +51,7 @@ void LevelGenerator::addTerrain(WorldComponent* world_comp) {
     world_comp->addRing(std::move(points));
 }
 
-// generating the list of positions of the terrain
+// generating the list of positions of the terrain using different layers (3) of Perlin noise
 std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
     std::vector<int> xPoints;
 
@@ -59,6 +70,7 @@ std::vector<b2Vec2> LevelGenerator::createTerrain(WorldComponent* world_comp) {
     return result;
 }
 
+// generating islands and adding portals in relation with islands and terrain  
 void LevelGenerator::addIslandsSpawnPointsAndPortals(WorldComponent *world_comp, int amount) {
     std::vector<b2Vec2> islandPositions = createIslandCenterPoints(amount);
     std::vector<int> islandDimensions = createRandomIslandSizes(amount);
@@ -76,7 +88,7 @@ void LevelGenerator::addIslandsSpawnPointsAndPortals(WorldComponent *world_comp,
 
     // randomly select for spawn or portal
     std::vector<glm::vec2> portalPoints;
-    // Add portal to one of the sides (Dont do this at home)
+    // Add portal to one of the sides of the ground
     rand() % 2 == 0 ? portalPoints.push_back({150, 400}) : portalPoints.push_back({levelSize.x - 150, 400});
 
     // add elements of pair either to portal or spawn
@@ -102,6 +114,7 @@ void LevelGenerator::addIslandsSpawnPointsAndPortals(WorldComponent *world_comp,
 
 }
 
+// sampling islands positions from elliptical shape on the upper part of the level
 std::vector<b2Vec2>  LevelGenerator::createIslandCenterPoints(int number) {
     auto start_y = levelSize.y * earthPercentage;
     float ringScaleY = 0.5f;
@@ -136,6 +149,8 @@ std::vector<int> LevelGenerator::createRandomIslandSizes(int number) {
     return res;
 }
 
+// sampling of 360/angle points over an elliptical shape (+ noise) 
+// starting from the center already calculated and with respect to the chosen size
 std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 islandCenter) {
     // creating the vector of points of the island
     auto angle = 10.f;
@@ -158,6 +173,7 @@ std::vector<b2Vec2> LevelGenerator::createIslandPoints(int size, b2Vec2 islandCe
     return result;
 }
 
+// adding all the linked couples of portals at the given positions and initializing physics
 void LevelGenerator::addPortals(int couples, const std::vector<glm::vec2>& portalPositions) {
 
     std::vector<std::string> portals = {"portal_blue_yellow.png", "portal_yellow_blue.png", "portal_red_green.png", "portal_green_red.png"};
@@ -200,6 +216,7 @@ std::vector<glm::vec2>& LevelGenerator::getSpawnPoints() {
     return spawnPoints;
 }
 
+// creating possible position for spawning the rabbits
 std::vector<std::pair<glm::vec2, glm::vec2>>
 LevelGenerator::createPossibleSpawnPoints(const std::vector<b2Vec2> &islandPositions, const std::vector<int>& islandDimensions) {
     assert(islandPositions.size() == islandDimensions.size());

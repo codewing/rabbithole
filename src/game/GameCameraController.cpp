@@ -8,6 +8,13 @@
 #include "../engine/core/ObjectManager.hpp"
 #include <sre/Renderer.hpp>
 
+/*
+	class managing camera position and orthographic projection:
+	- clamping outside limits of the world
+	- auto zooming wrt rabbits distance
+	- smooth movement and zooming
+*/
+
 void GameCameraController::initialize() {
     ObjectManager::GetInstance()->GetCameraManager().RegisterCamera("main", sre::Camera());
     ObjectManager::GetInstance()->GetCameraManager().SetActiveCamera("main");

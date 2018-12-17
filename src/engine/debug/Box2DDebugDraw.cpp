@@ -1,12 +1,14 @@
-//
-// Created by Morten Nobel-Jørgensen on 19/10/2017.
-//
-
 #include "Box2DDebugDraw.hpp"
 #include "glm/gtc/random.hpp"
 #include "glm/ext.hpp"
 
 using namespace std;
+
+/*
+	class used to draw physics components attached to each object, 
+	every function is associated to a specific shape
+	to be rendered all points must be added to lines
+*/
 
 Box2DDebugDraw::Box2DDebugDraw(float scale)
 :scale(scale)

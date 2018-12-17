@@ -5,6 +5,12 @@
 #include <sre/Renderer.hpp>
 #include "DeathmatchUIComponent.hpp"
 
+/*
+	managing the display of points and the winner at game end:
+	- display the winner through ImGui
+	- display the current stats of the game (deaths)
+*/
+
 DeathmatchUIComponent::DeathmatchUIComponent(GameObject *gameObject) : Component(gameObject, ComponentFlag::RENDERABLE) {}
 
 void DeathmatchUIComponent::onRender(sre::RenderPass &renderPass) {

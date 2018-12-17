@@ -9,6 +9,12 @@
 
 #include <glm/glm.hpp>
 
+/*
+	class generating and managing explosions:
+	- creating explosion + physics consequences (impulses)
+	- creating and managing damage wrt distance from target
+*/
+
 ExplosionQueryComponent::ExplosionQueryComponent(GameObject *gameObject) : Component(gameObject, ComponentFlag::NONE) {
     world = ObjectManager::GetInstance()->GetPhysicsWorld();
 }

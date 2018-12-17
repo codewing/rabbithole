@@ -17,7 +17,10 @@ Rabbit::Rabbit(const std::string& team, glm::vec2 position, int gamepadID) : tea
     spawnRabbitWeapon(gamepadID);
 }
 
+// spawning the rabbit without the weapon
 void Rabbit::spawnRabbitBase(glm::vec2 position, int gamepadID) {
+
+	// creating list of sprites for animation
     auto movementSpriteNames = {team + "_anim_Rabbit_Movement_000.png", team + "_anim_Rabbit_Movement_001.png"};
     auto idleSpriteNames =     {team + "_anim_Rabbit_Idle_000.png", team + "_anim_Rabbit_Idle_001.png",
                                 team + "_anim_Rabbit_Idle_002.png", team + "_anim_Rabbit_Idle_003.png"};
@@ -28,6 +31,7 @@ void Rabbit::spawnRabbitBase(glm::vec2 position, int gamepadID) {
     std::for_each(movementSprites.begin(), movementSprites.end(), setSpritePosition);
     std::for_each(idleSprites.begin(), idleSprites.end(), setSpritePosition);
 
+	// creating the rabbit and all its required components
     rabbitBase = ObjectManager::GetInstance()->CreateGameObject("Rabbit_"+team);
     rabbitBase->setLocalPosition(position);
     auto spriteComp = ObjectManager::GetInstance()->CreateComponent<SpriteComponent>(rabbitBase.get());
@@ -43,6 +47,7 @@ void Rabbit::spawnRabbitBase(glm::vec2 position, int gamepadID) {
     healthComponent->setHealthValue(100);
 }
 
+// adding the weapon (+ all its components) to the rabbit
 void Rabbit::spawnRabbitWeapon(int gamepadID) {
     auto weaponSprite = ObjectManager::GetInstance()->GetTextureSystem().getSpriteFromAtlas("bunny_hand_right_with_bazooka.png", "bunny");
 

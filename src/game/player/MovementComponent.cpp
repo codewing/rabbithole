@@ -29,6 +29,7 @@ void MovementComponent::onUpdate(float deltaTime) {
 
     auto velocity = physicsComponent->getLinearVelocity();
     auto wasMoving = isMoving;
+	// clamping the velocity to zero under a given threshold
     if(std::abs(velocity.x) < 0.05) {
         isMoving = false;
     } else {

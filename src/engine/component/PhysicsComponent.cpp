@@ -1,5 +1,3 @@
-//
-
 #include "PhysicsComponent.hpp"
 #include "../core/GameObject.hpp"
 

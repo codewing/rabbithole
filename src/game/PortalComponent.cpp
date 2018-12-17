@@ -20,6 +20,8 @@ PortalComponent* PortalComponent::getOtherPortal(){
 
 void PortalComponent::onCollisionStart(IInteractable * interactable){
 
+	// avoiding looping between two portals, one teleported object is marked such that the new portal is not activated if
+	// the object has just been teleported
     if(std::find(teleportedObjects.begin(), teleportedObjects.end(), interactable) == teleportedObjects.end()) {
         auto otherPhysicsComponent = dynamic_cast<PhysicsComponent*>(interactable);
         if(otherPhysicsComponent != nullptr){

@@ -7,6 +7,13 @@
 #include <SDL.h>
 #include "ObjectManager.hpp"
 
+/*
+	class managing all the game related systems: Graphic, Physics, ObjectManager, InputManager and Timer
+	- initializing SDL window
+	- running game loop
+	- updating all connected systems
+*/
+
 #define SDL_MAIN_HANDLED
 
 EngineCore::EngineCore(std::string windowName, glm::ivec2 windowSize) {

@@ -9,6 +9,10 @@
 #include "../../engine/debug/Log.hpp"
 #include "../ProjectilePhysicsComponent.hpp"
 
+/*
+	class managing the physics collision for the ground and islands (all rings)
+*/
+
 void TerrainInteractable::onCollisionStart(IInteractable *interactable) {
     auto projectile = dynamic_cast<ProjectilePhysicsComponent*>(interactable);
 

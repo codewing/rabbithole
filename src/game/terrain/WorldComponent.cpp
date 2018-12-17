@@ -68,6 +68,7 @@ void WorldComponent::initializeBackground() {
 	backgroundMaterial->setTexture(texture);
 }
 
+// managing destructibility of the terrain
 void WorldComponent::removeShapeFromRing(TerrainInteractable* ringToModify, polygon_t shapeToRemove) {
 	std::vector<b2Vec2> previousRingData = ringToModify->getTerrainData();
 

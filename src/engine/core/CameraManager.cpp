@@ -4,7 +4,6 @@
 
 #include <algorithm>
 #include "CameraManager.hpp"
-
 void CameraManager::RegisterCamera(std::string id, sre::Camera camera) {
     cameras.insert({id, camera});
 }

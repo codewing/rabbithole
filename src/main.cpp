@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv) {
 
-    EngineCore engine {"Wormhole Game", glm::ivec2(800,600)};
+    EngineCore engine {"Rabbithole Game", glm::ivec2(800,600)};
     WormholeGame game {engine};
 
     engine.runGame(game);

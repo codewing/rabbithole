@@ -7,6 +7,12 @@
 #include "ObjectManager.hpp"
 #include "../debug/Log.hpp"
 
+/*
+	class managing objects for physics collisions:
+	- init all the shapes required (chains, circles)
+	- teleporting function
+*/
+
 IInteractable::IInteractable() {
     world = ObjectManager::GetInstance()->GetPhysicsWorld();
 }

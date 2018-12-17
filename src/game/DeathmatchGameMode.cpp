@@ -15,6 +15,16 @@
 #include <sre/Sprite.hpp>
 #include "player/HealthComponent.hpp"
 
+/*
+	class managing the deathMatch mode, meaning two rabbits, blue and red respectively.
+	- creating the level
+	- creating the rabbits
+	- managing points of rabbits deaths
+	- respawning rabbits when dead
+	- creating interface for points
+	- calculating values for intelligent camera
+*/
+
 void DeathmatchGameMode::initialize() {
     scoreRed = scoreBlue = 0;
     spawnLevel();
