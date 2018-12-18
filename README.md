@@ -1,4 +1,4 @@
-# worm-holes
+# rabbitholes
 
 *Game Programming - Group 3*
 
@@ -16,3 +16,9 @@ Shooting game developed on 2D generated destructible terrain with strategy featu
 
 - General/Reusable engine code can be found in `src/engine/`
 - Game specific code is in `src/game`
+
+## How to play
+
+- Left stick moves the character
+- Right stick is for shooting
+- Jump with the face button bottom (XBox: A, PS: X (untested))
